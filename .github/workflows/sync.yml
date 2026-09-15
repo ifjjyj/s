@@ -1,0 +1,31 @@
+name: Sync Upstream Ruleset
+
+on:
+  schedule:
+    - cron: '0 20 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync from Upstream
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # 添加 DustinWin 的源仓库
+          git remote add upstream https://github.com/DustinWin/ruleset_geodata.git
+          git fetch upstream
+          
+          # 切换/创建你的目标分支（例如 main），并用上游的 sing-box-ruleset 分支重置
+          git checkout -B b
+          git reset --hard upstream/sing-box-ruleset
+          
+          # 强推覆盖更新到你自己的仓库
+          git push origin b --force
