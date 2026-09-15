@@ -26,6 +26,9 @@ jobs:
           # 切换/创建你的目标分支（例如 main），并用上游的 sing-box-ruleset 分支重置
           git checkout -B b
           git reset --hard upstream/sing-box-ruleset
+          git checkout -B m
+          git reset --hard upstream/mihomo-ruleset
           
           # 强推覆盖更新到你自己的仓库
           git push origin b --force
+          git push origin m --force
