@@ -72,7 +72,6 @@
                 ".supermariobros.com.cn"
             ],
             "domain_regex": [
-                "^.+-mihayo\\.akamaized\\.net$",
                 "^cdn\\d-epicgames-\\d+\\.file\\.myqcloud\\.com$",
                 "^epicgames-download\\d-\\d+\\.file\\.myqcloud\\.com$"
             ]
