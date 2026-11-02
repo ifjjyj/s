@@ -40,21 +40,23 @@ jobs:
           # 键是去掉 geosite- 前缀后的原始名称，值是最终名称。
           # 用途一：域名规则集名字等于 "<国家代码>ip" 时，避免与 ip 规则集撞名
           #         （geosite-noip 与 geoip-no 的 noip）。
-          # 用途二：想给某个 category- 规则集指定特别的名字，例如 [category-cas]=xxx
-          # 以后日志里再出现 "重名覆盖" 警告，在这里加一行即可：[原名]=新名
+          # 用途二：特殊规则集单独命名（category-ads-all -> ad）。
+          # 用途三：自动改名撞名时，想给某一项指定名字，例如 [foo-!cn]=foonocn
+          # 以后日志里出现撞名警告，在这里加一行即可：[原名]=新名
           declare -A SITE_FIX=(
             [noip]=noipsite
+            [category-ads-all]=ad
           )
 
           # 【特殊重命名表】仅 a 分支使用：geosite-<键>.srs -> <值>.srs
-          # 优先级高于 category- 前缀去除规则
+          # 优先级高于自动改名规则
           declare -A RENAME=(
             [google-play]=play
             [google-gemini]=gemini
             [category-media]=media
           )
 
-          # 【已占用名称表】用来判断 "去掉 category- 后" 会不会和现有名称撞名
+          # 【已占用名称表】用来判断自动改名后会不会和现有名称撞名
           # 每个分支生成文件前会重新填充
           declare -A TAKEN=()
 
@@ -77,36 +79,64 @@ jobs:
             cp "$1" "$2"
           }
 
+          # is_plain <域名规则集原名>：返回 0 表示 "不会被自动改名"（名称保持原样）
+          # 自动改名的两种情况：以 category- 开头，或主体部分以 -!cn 结尾
+          # （@ 属性部分不参与判断）
+          is_plain() {
+            local k="$1" b="${1%%@*}"
+            if [[ "$k" == category-?* ]]; then return 1; fi
+            if [[ "$b" == *"-!cn" ]]; then return 1; fi
+            return 0
+          }
+
           # _site_calc <域名规则集名> <是否使用RENAME表：1/0>
           # 实际计算最终名称，结果放在全局变量 SN 里
           # （不用 echo 返回，是为了让日志提示能直接输出到 Actions 日志）
-          # 优先级：SITE_FIX > RENAME > category- 去前缀（撞名加 all）> 原名
+          # 优先级：SITE_FIX > RENAME > 自动规则（去 category-、去 -!cn）> 原名
+          # 自动规则撞名时：
+          #   - 只去了 category-：改为在名称后加 all（xxxall）
+          #   - 去了 -!cn：含义不同，不自动合并，保留原名并警告
           _site_calc() {
-            local k="$1" use_rename="$2" s base attr alt
+            local k="$1" use_rename="$2" s base attr cand alt had_cat=0 had_ncn=0
             if [ -n "${SITE_FIX[$k]:-}" ]; then
               SN="${SITE_FIX[$k]}"; return
             fi
             if [ "$use_rename" = 1 ] && [ -n "${RENAME[$k]:-}" ]; then
               SN="${RENAME[$k]}"; return
             fi
+
+            s="$k"
             if [[ "$k" == category-?* ]]; then
-              s="${k#category-}"
-              if [ -z "${TAKEN[$s]:-}" ]; then
-                SN="$s"; return
-              fi
-              # 去掉前缀会撞名：在名称后加 all，@属性（如 @ads）保持在最后
-              base="${s%%@*}"; attr="${s#"$base"}"
-              alt="${base}all${attr}"
-              if [ -z "${TAKEN[$alt]:-}" ]; then
-                echo "::notice::$k 去前缀会与 $s 撞名，已命名为 $alt"
-                SN="$alt"
-              else
-                echo "::warning::$k 去前缀与加 all 均撞名，已保留原名"
-                SN="$k"
-              fi
-              return
+              s="${k#category-}"; had_cat=1
             fi
-            SN="$k"
+            base="${s%%@*}"; attr="${s#"$base"}"     # 拆出主体和 @属性
+            if [[ "$base" == *"-!cn" && -n "${base%"-!cn"}" ]]; then
+              base="${base%"-!cn"}"; had_ncn=1       # 去掉 -!cn 后缀
+            fi
+
+            # 没有任何需要改的地方：保持原名
+            if [ "$had_cat" = 0 ] && [ "$had_ncn" = 0 ]; then
+              SN="$k"; return
+            fi
+
+            cand="${base}${attr}"
+            if [ -z "${TAKEN[$cand]:-}" ]; then
+              SN="$cand"; return
+            fi
+
+            # 以下是撞名的处理
+            if [ "$had_ncn" = 1 ]; then
+              echo "::warning::$k 去后缀会与已有的 $cand 撞名，已保留原名（可在 SITE_FIX 里手动指定）"
+              SN="$k"; return
+            fi
+            alt="${base}all${attr}"
+            if [ -z "${TAKEN[$alt]:-}" ]; then
+              echo "::notice::$k 去前缀会与 $cand 撞名，已命名为 $alt"
+              SN="$alt"
+            else
+              echo "::warning::$k 去前缀与加 all 均撞名，已保留原名"
+              SN="$k"
+            fi
           }
 
           # site_name <域名规则集名> <是否使用RENAME表：1/0>：带缓存的包装
@@ -179,6 +209,7 @@ jobs:
           # 命名规则：
           #   geosite-xxx.srs          -> xxx.srs       （特殊项见 RENAME，手动项见 SITE_FIX）
           #   geosite-category-xxx.srs -> xxx.srs       （撞名时 -> xxxall.srs）
+          #   geosite-xxx-!cn.srs      -> xxx.srs       （撞名时保留原名并警告）
           #   geoip-xxx.srs            -> xxxip.srs     （如 geoip-cn.srs -> cnip.srs）
           # ------------------------------------------------------------
           clone https://github.com/SagerNet/sing-geosite.git rule-set "$WORK/sg-site"
@@ -196,11 +227,11 @@ jobs:
           TAKEN=(); MAPPED=()
           for v in "${RENAME[@]}";   do TAKEN[$v]=1; done   # 特殊表的目标名
           for v in "${SITE_FIX[@]}"; do TAKEN[$v]=1; done   # 手动表的目标名
-          for f in "$WORK"/sg-site/geosite-*.srs; do        # 非 category- 的域名规则集
+          for f in "$WORK"/sg-site/geosite-*.srs; do        # 不会被自动改名的域名规则集
             key="$(basename "$f" .srs)"; key="${key#geosite-}"
-            [[ "$key" == category-* ]] && continue
-            [ -n "${RENAME[$key]:-}" ] && continue          # 已被改名，原名不再占用
-            [ -n "${SITE_FIX[$key]:-}" ] && continue
+            if ! is_plain "$key"; then continue; fi
+            if [ -n "${RENAME[$key]:-}" ]; then continue; fi     # 已被改名，原名不再占用
+            if [ -n "${SITE_FIX[$key]:-}" ]; then continue; fi
             TAKEN[$key]=1
           done
           for f in "$WORK"/sg-ip/geoip-*.srs; do            # 所有 ip 规则集：<名称>ip
@@ -229,6 +260,7 @@ jobs:
           # 命名规则：
           #   rule-set-geosite 分支：geosite-xxx.*          -> xxx.*     （手动项见 SITE_FIX）
           #                          geosite-category-xxx.* -> xxx.*     （撞名时 -> xxxall.*）
+          #                          geosite-xxx-!cn.*      -> xxx.*     （撞名时保留原名并警告）
           #   rule-set-geoip   分支：geoip-xxx.*            -> xxxip.*
           # 最后再用 SagerNet 的 geoip-cn.srs 覆盖为 cnip.srs
           # ------------------------------------------------------------
@@ -241,8 +273,8 @@ jobs:
           for v in "${SITE_FIX[@]}"; do TAKEN[$v]=1; done
           for f in "$WORK"/lyc-site/geosite-*; do
             name="$(basename "$f")"; name="${name#geosite-}"; stem="${name%.*}"
-            [[ "$stem" == category-* ]] && continue
-            [ -n "${SITE_FIX[$stem]:-}" ] && continue
+            if ! is_plain "$stem"; then continue; fi
+            if [ -n "${SITE_FIX[$stem]:-}" ]; then continue; fi
             TAKEN[$stem]=1
           done
           for f in "$WORK"/lyc-ip/geoip-*; do
