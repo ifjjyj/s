@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout target repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7   # 当前最新大版本，使用 Node.js 24
         with:
           fetch-depth: 0
 
@@ -46,11 +46,16 @@ jobs:
           )
 
           # 【特殊重命名表】仅 a 分支使用：geosite-<键>.srs -> <值>.srs
+          # 优先级最高，高于 category- 前缀去除规则
           declare -A RENAME=(
             [google-play]=play
             [google-gemini]=gemini
             [category-media]=media
           )
+
+          # 【已占用名称表】用来判断 "去掉 category- 后" 会不会和现有名称撞名
+          # 每个分支生成文件前会重新填充
+          declare -A TAKEN=()
 
           # ------------------------------------------------------------
           # 工具函数
@@ -67,16 +72,30 @@ jobs:
             cp "$1" "$2"
           }
 
-          # site_name_a <域名规则集名>：a 分支的最终名称（先查特殊表，再查冲突表）
-          site_name_a() {
-            local k="$1"
-            if [ -n "${RENAME[$k]:-}" ]; then
-              echo "${RENAME[$k]}"
-            elif [ -n "${SITE_FIX[$k]:-}" ]; then
-              echo "${SITE_FIX[$k]}"
-            else
-              echo "$k"
+          # site_name <域名规则集名> <是否使用RENAME表：1/0>
+          # 计算域名规则集的最终名称，结果放在全局变量 SN 里
+          # （不用 echo 返回，是为了让 ::warning:: 能直接输出到 Actions 日志）
+          # 优先级：RENAME 特殊表 > SITE_FIX 冲突表 > 去掉 category- 前缀 > 原名
+          site_name() {
+            local k="$1" use_rename="$2" s
+            if [ "$use_rename" = 1 ] && [ -n "${RENAME[$k]:-}" ]; then
+              SN="${RENAME[$k]}"; return
             fi
+            if [ -n "${SITE_FIX[$k]:-}" ]; then
+              SN="${SITE_FIX[$k]}"; return
+            fi
+            if [[ "$k" == category-?* ]]; then
+              s="${k#category-}"
+              if [ -z "${TAKEN[$s]:-}" ]; then
+                SN="$s"
+              else
+                # 去掉前缀后会撞名：保留原来的 category- 前缀，避免覆盖，并给出提示
+                echo "::warning::category- 去前缀会撞名，已保留原名：$k（与 $s 冲突）"
+                SN="$k"
+              fi
+              return
+            fi
+            SN="$k"
           }
 
           # publish_branch <分支名> <源目录>
@@ -137,8 +156,9 @@ jobs:
           # ------------------------------------------------------------
           # 分支 a：SagerNet 的 geosite + geoip（仅 .srs）
           # 命名规则：
-          #   geosite-xxx.srs -> xxx.srs      （特殊项见 RENAME，冲突项见 SITE_FIX）
-          #   geoip-xxx.srs   -> xxxip.srs    （如 geoip-cn.srs -> cnip.srs）
+          #   geosite-xxx.srs          -> xxx.srs       （特殊项见 RENAME，冲突项见 SITE_FIX）
+          #   geosite-category-xxx.srs -> xxx.srs       （撞名时保留 category-xxx.srs）
+          #   geoip-xxx.srs            -> xxxip.srs     （如 geoip-cn.srs -> cnip.srs）
           # ------------------------------------------------------------
           clone https://github.com/SagerNet/sing-geosite.git rule-set "$WORK/sg-site"
           clone https://github.com/SagerNet/sing-geoip.git   rule-set "$WORK/sg-ip"
@@ -151,13 +171,30 @@ jobs:
             fi
           done
 
-          # geosite：去掉 geosite- 前缀，按 RENAME / SITE_FIX 调整名称
-          for f in "$WORK"/sg-site/geosite-*.srs; do
+          # 第一步：登记已占用名称
+          TAKEN=()
+          for v in "${RENAME[@]}";   do TAKEN[$v]=1; done   # 特殊表的目标名
+          for v in "${SITE_FIX[@]}"; do TAKEN[$v]=1; done   # 冲突表的目标名
+          for f in "$WORK"/sg-site/geosite-*.srs; do        # 非 category- 的域名规则集
             key="$(basename "$f" .srs)"; key="${key#geosite-}"
-            put "$f" "$WORK/out-a/$(site_name_a "$key").srs"
+            [[ "$key" == category-* ]] && continue
+            [ -n "${RENAME[$key]:-}" ] && continue          # 已被改名，原名不再占用
+            [ -n "${SITE_FIX[$key]:-}" ] && continue
+            TAKEN[$key]=1
+          done
+          for f in "$WORK"/sg-ip/geoip-*.srs; do            # 所有 ip 规则集：<名称>ip
+            key="$(basename "$f" .srs)"; key="${key#geoip-}"
+            TAKEN[${key}ip]=1
           done
 
-          # geoip：geoip-xxx.srs -> xxxip.srs（规则集名称 + ip）
+          # 第二步：生成 geosite 文件
+          for f in "$WORK"/sg-site/geosite-*.srs; do
+            key="$(basename "$f" .srs)"; key="${key#geosite-}"
+            site_name "$key" 1
+            put "$f" "$WORK/out-a/$SN.srs"
+          done
+
+          # 第三步：生成 geoip 文件，geoip-xxx.srs -> xxxip.srs
           for f in "$WORK"/sg-ip/geoip-*.srs; do
             key="$(basename "$f" .srs)"; key="${key#geoip-}"
             put "$f" "$WORK/out-a/${key}ip.srs"
@@ -169,23 +206,39 @@ jobs:
           # ------------------------------------------------------------
           # 分支 c：lyc8503/sing-box-rules 两个分支的全部规则文件（.json + .srs）
           # 命名规则：
-          #   rule-set-geosite 分支：geosite-xxx.json/.srs -> xxx.json/.srs（冲突项见 SITE_FIX）
-          #   rule-set-geoip   分支：geoip-xxx.json/.srs   -> xxxip.json/.srs
+          #   rule-set-geosite 分支：geosite-xxx.*          -> xxx.*     （冲突项见 SITE_FIX）
+          #                          geosite-category-xxx.* -> xxx.*     （撞名时保留 category-xxx.*）
+          #   rule-set-geoip   分支：geoip-xxx.*            -> xxxip.*
           # 最后再用 SagerNet 的 geoip-cn.srs 覆盖为 cnip.srs
           # ------------------------------------------------------------
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geosite "$WORK/lyc-site"
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geoip   "$WORK/lyc-ip"
           mkdir -p "$WORK/out-c"
 
-          # geosite：去掉 geosite- 前缀，扩展名保持不变，冲突项按 SITE_FIX 改名
+          # 第一步：登记已占用名称（.json 和 .srs 同名，按名称去重登记）
+          TAKEN=()
+          for v in "${SITE_FIX[@]}"; do TAKEN[$v]=1; done
+          for f in "$WORK"/lyc-site/geosite-*; do
+            name="$(basename "$f")"; name="${name#geosite-}"; stem="${name%.*}"
+            [[ "$stem" == category-* ]] && continue
+            [ -n "${SITE_FIX[$stem]:-}" ] && continue
+            TAKEN[$stem]=1
+          done
+          for f in "$WORK"/lyc-ip/geoip-*; do
+            name="$(basename "$f")"; name="${name#geoip-}"; stem="${name%.*}"
+            TAKEN[${stem}ip]=1
+          done
+          TAKEN[cnip]=1   # 下面会用 SagerNet 的文件生成 cnip.srs
+
+          # 第二步：geosite 去掉 geosite- 前缀，扩展名保持不变；不使用 RENAME 表
           for f in "$WORK"/lyc-site/geosite-*; do
             name="$(basename "$f")"; name="${name#geosite-}"
             ext="${name##*.}"; stem="${name%.*}"
-            stem="${SITE_FIX[$stem]:-$stem}"
-            put "$f" "$WORK/out-c/${stem}.${ext}"
+            site_name "$stem" 0
+            put "$f" "$WORK/out-c/${SN}.${ext}"
           done
 
-          # geoip：geoip-ad.json -> adip.json，先拆出名称和扩展名再拼接
+          # 第三步：geoip-ad.json -> adip.json，先拆出名称和扩展名再拼接
           for f in "$WORK"/lyc-ip/geoip-*; do
             name="$(basename "$f")"; name="${name#geoip-}"
             ext="${name##*.}"; stem="${name%.*}"
