@@ -5,8 +5,14 @@ on:
     - cron: '0 * * * *'
   workflow_dispatch:
 
+# 需要写权限才能向自己的仓库推送分支
 permissions:
   contents: write
+
+# 防止上一次还没跑完、下一个整点又触发，导致两次推送互相冲突
+concurrency:
+  group: sync-upstream-ruleset
+  cancel-in-progress: false
 
 jobs:
   sync:
@@ -22,56 +28,154 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # ===== 分支 b / m：同步 DustinWin =====
-          git remote add upstream https://github.com/DustinWin/ruleset_geodata.git
-          git fetch upstream
+          # 所有临时文件放在 RUNNER_TEMP，不会污染仓库工作区
+          WORK="$RUNNER_TEMP/work"
+          rm -rf "$WORK" && mkdir -p "$WORK"
 
-          git checkout -B b
-          git reset --hard upstream/sing-box-ruleset
-          git checkout -B m
-          git reset --hard upstream/mihomo-ruleset
+          # ------------------------------------------------------------
+          # 工具函数
+          # ------------------------------------------------------------
 
-          git push origin b --force
-          git push origin m --force
+          # clone <仓库地址> <分支> <目标目录>：浅克隆上游指定分支
+          clone() { git clone -q --depth 1 --branch "$2" "$1" "$3"; }
 
-          # ===== 分支 a：同步 SagerNet geosite + geoip，并重命名 =====
-          WORK="$RUNNER_TEMP/sager"
-          rm -rf "$WORK" && mkdir -p "$WORK/out"
+          # put <源文件> <目标文件>：复制文件，目标已存在时给出警告（说明发生了重名覆盖）
+          put() {
+            if [ -e "$2" ]; then
+              echo "::warning::重名覆盖：$(basename "$2")"
+            fi
+            cp "$1" "$2"
+          }
 
-          git clone --depth 1 --branch rule-set https://github.com/SagerNet/sing-geosite.git "$WORK/geosite"
-          git clone --depth 1 --branch rule-set https://github.com/SagerNet/sing-geoip.git "$WORK/geoip"
+          # publish_branch <分支名> <源目录>
+          # 把源目录的内容发布到自己仓库的指定分支：
+          #   - 不强推，历史保留
+          #   - 先清空分支再放入新文件，所以上游删除的文件也会同步删除
+          #   - 仅在内容有变化时才提交和推送
+          publish_branch() {
+            local br="$1" src="$2"
 
-          # geosite-xxx.srs -> xxx.srs
-          for f in "$WORK"/geosite/geosite-*.srs; do
-            name="$(basename "$f")"
-            cp "$f" "$WORK/out/${name#geosite-}"
+            # 保护：源目录为空时直接报错跳过，避免把分支清空后提交
+            if [ -z "$(ls -A "$src")" ]; then
+              echo "::error::$br 的源目录为空，已跳过"
+              return 1
+            fi
+
+            # 远端已有该分支就基于它继续；没有就新建孤儿分支（无历史）
+            if git ls-remote --exit-code --heads origin "$br" >/dev/null 2>&1; then
+              git fetch -q origin "$br"
+              git checkout -q -f -B "$br" "origin/$br"
+            else
+              git checkout -q --orphan "$br"
+            fi
+
+            # 清空旧内容，再放入新内容
+            git rm -rf . -q 2>/dev/null || true
+            git clean -fdxq
+            cp -a "$src"/. .
+
+            # 只有真的有差异才提交
+            git add -A
+            if [ -n "$(git status --porcelain)" ]; then
+              git commit -q -m "sync $br $(date -u +'%Y-%m-%d %H:%M')"
+              git push origin "$br"
+              echo "分支 $br 已更新"
+            else
+              echo "分支 $br 无变化，跳过"
+            fi
+          }
+
+          # ------------------------------------------------------------
+          # 分支 b：DustinWin / sing-box-ruleset（原样同步）
+          # ------------------------------------------------------------
+          clone https://github.com/DustinWin/ruleset_geodata.git sing-box-ruleset "$WORK/dw-sb"
+          mkdir -p "$WORK/out-b"
+          # git archive 导出文件时自动排除 .git 目录
+          git -C "$WORK/dw-sb" archive HEAD | tar -x -C "$WORK/out-b"
+          publish_branch b "$WORK/out-b"
+
+          # ------------------------------------------------------------
+          # 分支 m：DustinWin / mihomo-ruleset（原样同步）
+          # ------------------------------------------------------------
+          clone https://github.com/DustinWin/ruleset_geodata.git mihomo-ruleset "$WORK/dw-mh"
+          mkdir -p "$WORK/out-m"
+          git -C "$WORK/dw-mh" archive HEAD | tar -x -C "$WORK/out-m"
+          publish_branch m "$WORK/out-m"
+
+          # ------------------------------------------------------------
+          # 分支 a：SagerNet 的 geosite + geoip（仅 .srs）
+          # 命名规则：
+          #   geosite-xxx.srs -> xxx.srs
+          #   geoip-xxx.srs   -> xxxip.srs   （如 geoip-cn.srs -> cnip.srs）
+          # 特殊重命名见下方 RENAME 表
+          # ------------------------------------------------------------
+          clone https://github.com/SagerNet/sing-geosite.git rule-set "$WORK/sg-site"
+          clone https://github.com/SagerNet/sing-geoip.git   rule-set "$WORK/sg-ip"
+          mkdir -p "$WORK/out-a"
+
+          # 特殊重命名表：geosite-<键>.srs -> <值>.srs
+          # 想增加新的特殊项，在这里加一行即可
+          declare -A RENAME=(
+            [google-play]=play
+            [google-gemini]=gemini
+            [category-media]=media
+          )
+
+          # geosite：先处理普通项（去掉 geosite- 前缀），特殊项留到下一步
+          for f in "$WORK"/sg-site/geosite-*.srs; do
+            key="$(basename "$f" .srs)"; key="${key#geosite-}"
+            if [ -n "${RENAME[$key]:-}" ]; then
+              continue
+            fi
+            put "$f" "$WORK/out-a/$key.srs"
           done
 
-          # geoip-xxx.srs -> ipxxx.srs
-          for f in "$WORK"/geoip/geoip-*.srs; do
-            name="$(basename "$f")"
-            cp "$f" "$WORK/out/ip${name#geoip-}"
+          # geosite：特殊项（play / gemini / media）
+          for key in "${!RENAME[@]}"; do
+            src="$WORK/sg-site/geosite-$key.srs"
+            if [ ! -f "$src" ]; then
+              echo "::warning::上游缺少 geosite-$key.srs"
+              continue
+            fi
+            put "$src" "$WORK/out-a/${RENAME[$key]}.srs"
           done
 
-          echo "共生成 $(ls "$WORK/out" | wc -l) 个文件"
+          # geoip：geoip-xxx.srs -> xxxip.srs（规则集名称 + ip）
+          for f in "$WORK"/sg-ip/geoip-*.srs; do
+            key="$(basename "$f" .srs)"; key="${key#geoip-}"
+            put "$f" "$WORK/out-a/${key}ip.srs"
+          done
 
-          # 切到分支 a：远端已有就基于它，没有就新建孤儿分支
-          if git ls-remote --exit-code --heads origin a >/dev/null 2>&1; then
-            git fetch origin a
-            git checkout -f -B a origin/a
-          else
-            git checkout --orphan a
-          fi
+          echo "分支 a 共 $(ls "$WORK/out-a" | wc -l) 个文件"
+          publish_branch a "$WORK/out-a"
 
-          # 清空旧内容后放入新文件，这样上游删除的规则集也会同步删除
-          git rm -rf . -q 2>/dev/null || true
-          git clean -fdx -q
-          cp "$WORK"/out/*.srs .
+          # ------------------------------------------------------------
+          # 分支 c：lyc8503/sing-box-rules 两个分支的全部规则文件（.json + .srs）
+          # 命名规则：
+          #   rule-set-geosite 分支：geosite-xxx.json/.srs -> xxx.json/.srs
+          #   rule-set-geoip   分支：geoip-xxx.json/.srs   -> xxxip.json/.srs
+          # 最后再用 SagerNet 的 geoip-cn.srs 覆盖为 cnip.srs
+          # ------------------------------------------------------------
+          clone https://github.com/lyc8503/sing-box-rules.git rule-set-geosite "$WORK/lyc-site"
+          clone https://github.com/lyc8503/sing-box-rules.git rule-set-geoip   "$WORK/lyc-ip"
+          mkdir -p "$WORK/out-c"
 
-          git add -A
-          if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "sync sagernet rulesets $(date -u +'%Y-%m-%d %H:%M')"
-            git push origin a
-          else
-            echo "分支 a 无变化，跳过推送"
-          fi
+          # geosite：去掉 geosite- 前缀，扩展名保持不变
+          for f in "$WORK"/lyc-site/geosite-*; do
+            name="$(basename "$f")"
+            put "$f" "$WORK/out-c/${name#geosite-}"
+          done
+
+          # geoip：geoip-ad.json -> adip.json，先拆出名称和扩展名再拼接
+          for f in "$WORK"/lyc-ip/geoip-*; do
+            name="$(basename "$f")"; name="${name#geoip-}"
+            ext="${name##*.}"; stem="${name%.*}"
+            put "$f" "$WORK/out-c/${stem}ip.${ext}"
+          done
+
+          # cnip.srs 使用 SagerNet 的 geoip-cn.srs
+          # 这里直接用 cp：如果 lyc 的 geoip 分支里也有 cn，会被有意覆盖，不需要警告
+          cp "$WORK/sg-ip/geoip-cn.srs" "$WORK/out-c/cnip.srs"
+
+          echo "分支 c 共 $(ls "$WORK/out-c" | wc -l) 个文件"
+          publish_branch c "$WORK/out-c"
