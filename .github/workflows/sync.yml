@@ -47,10 +47,10 @@ jobs:
             cp "$f" "$WORK/out/${name#geosite-}"
           done
 
-          # geoip-xxx.srs -> xxxip.srs
+          # geoip-xxx.srs -> ipxxx.srs
           for f in "$WORK"/geoip/geoip-*.srs; do
             name="$(basename "$f")"
-            cp "$f" "$WORK/out/${name#geoip-}ip"
+            cp "$f" "$WORK/out/ip${name#geoip-}"
           done
 
           echo "共生成 $(ls "$WORK/out" | wc -l) 个文件"
