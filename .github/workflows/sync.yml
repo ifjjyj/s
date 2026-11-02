@@ -42,12 +42,15 @@ jobs:
           #         （geosite-noip 与 geoip-no 的 noip）。
           # 用途二：特殊规则集单独命名（category-ads-all -> ad）。
           # 用途三：两个规则集自动改名后会变成同一个名字时，手动给其中一个指定名字。
-          #         例如 games：上游有 category-games（国内外合集）、category-games-cn（国内）、
-          #         category-games-!cn（国外）。国外版按规则变成 games，国内版是 games-cn，
-          #         合集版就手动命名为 gamesall（含 @ads / @cn / @telemetry 属性版本）。
+          #   - google-scholar 去前缀会与 category-scholar-!cn 撞名（都是 scholar），
+          #     后者是更大的国外学术合集，占用 scholar，前者手动命名为 googlescholar。
+          #   - games：上游有 category-games（国内外合集）、category-games-cn（国内）、
+          #     category-games-!cn（国外）。国外版按规则变成 games，国内版是 games-cn，
+          #     合集版手动命名为 gamesall（含 @ads / @cn / @telemetry 属性版本）。
           # 以后日志里出现撞名警告，在这里加一行即可：[原名]=新名
           declare -A SITE_FIX=(
             [noip]=noipsite
+            [google-scholar]=googlescholar
             [category-ads-all]=ad
             [category-games]=gamesall
             [category-games@ads]=gamesall@ads
@@ -57,9 +60,8 @@ jobs:
 
           # 【特殊重命名表】仅 a 分支使用：geosite-<键>.srs -> <值>.srs
           # 优先级高于自动改名规则
+          # （google-play、google-gemini 等已由 "去 google- 前缀" 的通用规则覆盖，无需再列）
           declare -A RENAME=(
-            [google-play]=play
-            [google-gemini]=gemini
             [category-media]=media
           )
 
@@ -87,11 +89,14 @@ jobs:
           }
 
           # is_plain <域名规则集原名>：返回 0 表示 "不会被自动改名"（名称保持原样）
-          # 自动改名的两种情况：以 category- 开头，或主体部分以 -!cn 结尾
-          # （@ 属性部分不参与判断）
+          # 自动改名的三种情况（@ 属性部分不参与判断）：
+          #   1. 以 category- 开头
+          #   2. 以 google- 开头（google-cn 除外）
+          #   3. 主体部分以 -!cn 结尾
           is_plain() {
             local k="$1" b="${1%%@*}"
             if [[ "$k" == category-?* ]]; then return 1; fi
+            if [[ "$b" == google-?* && "$b" != "google-cn" ]]; then return 1; fi
             if [[ "$b" == *"-!cn" ]]; then return 1; fi
             return 0
           }
@@ -99,12 +104,12 @@ jobs:
           # _site_calc <域名规则集名> <是否使用RENAME表：1/0>
           # 实际计算最终名称，结果放在全局变量 SN 里
           # （不用 echo 返回，是为了让日志提示能直接输出到 Actions 日志）
-          # 优先级：SITE_FIX > RENAME > 自动规则（去 category-、去 -!cn）> 原名
+          # 优先级：SITE_FIX > RENAME > 自动规则（去 category-、去 google-、去 -!cn）> 原名
           # 自动规则撞名时：
           #   - 只去了 category-：改为在名称后加 all（xxxall）
-          #   - 去了 -!cn：含义不同，不自动合并，保留原名并警告
+          #   - 去了 google- 或 -!cn：含义不同，不自动合并，保留原名并警告
           _site_calc() {
-            local k="$1" use_rename="$2" s base attr cand alt had_cat=0 had_ncn=0
+            local k="$1" use_rename="$2" s base attr cand alt had_cat=0 had_ncn=0 had_g=0
             if [ -n "${SITE_FIX[$k]:-}" ]; then
               SN="${SITE_FIX[$k]}"; return
             fi
@@ -117,12 +122,15 @@ jobs:
               s="${k#category-}"; had_cat=1
             fi
             base="${s%%@*}"; attr="${s#"$base"}"     # 拆出主体和 @属性
+            if [[ "$base" == google-?* && "$base" != "google-cn" ]]; then
+              base="${base#google-}"; had_g=1        # 去掉 google- 前缀（google-cn 除外）
+            fi
             if [[ "$base" == *"-!cn" && -n "${base%"-!cn"}" ]]; then
               base="${base%"-!cn"}"; had_ncn=1       # 去掉 -!cn 后缀
             fi
 
             # 没有任何需要改的地方：保持原名
-            if [ "$had_cat" = 0 ] && [ "$had_ncn" = 0 ]; then
+            if [ "$had_cat" = 0 ] && [ "$had_ncn" = 0 ] && [ "$had_g" = 0 ]; then
               SN="$k"; return
             fi
 
@@ -132,8 +140,8 @@ jobs:
             fi
 
             # 以下是撞名的处理
-            if [ "$had_ncn" = 1 ]; then
-              echo "::warning::$k 去后缀会与已有的 $cand 撞名，已保留原名（可在 SITE_FIX 里手动指定）"
+            if [ "$had_ncn" = 1 ] || [ "$had_g" = 1 ]; then
+              echo "::warning::$k 自动改名会与已有的 $cand 撞名，已保留原名（可在 SITE_FIX 里手动指定）"
               SN="$k"; return
             fi
             alt="${base}all${attr}"
@@ -216,6 +224,7 @@ jobs:
           # 命名规则：
           #   geosite-xxx.srs          -> xxx.srs       （特殊项见 RENAME，手动项见 SITE_FIX）
           #   geosite-category-xxx.srs -> xxx.srs       （撞名时 -> xxxall.srs）
+          #   geosite-google-xxx.srs   -> xxx.srs       （google-cn 除外；撞名时保留原名并警告）
           #   geosite-xxx-!cn.srs      -> xxx.srs       （撞名时保留原名并警告）
           #   geoip-xxx.srs            -> xxxip.srs     （如 geoip-cn.srs -> cnip.srs）
           # ------------------------------------------------------------
@@ -267,6 +276,7 @@ jobs:
           # 命名规则：
           #   rule-set-geosite 分支：geosite-xxx.*          -> xxx.*     （手动项见 SITE_FIX）
           #                          geosite-category-xxx.* -> xxx.*     （撞名时 -> xxxall.*）
+          #                          geosite-google-xxx.*   -> xxx.*     （google-cn 除外；撞名时保留原名并警告）
           #                          geosite-xxx-!cn.*      -> xxx.*     （撞名时保留原名并警告）
           #   rule-set-geoip   分支：geoip-xxx.*            -> xxxip.*
           # 最后再用 SagerNet 的 geoip-cn.srs 覆盖为 cnip.srs
