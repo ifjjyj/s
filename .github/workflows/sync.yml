@@ -33,6 +33,26 @@ jobs:
           rm -rf "$WORK" && mkdir -p "$WORK"
 
           # ------------------------------------------------------------
+          # 命名规则表
+          # ------------------------------------------------------------
+
+          # 【冲突修正表】a、c 两个分支共用
+          # 域名规则集的名字如果恰好等于 "<国家代码>ip"，会和 ip 规则集撞名。
+          # 例如 geosite-noip（no-ip 域名）与 geoip-no（挪威 IP，命名为 noip）。
+          # 此表把域名规则集改名，ip 规则集保持 "<名称>ip" 不变。
+          # 以后日志里再出现 "重名覆盖" 警告，在这里加一行即可：[原名]=新名
+          declare -A SITE_FIX=(
+            [noip]=noipsite
+          )
+
+          # 【特殊重命名表】仅 a 分支使用：geosite-<键>.srs -> <值>.srs
+          declare -A RENAME=(
+            [google-play]=play
+            [google-gemini]=gemini
+            [category-media]=media
+          )
+
+          # ------------------------------------------------------------
           # 工具函数
           # ------------------------------------------------------------
 
@@ -45,6 +65,18 @@ jobs:
               echo "::warning::重名覆盖：$(basename "$2")"
             fi
             cp "$1" "$2"
+          }
+
+          # site_name_a <域名规则集名>：a 分支的最终名称（先查特殊表，再查冲突表）
+          site_name_a() {
+            local k="$1"
+            if [ -n "${RENAME[$k]:-}" ]; then
+              echo "${RENAME[$k]}"
+            elif [ -n "${SITE_FIX[$k]:-}" ]; then
+              echo "${SITE_FIX[$k]}"
+            else
+              echo "$k"
+            fi
           }
 
           # publish_branch <分支名> <源目录>
@@ -105,39 +137,24 @@ jobs:
           # ------------------------------------------------------------
           # 分支 a：SagerNet 的 geosite + geoip（仅 .srs）
           # 命名规则：
-          #   geosite-xxx.srs -> xxx.srs
-          #   geoip-xxx.srs   -> xxxip.srs   （如 geoip-cn.srs -> cnip.srs）
-          # 特殊重命名见下方 RENAME 表
+          #   geosite-xxx.srs -> xxx.srs      （特殊项见 RENAME，冲突项见 SITE_FIX）
+          #   geoip-xxx.srs   -> xxxip.srs    （如 geoip-cn.srs -> cnip.srs）
           # ------------------------------------------------------------
           clone https://github.com/SagerNet/sing-geosite.git rule-set "$WORK/sg-site"
           clone https://github.com/SagerNet/sing-geoip.git   rule-set "$WORK/sg-ip"
           mkdir -p "$WORK/out-a"
 
-          # 特殊重命名表：geosite-<键>.srs -> <值>.srs
-          # 想增加新的特殊项，在这里加一行即可
-          declare -A RENAME=(
-            [google-play]=play
-            [google-gemini]=gemini
-            [category-media]=media
-          )
-
-          # geosite：先处理普通项（去掉 geosite- 前缀），特殊项留到下一步
-          for f in "$WORK"/sg-site/geosite-*.srs; do
-            key="$(basename "$f" .srs)"; key="${key#geosite-}"
-            if [ -n "${RENAME[$key]:-}" ]; then
-              continue
+          # 检查特殊重命名表里的源文件是否都存在，缺失只警告不中断
+          for key in "${!RENAME[@]}"; do
+            if [ ! -f "$WORK/sg-site/geosite-$key.srs" ]; then
+              echo "::warning::上游缺少 geosite-$key.srs"
             fi
-            put "$f" "$WORK/out-a/$key.srs"
           done
 
-          # geosite：特殊项（play / gemini / media）
-          for key in "${!RENAME[@]}"; do
-            src="$WORK/sg-site/geosite-$key.srs"
-            if [ ! -f "$src" ]; then
-              echo "::warning::上游缺少 geosite-$key.srs"
-              continue
-            fi
-            put "$src" "$WORK/out-a/${RENAME[$key]}.srs"
+          # geosite：去掉 geosite- 前缀，按 RENAME / SITE_FIX 调整名称
+          for f in "$WORK"/sg-site/geosite-*.srs; do
+            key="$(basename "$f" .srs)"; key="${key#geosite-}"
+            put "$f" "$WORK/out-a/$(site_name_a "$key").srs"
           done
 
           # geoip：geoip-xxx.srs -> xxxip.srs（规则集名称 + ip）
@@ -152,7 +169,7 @@ jobs:
           # ------------------------------------------------------------
           # 分支 c：lyc8503/sing-box-rules 两个分支的全部规则文件（.json + .srs）
           # 命名规则：
-          #   rule-set-geosite 分支：geosite-xxx.json/.srs -> xxx.json/.srs
+          #   rule-set-geosite 分支：geosite-xxx.json/.srs -> xxx.json/.srs（冲突项见 SITE_FIX）
           #   rule-set-geoip   分支：geoip-xxx.json/.srs   -> xxxip.json/.srs
           # 最后再用 SagerNet 的 geoip-cn.srs 覆盖为 cnip.srs
           # ------------------------------------------------------------
@@ -160,10 +177,12 @@ jobs:
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geoip   "$WORK/lyc-ip"
           mkdir -p "$WORK/out-c"
 
-          # geosite：去掉 geosite- 前缀，扩展名保持不变
+          # geosite：去掉 geosite- 前缀，扩展名保持不变，冲突项按 SITE_FIX 改名
           for f in "$WORK"/lyc-site/geosite-*; do
-            name="$(basename "$f")"
-            put "$f" "$WORK/out-c/${name#geosite-}"
+            name="$(basename "$f")"; name="${name#geosite-}"
+            ext="${name##*.}"; stem="${name%.*}"
+            stem="${SITE_FIX[$stem]:-$stem}"
+            put "$f" "$WORK/out-c/${stem}.${ext}"
           done
 
           # geoip：geoip-ad.json -> adip.json，先拆出名称和扩展名再拼接
