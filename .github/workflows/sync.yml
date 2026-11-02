@@ -5,6 +5,9 @@ on:
     - cron: '0 * * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -18,17 +21,57 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
-          # 添加 DustinWin 的源仓库
+
+          # ===== 分支 b / m：同步 DustinWin =====
           git remote add upstream https://github.com/DustinWin/ruleset_geodata.git
           git fetch upstream
-          
-          # 切换/创建你的目标分支（例如 main），并用上游的 sing-box-ruleset 分支重置
+
           git checkout -B b
           git reset --hard upstream/sing-box-ruleset
           git checkout -B m
           git reset --hard upstream/mihomo-ruleset
-          
-          # 强推覆盖更新到你自己的仓库
+
           git push origin b --force
           git push origin m --force
+
+          # ===== 分支 a：同步 SagerNet geosite + geoip，并重命名 =====
+          WORK="$RUNNER_TEMP/sager"
+          rm -rf "$WORK" && mkdir -p "$WORK/out"
+
+          git clone --depth 1 --branch rule-set https://github.com/SagerNet/sing-geosite.git "$WORK/geosite"
+          git clone --depth 1 --branch rule-set https://github.com/SagerNet/sing-geoip.git "$WORK/geoip"
+
+          # geosite-xxx.srs -> xxx.srs
+          for f in "$WORK"/geosite/geosite-*.srs; do
+            name="$(basename "$f")"
+            cp "$f" "$WORK/out/${name#geosite-}"
+          done
+
+          # geoip-xxx.srs -> xxxip.srs
+          for f in "$WORK"/geoip/geoip-*.srs; do
+            name="$(basename "$f")"
+            cp "$f" "$WORK/out/${name#geoip-}ip"
+          done
+
+          echo "共生成 $(ls "$WORK/out" | wc -l) 个文件"
+
+          # 切到分支 a：远端已有就基于它，没有就新建孤儿分支
+          if git ls-remote --exit-code --heads origin a >/dev/null 2>&1; then
+            git fetch origin a
+            git checkout -f -B a origin/a
+          else
+            git checkout --orphan a
+          fi
+
+          # 清空旧内容后放入新文件，这样上游删除的规则集也会同步删除
+          git rm -rf . -q 2>/dev/null || true
+          git clean -fdx -q
+          cp "$WORK"/out/*.srs .
+
+          git add -A
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "sync sagernet rulesets $(date -u +'%Y-%m-%d %H:%M')"
+            git push origin a
+          else
+            echo "分支 a 无变化，跳过推送"
+          fi
