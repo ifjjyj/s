@@ -41,11 +41,18 @@ jobs:
           # 用途一：域名规则集名字等于 "<国家代码>ip" 时，避免与 ip 规则集撞名
           #         （geosite-noip 与 geoip-no 的 noip）。
           # 用途二：特殊规则集单独命名（category-ads-all -> ad）。
-          # 用途三：自动改名撞名时，想给某一项指定名字，例如 [foo-!cn]=foonocn
+          # 用途三：两个规则集自动改名后会变成同一个名字时，手动给其中一个指定名字。
+          #         例如 games：上游有 category-games（国内外合集）、category-games-cn（国内）、
+          #         category-games-!cn（国外）。国外版按规则变成 games，国内版是 games-cn，
+          #         合集版就手动命名为 gamesall（含 @ads / @cn / @telemetry 属性版本）。
           # 以后日志里出现撞名警告，在这里加一行即可：[原名]=新名
           declare -A SITE_FIX=(
             [noip]=noipsite
             [category-ads-all]=ad
+            [category-games]=gamesall
+            [category-games@ads]=gamesall@ads
+            [category-games@cn]=gamesall@cn
+            [category-games@telemetry]=gamesall@telemetry
           )
 
           # 【特殊重命名表】仅 a 分支使用：geosite-<键>.srs -> <值>.srs
