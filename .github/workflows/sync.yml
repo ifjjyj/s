@@ -25,6 +25,8 @@ jobs:
           fetch-depth: 0
 
       - name: Sync from Upstream
+        env:
+          GH_TOKEN: ${{ github.token }}   # install_singbox 用 gh 下载 sing-box 需要
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -216,6 +218,117 @@ jobs:
           }
 
           # ------------------------------------------------------------
+          # 合并去重工具：把多个 .srs 合并成一个，并去掉冗余条目
+          # ------------------------------------------------------------
+
+          # install_singbox：下载 SagerNet 最新稳定版 sing-box，路径放在全局变量 SB
+          # 用 releases/latest，只会取稳定版，不会取 alpha/beta
+          install_singbox() {
+            local tag ver
+            tag="$(gh api repos/SagerNet/sing-box/releases/latest --jq .tag_name)" || return 1
+            ver="${tag#v}"
+            mkdir -p "$WORK/sb"
+            gh release download "$tag" --repo SagerNet/sing-box \
+              --pattern "sing-box-${ver}-linux-amd64.tar.gz" --dir "$WORK/sb" || return 1
+            tar -xzf "$WORK/sb/sing-box-${ver}-linux-amd64.tar.gz" -C "$WORK/sb" || return 1
+            SB="$WORK/sb/sing-box-${ver}-linux-amd64/sing-box"
+            echo "合并使用 sing-box $tag"
+          }
+
+          # merge_rulesets <目标目录> <输出名> <输入1.srs> [输入2.srs ...]
+          # 反编译所有输入 -> 合并去重 -> 去掉冗余条目 -> 编译，生成 <输出名>.srs 和 <输出名>.json
+          # 去冗余规则：
+          #   1. domain_suffix 的 "x.com" 已覆盖 x.com 及所有子域，所以 a.x.com 可以删
+          #   2. 精确 domain 被某个 suffix 覆盖的删掉
+          #   3. 被 domain_keyword 命中的 suffix/domain 删掉
+          #   4. 含其他字段（如 ip_cidr）的规则原样保留，不参与精简
+          # 内置自检：精简后必须仍能覆盖精简前的每一条，否则报错退出
+          merge_rulesets() {
+            local dest="$1" out="$2" tmp f i=0; shift 2
+            local jsons=()
+            tmp="$WORK/merge-$out"; rm -rf "$tmp"; mkdir -p "$tmp"
+            for f in "$@"; do
+              if [ ! -f "$f" ]; then echo "::warning::合并 $out 缺少输入文件：$(basename "$f")"; return 1; fi
+              i=$((i + 1))
+              "$SB" rule-set decompile "$f" -o "$tmp/in$i.json" || return 1
+              jsons+=("$tmp/in$i.json")
+            done
+            python3 - "$tmp/$out.json" "${jsons[@]}" <<'PY' || return 1
+          import json, sys
+
+          out, ins = sys.argv[1], sys.argv[2:]
+          KEYS = {"domain", "domain_suffix", "domain_keyword", "domain_regex"}
+          ver = 1
+          suf, dom, kw, rx, other, seen = set(), set(), set(), set(), [], set()
+
+          for p in ins:
+              d = json.load(open(p, encoding="utf-8"))
+              ver = max(ver, d.get("version", 1))
+              for r in d.get("rules", []):
+                  r = {k: v for k, v in r.items() if not (k == "type" and v == "default")}
+                  if r and set(r) <= KEYS:
+                      dom.update(x.strip().lower() for x in r.get("domain", []))
+                      suf.update(x.strip().lower() for x in r.get("domain_suffix", []))
+                      kw.update(x.strip() for x in r.get("domain_keyword", []))
+                      rx.update(x.strip() for x in r.get("domain_regex", []))
+                  else:
+                      s = json.dumps(r, sort_keys=True, ensure_ascii=False)
+                      if s not in seen:
+                          seen.add(s)
+                          other.append(r)
+
+          dom.discard(""); suf.discard(""); suf.discard("."); kw.discard(""); rx.discard("")
+
+          def parents(d):
+              p = d.split(".")
+              for i in range(1, len(p)):
+                  yield ".".join(p[i:])
+
+          # 不带点 "x.com" 匹配 x.com 及其所有子域；带点 ".x.com" 只匹配子域
+          def suf_covered(d, S):
+              d0 = d.lstrip(".")
+              if d.startswith(".") and d0 in S:
+                  return True
+              return any(a in S or "." + a in S for a in parents(d0))
+
+          def dom_covered(d, S):
+              return d in S or any(a in S or "." + a in S for a in parents(d))
+
+          kws = sorted(kw)
+          def kw_covered(d):
+              return any(k in d for k in kws)
+
+          n0 = (len(suf), len(dom), len(kw), len(rx))
+          suf_r = {d for d in suf if not suf_covered(d, suf) and not kw_covered(d)}
+          dom_r = {d for d in dom if not dom_covered(d, suf) and not kw_covered(d)}
+
+          for d in suf:
+              assert d in suf_r or suf_covered(d, suf_r) or kw_covered(d), d
+          for d in dom:
+              assert d in dom_r or dom_covered(d, suf_r) or kw_covered(d), d
+
+          m = {}
+          if dom_r: m["domain"] = sorted(dom_r)
+          if suf_r: m["domain_suffix"] = sorted(suf_r)
+          if kw:    m["domain_keyword"] = kws
+          if rx:    m["domain_regex"] = sorted(rx)
+          rules = ([m] if m else []) + other
+          if not rules:
+              sys.exit("合并结果为空")
+
+          with open(out, "w", encoding="utf-8") as f:   # 每个 rule 对象单独一行
+              f.write('{"version":%d,"rules":[\n' % ver)
+              f.write(",\n".join(json.dumps(r, ensure_ascii=False, separators=(",", ":")) for r in rules))
+              f.write("\n]}\n")
+
+          print("合并前 suffix/domain/keyword/regex = %s，合并后 = %s" % (n0, (len(suf_r), len(dom_r), len(kw), len(rx))))
+          PY
+            "$SB" rule-set compile "$tmp/$out.json" -o "$tmp/$out.srs" || return 1
+            put "$tmp/$out.json" "$dest/$out.json"
+            put "$tmp/$out.srs"  "$dest/$out.srs"
+          }
+
+          # ------------------------------------------------------------
           # 分支 b：DustinWin / sing-box-ruleset（原样同步）
           # ------------------------------------------------------------
           clone https://github.com/DustinWin/ruleset_geodata.git sing-box-ruleset "$WORK/dw-sb"
@@ -287,6 +400,7 @@ jobs:
           # ------------------------------------------------------------
           # 分支 c：lyc8503/sing-box-rules 两个分支的全部规则文件（.json + .srs）
           #         + DustinWin sing-box-ruleset 的全部规则文件（名称后加 2）
+          #         + 合并去重生成的 adall（ad + ads2）
           # 命名规则：
           #   rule-set-geosite 分支：geosite-xxx.*          -> xxx.*     （手动项见 SITE_FIX）
           #                          geosite-category-xxx.* -> xxx.*     （撞名时 -> xxxall.*）
@@ -295,6 +409,7 @@ jobs:
           #   rule-set-geoip   分支：geoip-xxx.*            -> xxxip.*
           #   最后再用 SagerNet 的 geoip-cn.srs 覆盖为 cnip.srs
           #   DustinWin：xxx.srs / xxx.json -> xxx2.srs / xxx2.json（特殊项见 dw_name）
+          #   adall.srs / adall.json：ad 与 ads2 合并去重后的结果
           # ------------------------------------------------------------
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geosite "$WORK/lyc-site"
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geoip   "$WORK/lyc-ip"
@@ -346,6 +461,19 @@ jobs:
             dw_count=$((dw_count + 1))
           done < <(find "$WORK/dw-sb" -path "$WORK/dw-sb/.git" -prune -o -type f -print0)
           echo "DustinWin 规则文件已加入 c 分支：$dw_count 个"
+
+          # 第五步：把 ad（lyc 的 category-ads-all）与 ads2（DustinWin 的 ads）合并去重成 adall
+          # 合并失败时不中断同步，改为沿用远端 c 分支上一次的 adall，避免这一天 adall 消失
+          if install_singbox && merge_rulesets "$WORK/out-c" adall "$WORK/out-c/ad.srs" "$WORK/out-c/ads2.srs"; then
+            echo "adall 合并完成"
+          else
+            echo "::warning::adall 合并失败，尝试沿用远端 c 分支上一次的版本"
+            for ext in srs json; do
+              if git cat-file -e "origin/c:adall.$ext" 2>/dev/null; then
+                git show "origin/c:adall.$ext" > "$WORK/out-c/adall.$ext"
+              fi
+            done
+          fi
 
           echo "分支 c 共 $(ls "$WORK/out-c" | wc -l) 个文件"
           publish_branch c "$WORK/out-c"
