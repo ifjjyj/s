@@ -2,14 +2,15 @@ name: Sync Upstream Ruleset
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '17 20 * * *'   # UTC 20:17 = 北京时间 04:17，错开整点拥堵
   workflow_dispatch:
 
-# 需要写权限才能向自己的仓库推送分支
+# contents: 向自己的仓库推送分支；actions: 保活步骤需要
 permissions:
   contents: write
+  actions: write
 
-# 防止上一次还没跑完、下一个整点又触发，导致两次推送互相冲突
+# 防止上一次还没跑完、下一次又触发，导致两次推送互相冲突
 concurrency:
   group: sync-upstream-ruleset
   cancel-in-progress: false
@@ -168,7 +169,7 @@ jobs:
           # 把源目录的内容发布到自己仓库的指定分支：
           #   - 不强推，历史保留
           #   - 先清空分支再放入新文件，所以上游删除的文件也会同步删除
-          #   - 仅在内容有变化时才提交和推送
+          #   - 无论内容有无变化都提交并推送（无变化时为空提交），每次运行都留下同步记录
           publish_branch() {
             local br="$1" src="$2"
 
@@ -191,15 +192,16 @@ jobs:
             git clean -fdxq
             cp -a "$src"/. .
 
-            # 只有真的有差异才提交
+            # 强制提交：--allow-empty 保证没有差异时也会生成一条提交
             git add -A
             if [ -n "$(git status --porcelain)" ]; then
               git commit -q -m "sync $br $(date -u +'%Y-%m-%d %H:%M')"
-              git push origin "$br"
-              echo "分支 $br 已更新"
+              echo "分支 $br 内容有更新"
             else
-              echo "分支 $br 无变化，跳过"
+              git commit -q --allow-empty -m "sync $br $(date -u +'%Y-%m-%d %H:%M') (no changes)"
+              echo "分支 $br 内容无变化，已生成空提交"
             fi
+            git push origin "$br"
           }
 
           # ------------------------------------------------------------
@@ -273,13 +275,15 @@ jobs:
 
           # ------------------------------------------------------------
           # 分支 c：lyc8503/sing-box-rules 两个分支的全部规则文件（.json + .srs）
+          #         + DustinWin sing-box-ruleset 的全部规则文件（名称后加 2）
           # 命名规则：
           #   rule-set-geosite 分支：geosite-xxx.*          -> xxx.*     （手动项见 SITE_FIX）
           #                          geosite-category-xxx.* -> xxx.*     （撞名时 -> xxxall.*）
           #                          geosite-google-xxx.*   -> xxx.*     （google-cn 除外；撞名时保留原名并警告）
           #                          geosite-xxx-!cn.*      -> xxx.*     （撞名时保留原名并警告）
           #   rule-set-geoip   分支：geoip-xxx.*            -> xxxip.*
-          # 最后再用 SagerNet 的 geoip-cn.srs 覆盖为 cnip.srs
+          #   最后再用 SagerNet 的 geoip-cn.srs 覆盖为 cnip.srs
+          #   DustinWin：xxx.srs / xxx.json -> xxx2.srs / xxx2.json（如 cn.srs -> cn2.srs）
           # ------------------------------------------------------------
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geosite "$WORK/lyc-site"
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geoip   "$WORK/lyc-ip"
@@ -319,5 +323,22 @@ jobs:
           # 这里直接用 cp：如果 lyc 的 geoip 分支里也有 cn，会被有意覆盖，不需要警告
           cp "$WORK/sg-ip/geoip-cn.srs" "$WORK/out-c/cnip.srs"
 
+          # 第四步：DustinWin 的 sing-box 规则集（复用分支 b 已克隆的 dw-sb）
+          # 只取 .srs / .json，名称后加 2：cn.srs -> cn2.srs
+          # 加 2 后基本不会与上面的名称撞名；若上游子目录里有同名文件，put 会给出重名警告
+          while IFS= read -r -d '' f; do
+            name="$(basename "$f")"
+            case "$name" in *.srs|*.json) ;; *) continue ;; esac
+            ext="${name##*.}"; stem="${name%.*}"
+            put "$f" "$WORK/out-c/${stem}2.${ext}"
+          done < <(find "$WORK/dw-sb" -path "$WORK/dw-sb/.git" -prune -o -type f -print0)
+
           echo "分支 c 共 $(ls "$WORK/out-c" | wc -l) 个文件"
           publish_branch c "$WORK/out-c"
+
+      # 保活：公共仓库 60 天无活动会被自动停用定时任务，这里定期重置计时
+      - name: Keepalive
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow enable "${{ github.workflow }}" --repo "${{ github.repository }}" || true
