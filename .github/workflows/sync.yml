@@ -165,6 +165,17 @@ jobs:
             fi
           }
 
+          # dw_name <DustinWin 规则集名>：结果放在全局变量 DN 里
+          # 默认在名称后加 2（cn -> cn2）；加 2 后与已有名称撞名的，在 case 里手动指定
+          #   - bilibili 加 2 会与 lyc 的 bilibili2（geosite-bilibili2）撞名，
+          #     lyc 的保持原名，DustinWin 的命名为 bilibili22
+          dw_name() {
+            case "$1" in
+              bilibili) DN="bilibili22" ;;
+              *)        DN="${1}2" ;;
+            esac
+          }
+
           # publish_branch <分支名> <源目录>
           # 把源目录的内容发布到自己仓库的指定分支：
           #   - 不强推，历史保留
@@ -283,7 +294,7 @@ jobs:
           #                          geosite-xxx-!cn.*      -> xxx.*     （撞名时保留原名并警告）
           #   rule-set-geoip   分支：geoip-xxx.*            -> xxxip.*
           #   最后再用 SagerNet 的 geoip-cn.srs 覆盖为 cnip.srs
-          #   DustinWin：xxx.srs / xxx.json -> xxx2.srs / xxx2.json（如 cn.srs -> cn2.srs）
+          #   DustinWin：xxx.srs / xxx.json -> xxx2.srs / xxx2.json（特殊项见 dw_name）
           # ------------------------------------------------------------
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geosite "$WORK/lyc-site"
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geoip   "$WORK/lyc-ip"
@@ -324,16 +335,7 @@ jobs:
           cp "$WORK/sg-ip/geoip-cn.srs" "$WORK/out-c/cnip.srs"
 
           # 第四步：DustinWin 的 sing-box 规则集（复用分支 b 已克隆的 dw-sb）
-          # 只取 .srs / .json，名称后加 2：cn.srs -> cn2.srs
-          # 加 2 后若与已有名称撞名，在 dw_name 里手动指定。
-          #   - bilibili 加 2 会与 lyc 的 bilibili2（geosite-bilibili2）撞名，
-          #     lyc 的保持原名，DustinWin 的命名为 bilibili22
-          dw_name() {
-            case "$1" in
-              bilibili) DN="bilibili22" ;;
-              *)        DN="${1}2" ;;
-            esac
-          }
+          # 只取 .srs / .json，名称后加 2：cn.srs -> cn2.srs（特殊项见 dw_name）
           dw_count=0
           while IFS= read -r -d '' f; do
             name="$(basename "$f")"
@@ -344,6 +346,9 @@ jobs:
             dw_count=$((dw_count + 1))
           done < <(find "$WORK/dw-sb" -path "$WORK/dw-sb/.git" -prune -o -type f -print0)
           echo "DustinWin 规则文件已加入 c 分支：$dw_count 个"
+
+          echo "分支 c 共 $(ls "$WORK/out-c" | wc -l) 个文件"
+          publish_branch c "$WORK/out-c"
 
       # 保活：公共仓库 60 天无活动会被自动停用定时任务，这里定期重置计时
       - name: Keepalive
