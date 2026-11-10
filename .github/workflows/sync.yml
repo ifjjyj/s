@@ -325,16 +325,18 @@ jobs:
 
           # 第四步：DustinWin 的 sing-box 规则集（复用分支 b 已克隆的 dw-sb）
           # 只取 .srs / .json，名称后加 2：cn.srs -> cn2.srs
-          # 加 2 后基本不会与上面的名称撞名；若上游子目录里有同名文件，put 会给出重名警告
+          # 【DustinWin 手动改名表】加 2 后若与已有名称撞名，在这里手动指定：[原名]=新名
+          #   - bilibili 加 2 会与 lyc 的 bilibili2（geosite-bilibili2）撞名，
+          #     lyc 的保持原名，DustinWin 的命名为 bilibili22
+          declare -A DW_FIX=(
+            [bilibili]=bilibili22
+          )
           while IFS= read -r -d '' f; do
             name="$(basename "$f")"
             case "$name" in *.srs|*.json) ;; *) continue ;; esac
             ext="${name##*.}"; stem="${name%.*}"
-            put "$f" "$WORK/out-c/${stem}2.${ext}"
+            put "$f" "$WORK/out-c/${DW_FIX[$stem]:-${stem}2}.${ext}"
           done < <(find "$WORK/dw-sb" -path "$WORK/dw-sb/.git" -prune -o -type f -print0)
-
-          echo "分支 c 共 $(ls "$WORK/out-c" | wc -l) 个文件"
-          publish_branch c "$WORK/out-c"
 
       # 保活：公共仓库 60 天无活动会被自动停用定时任务，这里定期重置计时
       - name: Keepalive
