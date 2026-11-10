@@ -91,6 +91,17 @@ jobs:
             cp "$1" "$2"
           }
 
+          # keep_old <名称>：合并/生成失败时，沿用远端 c 分支上一次的 <名称>.srs 和 <名称>.json
+          # （publish_branch 会先清空分支，不沿用的话这一天该规则集就会消失）
+          keep_old() {
+            local ext
+            for ext in srs json; do
+              if git cat-file -e "origin/c:$1.$ext" 2>/dev/null; then
+                git show "origin/c:$1.$ext" > "$WORK/out-c/$1.$ext"
+              fi
+            done
+          }
+
           # is_plain <域名规则集原名>：返回 0 表示 "不会被自动改名"（名称保持原样）
           # 自动改名的三种情况（@ 属性部分不参与判断）：
           #   1. 以 category- 开头
@@ -235,7 +246,8 @@ jobs:
             echo "合并使用 sing-box $tag"
           }
 
-          # merge_rulesets <目标目录> <输出名> <输入1.srs> [输入2.srs ...]
+          # merge_rulesets <目标目录> <输出名> <输入1> [输入2 ...]
+          # 输入可以是 .srs（会先反编译）或 .json（源码格式，直接使用）
           # 反编译所有输入 -> 合并去重 -> 去掉冗余条目 -> 编译，生成 <输出名>.srs 和 <输出名>.json
           # 去冗余规则：
           #   1. domain_suffix 的 "x.com" 已覆盖 x.com 及所有子域，所以 a.x.com 可以删
@@ -250,7 +262,10 @@ jobs:
             for f in "$@"; do
               if [ ! -f "$f" ]; then echo "::warning::合并 $out 缺少输入文件：$(basename "$f")"; return 1; fi
               i=$((i + 1))
-              "$SB" rule-set decompile "$f" -o "$tmp/in$i.json" || return 1
+              case "$f" in
+                *.json) cp "$f" "$tmp/in$i.json" || return 1 ;;
+                *)      "$SB" rule-set decompile "$f" -o "$tmp/in$i.json" || return 1 ;;
+              esac
               jsons+=("$tmp/in$i.json")
             done
             python3 - "$tmp/$out.json" "${jsons[@]}" <<'PY' || return 1
@@ -328,6 +343,62 @@ jobs:
             put "$tmp/$out.srs"  "$dest/$out.srs"
           }
 
+          # split_adrules <源.srs> <临时目录>
+          # 把同时含域名和 ip 的规则集拆成两份，输出到临时目录：
+          #   adrules-domain.json：域名部分（domain / suffix / keyword / regex 及其他非 ip 字段）
+          #   adipall.json：全部 ip_cidr，含 domain 字段里写成 IP 字面量的条目（按 /32 或 /128 处理），
+          #                 去重并合并相邻网段；源里没有 ip 规则时不生成这个文件
+          split_adrules() {
+            local src="$1" tmp="$2"
+            "$SB" rule-set decompile "$src" -o "$tmp/src.json" || return 1
+            python3 - "$tmp/src.json" "$tmp/adrules-domain.json" "$tmp/adipall.json" <<'PY' || return 1
+          import ipaddress, json, sys
+
+          src, dom_out, ip_out = sys.argv[1:4]
+          d = json.load(open(src, encoding="utf-8"))
+          ver = d.get("version", 1)
+          nets, dom_rules = set(), []
+
+          for r in d.get("rules", []):
+              r = dict(r)
+              for c in r.pop("ip_cidr", []):
+                  try:
+                      nets.add(ipaddress.ip_network(c.strip(), strict=False))
+                  except ValueError:
+                      sys.exit("无法解析的 ip_cidr：" + c)
+              if "domain" in r:
+                  keep = []
+                  for x in r["domain"]:
+                      try:
+                          nets.add(ipaddress.ip_network(x.strip()))   # IP 字面量当作 /32 或 /128
+                      except ValueError:
+                          keep.append(x)
+                  if keep:
+                      r["domain"] = keep
+                  else:
+                      del r["domain"]
+              if r:
+                  dom_rules.append(r)
+
+          def dump(path, rules):
+              with open(path, "w", encoding="utf-8") as f:   # 每个 rule 对象单独一行
+                  f.write('{"version":%d,"rules":[\n' % ver)
+                  f.write(",\n".join(json.dumps(x, ensure_ascii=False, separators=(",", ":")) for x in rules))
+                  f.write("\n]}\n")
+
+          dump(dom_out, dom_rules)
+          n_ip = 0
+          if nets:
+              col = []
+              for v in (4, 6):
+                  col += list(ipaddress.collapse_addresses([n for n in nets if n.version == v]))
+              col.sort(key=lambda n: (n.version, n))
+              dump(ip_out, [{"ip_cidr": [str(n) for n in col]}])
+              n_ip = len(col)
+          print("拆分完成：域名部分 %d 条规则，ip_cidr %d 条" % (len(dom_rules), n_ip))
+          PY
+          }
+
           # ------------------------------------------------------------
           # 分支 b：DustinWin / sing-box-ruleset（原样同步）
           # ------------------------------------------------------------
@@ -400,7 +471,9 @@ jobs:
           # ------------------------------------------------------------
           # 分支 c：lyc8503/sing-box-rules 两个分支的全部规则文件（.json + .srs）
           #         + DustinWin sing-box-ruleset 的全部规则文件（名称后加 2）
-          #         + 合并去重生成的 adall（ad + ads2）
+          #         + QuixoticHeart singbox/version5 的全部规则文件（名称后加 3）
+          #         + 合并去重生成的 adall（ad + ads2 + adrules 的域名部分）
+          #         + 从 adrules 拆出的 ip 规则 adipall（注意：adip 是安道尔 geoip，不能用这个名字）
           # 命名规则：
           #   rule-set-geosite 分支：geosite-xxx.*          -> xxx.*     （手动项见 SITE_FIX）
           #                          geosite-category-xxx.* -> xxx.*     （撞名时 -> xxxall.*）
@@ -409,7 +482,9 @@ jobs:
           #   rule-set-geoip   分支：geoip-xxx.*            -> xxxip.*
           #   最后再用 SagerNet 的 geoip-cn.srs 覆盖为 cnip.srs
           #   DustinWin：xxx.srs / xxx.json -> xxx2.srs / xxx2.json（特殊项见 dw_name）
-          #   adall.srs / adall.json：ad 与 ads2 合并去重后的结果
+          #   QuixoticHeart：xxx.srs / xxx.json -> xxx3.srs / xxx3.json
+          #   adall.srs / adall.json：ad、ads2、adrules 的域名部分合并去重后的结果
+          #   adipall.srs / adipall.json：adrules 里的全部 ip 规则
           # ------------------------------------------------------------
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geosite "$WORK/lyc-site"
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geoip   "$WORK/lyc-ip"
@@ -462,17 +537,55 @@ jobs:
           done < <(find "$WORK/dw-sb" -path "$WORK/dw-sb/.git" -prune -o -type f -print0)
           echo "DustinWin 规则文件已加入 c 分支：$dw_count 个"
 
-          # 第五步：把 ad（lyc 的 category-ads-all）与 ads2（DustinWin 的 ads）合并去重成 adall
-          # 合并失败时不中断同步，改为沿用远端 c 分支上一次的 adall，避免这一天 adall 消失
-          if install_singbox && merge_rulesets "$WORK/out-c" adall "$WORK/out-c/ad.srs" "$WORK/out-c/ads2.srs"; then
-            echo "adall 合并完成"
+          # 第五步：QuixoticHeart / rule-set 的 singbox/version5 全部规则文件（名称后加 3）
+          # 只取 .srs / .json：cn.srs -> cn3.srs，cn.json -> cn3.json
+          # 克隆或目录检查失败会直接中断，此时 c 分支不会被改动，保留上一次的内容
+          QH_DIR="$WORK/qh/singbox/version5"
+          git clone -q --depth 1 --branch ruleset --filter=blob:none --sparse \
+            https://github.com/QuixoticHeart/rule-set.git "$WORK/qh"
+          git -C "$WORK/qh" sparse-checkout set singbox/version5
+          if [ ! -d "$QH_DIR" ] || [ -z "$(ls -A "$QH_DIR")" ]; then
+            echo "::error::QuixoticHeart 的 singbox/version5 目录不存在或为空，已中断，c 分支保持不变"
+            exit 1
+          fi
+          qh_count=0
+          for f in "$QH_DIR"/*; do
+            [ -f "$f" ] || continue
+            name="$(basename "$f")"
+            case "$name" in *.srs|*.json) ;; *) continue ;; esac
+            ext="${name##*.}"; stem="${name%.*}"
+            put "$f" "$WORK/out-c/${stem}3.${ext}"
+            qh_count=$((qh_count + 1))
+          done
+          echo "QuixoticHeart 规则文件已加入 c 分支：$qh_count 个"
+
+          # 第六步：处理 adrules（同步自 QuixoticHeart）
+          #   1. 拆成域名部分和 ip 部分
+          #   2. 域名部分与 ad（lyc 的 category-ads-all）、ads2（DustinWin 的 ads）合并去重 -> adall
+          #   3. ip 部分单独编译 -> adipall
+          # 任何一步失败都不中断同步，而是沿用远端 c 分支上一次的版本
+          ADTMP="$WORK/adrules-split"; rm -rf "$ADTMP"; mkdir -p "$ADTMP"
+          if install_singbox && split_adrules "$QH_DIR/adrules.srs" "$ADTMP"; then
+            if merge_rulesets "$WORK/out-c" adall "$WORK/out-c/ad.srs" "$WORK/out-c/ads2.srs" "$ADTMP/adrules-domain.json"; then
+              echo "adall 合并完成"
+            else
+              echo "::warning::adall 合并失败，沿用远端 c 分支上一次的版本"
+              keep_old adall
+            fi
+            if [ ! -f "$ADTMP/adipall.json" ]; then
+              echo "::warning::adrules 里没有 ip 规则，本次不生成 adipall"
+            elif "$SB" rule-set compile "$ADTMP/adipall.json" -o "$ADTMP/adipall.srs"; then
+              put "$ADTMP/adipall.json" "$WORK/out-c/adipall.json"
+              put "$ADTMP/adipall.srs"  "$WORK/out-c/adipall.srs"
+              echo "adipall 生成完成"
+            else
+              echo "::warning::adipall 编译失败，沿用远端 c 分支上一次的版本"
+              keep_old adipall
+            fi
           else
-            echo "::warning::adall 合并失败，尝试沿用远端 c 分支上一次的版本"
-            for ext in srs json; do
-              if git cat-file -e "origin/c:adall.$ext" 2>/dev/null; then
-                git show "origin/c:adall.$ext" > "$WORK/out-c/adall.$ext"
-              fi
-            done
+            echo "::warning::adrules 拆分失败，adall 和 adipall 沿用远端 c 分支上一次的版本"
+            keep_old adall
+            keep_old adipall
           fi
 
           echo "分支 c 共 $(ls "$WORK/out-c" | wc -l) 个文件"
