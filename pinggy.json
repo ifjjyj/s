@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "pinggy.io",
-                "pinggy.link"
-            ],
-            "domain_suffix": [
-                ".pinggy.io",
-                ".pinggy.link"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["pinggy.io","pinggy.link"]}
+]}

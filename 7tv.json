@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "7tv.app",
-                "7tv.io"
-            ],
-            "domain_suffix": [
-                ".7tv.app",
-                ".7tv.io"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["7tv.app","7tv.io"]}
+]}

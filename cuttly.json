@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "cutt.ly",
-            "domain_suffix": ".cutt.ly"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["cutt.ly"]}
+]}

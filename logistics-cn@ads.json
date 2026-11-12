@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "v6-adashx.ut.cainiao.com",
-            "domain_suffix": ".v6-adashx.ut.cainiao.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["v6-adashx.ut.cainiao.com"]}
+]}

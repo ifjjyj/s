@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "abc-studios.com",
-                "abc.com",
-                "abcnews.com",
-                "edgedatg.com"
-            ],
-            "domain_suffix": [
-                ".abc-studios.com",
-                ".abc.com",
-                ".abcnews.com",
-                ".edgedatg.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["abc-studios.com","abc.com","abcnews.com","edgedatg.com"]}
+]}

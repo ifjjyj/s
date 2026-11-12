@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "gofundme.com",
-            "domain_suffix": ".gofundme.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["gofundme.com"]}
+]}

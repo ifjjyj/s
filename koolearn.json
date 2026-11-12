@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "koocdn.com",
-                "koolearn.com",
-                "koopass.com"
-            ],
-            "domain_suffix": [
-                ".koocdn.com",
-                ".koolearn.com",
-                ".koopass.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["koocdn.com","koolearn.com","koopass.com"]}
+]}

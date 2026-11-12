@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "illgames.jp",
-                "japan-illgames.com"
-            ],
-            "domain_suffix": [
-                ".illgames.jp",
-                ".japan-illgames.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["illgames.jp","japan-illgames.com"]}
+]}

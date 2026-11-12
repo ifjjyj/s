@@ -1,13 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "lastfm.freetls.fastly.net",
-                "lastfm-img.freetls.fastly.net",
-                "ws.audioscrobbler.com",
-                "last.fm"
-            ],
-            "domain_suffix": ".last.fm"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain":["lastfm-img.freetls.fastly.net","lastfm.freetls.fastly.net","ws.audioscrobbler.com"],"domain_suffix":["last.fm"]}
+]}

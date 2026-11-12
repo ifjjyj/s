@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "tinyurl.com",
-            "domain_suffix": ".tinyurl.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["tinyurl.com"]}
+]}

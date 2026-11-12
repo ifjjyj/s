@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "cici.com",
-                "ciciai.com",
-                "ciciaicdn.com",
-                "dola.com"
-            ],
-            "domain_suffix": [
-                ".cici.com",
-                ".ciciai.com",
-                ".ciciaicdn.com",
-                ".dola.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["cici.com","ciciai.com","ciciaicdn.com","dola.com"]}
+]}

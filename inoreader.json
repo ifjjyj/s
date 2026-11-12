@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "inoreader.com",
-            "domain_suffix": ".inoreader.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["inoreader.com"]}
+]}

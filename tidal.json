@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "tidal.com",
-                "tidalhifi.com",
-                "wimpmusic.com"
-            ],
-            "domain_suffix": [
-                ".tidal.com",
-                ".tidalhifi.com",
-                ".wimpmusic.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["tidal.com","tidalhifi.com","wimpmusic.com"]}
+]}

@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "justmysocks.net",
-                "justmysocks1.net",
-                "justmysocks2.net",
-                "justmysocks4.net"
-            ],
-            "domain_suffix": [
-                ".justmysocks.net",
-                ".justmysocks1.net",
-                ".justmysocks2.net",
-                ".justmysocks4.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["justmysocks.net","justmysocks1.net","justmysocks2.net","justmysocks4.net"]}
+]}

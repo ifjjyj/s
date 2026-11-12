@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "kubernetes.io",
-                "k8s.io"
-            ],
-            "domain_suffix": [
-                ".kubernetes.io",
-                ".k8s.io"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["k8s.io","kubernetes.io"]}
+]}

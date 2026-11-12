@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "lastpass.com",
-                "lastpass.eu",
-                "lputil.com"
-            ],
-            "domain_suffix": [
-                ".lastpass.com",
-                ".lastpass.eu",
-                ".lputil.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["lastpass.com","lastpass.eu","lputil.com"]}
+]}

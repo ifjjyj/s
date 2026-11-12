@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "servicepipe.tech",
-                "servicepipe.ru"
-            ],
-            "domain_suffix": [
-                ".servicepipe.tech",
-                ".servicepipe.ru"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["servicepipe.ru","servicepipe.tech"]}
+]}

@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "hitun.io",
-                "xn--90wwvt03e.com"
-            ],
-            "domain_suffix": [
-                ".hitun.io",
-                ".xn--90wwvt03e.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["hitun.io","xn--90wwvt03e.com"]}
+]}

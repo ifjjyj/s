@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "hubblephone.com",
-                "tsi.ai"
-            ],
-            "domain_suffix": [
-                ".hubblephone.com",
-                ".tsi.ai"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["hubblephone.com","tsi.ai"]}
+]}

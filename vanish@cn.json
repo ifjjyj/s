@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "vanish.cn",
-            "domain_suffix": ".vanish.cn"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["vanish.cn"]}
+]}

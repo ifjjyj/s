@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "zuoyebang.cc",
-                "zuoyebang.com",
-                "zybang.com",
-                "kuaiduizuoye.com",
-                "syh.zybang.com"
-            ],
-            "domain_suffix": [
-                ".zuoyebang.cc",
-                ".zuoyebang.com",
-                ".zybang.com",
-                ".kuaiduizuoye.com",
-                ".syh.zybang.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["kuaiduizuoye.com","zuoyebang.cc","zuoyebang.com","zybang.com"]}
+]}

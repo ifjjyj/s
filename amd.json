@@ -1,21 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "amd.com",
-                "amdfanstore.com",
-                "amdgaming.com",
-                "radeon.com",
-                "amd.com.cn",
-                "drivers.amd.com"
-            ],
-            "domain_suffix": [
-                ".amd.com",
-                ".amdfanstore.com",
-                ".amdgaming.com",
-                ".radeon.com",
-                ".amd.com.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["amd.com","amd.com.cn","amdfanstore.com","amdgaming.com","radeon.com"]}
+]}

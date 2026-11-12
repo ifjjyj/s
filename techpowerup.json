@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "techpowerup.com",
-                "tpucdn.com"
-            ],
-            "domain_suffix": [
-                ".techpowerup.com",
-                ".tpucdn.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["techpowerup.com","tpucdn.com"]}
+]}

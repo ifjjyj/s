@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "boslife.biz",
-                "boslife.net"
-            ],
-            "domain_suffix": [
-                ".boslife.biz",
-                ".boslife.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["boslife.biz","boslife.net"]}
+]}

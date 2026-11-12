@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "aamgame.net",
-                "aamgame.com",
-                "aamgame.mobi",
-                "aamsmart.com",
-                "singworld.net"
-            ],
-            "domain_suffix": [
-                ".aamgame.net",
-                ".aamgame.com",
-                ".aamgame.mobi",
-                ".aamsmart.com",
-                ".singworld.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["aamgame.com","aamgame.mobi","aamgame.net","aamsmart.com","singworld.net"]}
+]}

@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "apifox.cn",
-                "apifox.com"
-            ],
-            "domain_suffix": [
-                ".apifox.cn",
-                ".apifox.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["apifox.cn","apifox.com"]}
+]}

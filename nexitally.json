@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "nexitally.com",
-                "nexitallysafe.com",
-                "nexitcore.com"
-            ],
-            "domain_suffix": [
-                ".nexitally.com",
-                ".nexitallysafe.com",
-                ".nexitcore.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["nexitally.com","nexitallysafe.com","nexitcore.com"]}
+]}

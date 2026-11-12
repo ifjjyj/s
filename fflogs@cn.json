@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "rpglogs.cn",
-            "domain_suffix": ".rpglogs.cn"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["rpglogs.cn"]}
+]}

@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "flutter.dev",
-                "flutterapp.com",
-                "pub.dev"
-            ],
-            "domain_suffix": [
-                ".flutter.dev",
-                ".flutterapp.com",
-                ".pub.dev"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["flutter.dev","flutterapp.com","pub.dev"]}
+]}

@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "qingting.fm",
-                "qtfm.cn"
-            ],
-            "domain_suffix": [
-                ".qingting.fm",
-                ".qtfm.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["qingting.fm","qtfm.cn"]}
+]}

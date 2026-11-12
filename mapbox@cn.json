@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "mapbox.cn",
-            "domain_suffix": ".mapbox.cn"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["mapbox.cn"]}
+]}

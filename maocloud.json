@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "maoyun.com",
-                "maoyuncloud.cn",
-                "maoyuncloud.com"
-            ],
-            "domain_suffix": [
-                ".maoyun.com",
-                ".maoyuncloud.cn",
-                ".maoyuncloud.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["maoyun.com","maoyuncloud.cn","maoyuncloud.com"]}
+]}

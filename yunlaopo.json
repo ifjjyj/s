@@ -1,22 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "doure.net",
-                "kuaipa.net",
-                "miaopa.net",
-                "yunlaopo.cc",
-                "yunlaopo.com",
-                "yunlaopo.net"
-            ],
-            "domain_suffix": [
-                ".doure.net",
-                ".kuaipa.net",
-                ".miaopa.net",
-                ".yunlaopo.cc",
-                ".yunlaopo.com",
-                ".yunlaopo.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["doure.net","kuaipa.net","miaopa.net","yunlaopo.cc","yunlaopo.com","yunlaopo.net"]}
+]}

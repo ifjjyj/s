@@ -1,21 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "hotstar.com",
-                "hotstar-cdn.net",
-                "hotstar-labs.com",
-                "hotstarext.com",
-                "hsprepack.akamaized.net"
-            ],
-            "domain_suffix": [
-                ".hotstar.com",
-                ".hotstar-cdn.net",
-                ".hotstar-labs.com",
-                ".hotstarext.com",
-                ".hsprepack.akamaized.net"
-            ],
-            "domain_regex": "^hses[1-7]?\\.akamaized\\.net$"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["hotstar-cdn.net","hotstar-labs.com","hotstar.com","hotstarext.com","hsprepack.akamaized.net"],"domain_regex":["^hses[1-7]?\\.akamaized\\.net$"]}
+]}

@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "shorturl.at",
-            "domain_suffix": ".shorturl.at"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["shorturl.at"]}
+]}

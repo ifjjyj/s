@@ -1,22 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "keemail.me",
-                "tuta.com",
-                "tuta.io",
-                "tutamail.com",
-                "tutanota.com",
-                "tutanota.de"
-            ],
-            "domain_suffix": [
-                ".keemail.me",
-                ".tuta.com",
-                ".tuta.io",
-                ".tutamail.com",
-                ".tutanota.com",
-                ".tutanota.de"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["keemail.me","tuta.com","tuta.io","tutamail.com","tutanota.com","tutanota.de"]}
+]}

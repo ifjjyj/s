@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "he.net",
-            "domain_suffix": ".he.net"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["he.net"]}
+]}

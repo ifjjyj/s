@@ -1,33 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "nix-community.github.io",
-                "nix.dev",
-                "nix.store",
-                "nixcon.org",
-                "nixcon2017.org",
-                "nixlang.com",
-                "nixos.org",
-                "nixpkgs.org",
-                "builtwithnix.org",
-                "mynixos.com",
-                "nix-community.org",
-                "nixos.wiki"
-            ],
-            "domain_suffix": [
-                ".nix.dev",
-                ".nix.store",
-                ".nixcon.org",
-                ".nixcon2017.org",
-                ".nixlang.com",
-                ".nixos.org",
-                ".nixpkgs.org",
-                ".builtwithnix.org",
-                ".mynixos.com",
-                ".nix-community.org",
-                ".nixos.wiki"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain":["nix-community.github.io"],"domain_suffix":["builtwithnix.org","mynixos.com","nix-community.org","nix.dev","nix.store","nixcon.org","nixcon2017.org","nixlang.com","nixos.org","nixos.wiki","nixpkgs.org"]}
+]}

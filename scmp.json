@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "scmp.com",
-                "i-scmp.com"
-            ],
-            "domain_suffix": [
-                ".scmp.com",
-                ".i-scmp.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["i-scmp.com","scmp.com"]}
+]}

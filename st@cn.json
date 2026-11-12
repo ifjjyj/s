@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "stmicroelectronics.com.cn",
-            "domain_suffix": ".stmicroelectronics.com.cn"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["stmicroelectronics.com.cn"]}
+]}

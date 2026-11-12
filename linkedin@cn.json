@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "licdn.cn",
-                "linkedin.cn"
-            ],
-            "domain_suffix": [
-                ".licdn.cn",
-                ".linkedin.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["licdn.cn","linkedin.cn"]}
+]}

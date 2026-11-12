@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "nginx.com",
-                "nginx.org"
-            ],
-            "domain_suffix": [
-                ".nginx.com",
-                ".nginx.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["nginx.com","nginx.org"]}
+]}

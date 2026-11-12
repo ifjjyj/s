@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "log.hunantv.com",
-                "log.v2.hunantv.com"
-            ],
-            "domain_suffix": [
-                ".log.hunantv.com",
-                ".log.v2.hunantv.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["log.hunantv.com","log.v2.hunantv.com"]}
+]}

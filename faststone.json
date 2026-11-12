@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "faststone.org",
-            "domain_suffix": ".faststone.org"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["faststone.org"]}
+]}

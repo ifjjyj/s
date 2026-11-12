@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "livehdcams.com",
-                "redtube.com",
-                "redtubepremium.com",
-                "rdtcdn.com",
-                "redtube.com.br"
-            ],
-            "domain_suffix": [
-                ".livehdcams.com",
-                ".redtube.com",
-                ".redtubepremium.com",
-                ".rdtcdn.com",
-                ".redtube.com.br"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["livehdcams.com","rdtcdn.com","redtube.com","redtube.com.br","redtubepremium.com"]}
+]}

@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "ideco.dev",
-                "ideco.ru",
-                "idecosoftware.ru"
-            ],
-            "domain_suffix": [
-                ".ideco.dev",
-                ".ideco.ru",
-                ".idecosoftware.ru"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["ideco.dev","ideco.ru","idecosoftware.ru"]}
+]}

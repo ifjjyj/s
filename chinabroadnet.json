@@ -1,28 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "cbn.cn",
-                "ahitv.com",
-                "cqccn.com",
-                "sc96655.com",
-                "isxtv.com",
-                "sdgdwljt.com",
-                "10099.com.cn",
-                "gcable.com.cn",
-                "mnc015.mcc460.pub.3gppnetwork.org"
-            ],
-            "domain_suffix": [
-                ".cbn.cn",
-                ".ahitv.com",
-                ".cqccn.com",
-                ".sc96655.com",
-                ".isxtv.com",
-                ".sdgdwljt.com",
-                ".10099.com.cn",
-                ".gcable.com.cn",
-                ".mnc015.mcc460.pub.3gppnetwork.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["10099.com.cn","ahitv.com","cbn.cn","cqccn.com","gcable.com.cn","isxtv.com","mnc015.mcc460.pub.3gppnetwork.org","sc96655.com","sdgdwljt.com"]}
+]}

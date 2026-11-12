@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "localizecdn.com",
-                "localizejs.com",
-                "localizestatus.com"
-            ],
-            "domain_suffix": [
-                ".localizecdn.com",
-                ".localizejs.com",
-                ".localizestatus.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["localizecdn.com","localizejs.com","localizestatus.com"]}
+]}

@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "webex.com.cn",
-            "domain_suffix": ".webex.com.cn"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["webex.com.cn"]}
+]}

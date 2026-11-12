@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "cloudflareinsights.com",
-                "cloudflareinsights-cn.com"
-            ],
-            "domain_suffix": [
-                ".cloudflareinsights.com",
-                ".cloudflareinsights-cn.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["cloudflareinsights-cn.com","cloudflareinsights.com"]}
+]}

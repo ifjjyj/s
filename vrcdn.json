@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "vrcdn.cloud",
-                "vrcdn.live",
-                "vrcdn.video"
-            ],
-            "domain_suffix": [
-                ".vrcdn.cloud",
-                ".vrcdn.live",
-                ".vrcdn.video"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["vrcdn.cloud","vrcdn.live","vrcdn.video"]}
+]}

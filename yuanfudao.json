@@ -1,34 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "banmaaike.com",
-                "xiaoyuankousuan.com",
-                "ybccode.com",
-                "yuanfudao.com",
-                "yuansouti.com",
-                "yuantiku.com",
-                "fbstatic.cn",
-                "fenbi.com",
-                "fenbike.cn",
-                "fenbike.com",
-                "fenbilantian.cn",
-                "fenbilantian.com"
-            ],
-            "domain_suffix": [
-                ".banmaaike.com",
-                ".xiaoyuankousuan.com",
-                ".ybccode.com",
-                ".yuanfudao.com",
-                ".yuansouti.com",
-                ".yuantiku.com",
-                ".fbstatic.cn",
-                ".fenbi.com",
-                ".fenbike.cn",
-                ".fenbike.com",
-                ".fenbilantian.cn",
-                ".fenbilantian.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["banmaaike.com","fbstatic.cn","fenbi.com","fenbike.cn","fenbike.com","fenbilantian.cn","fenbilantian.com","xiaoyuankousuan.com","ybccode.com","yuanfudao.com","yuansouti.com","yuantiku.com"]}
+]}

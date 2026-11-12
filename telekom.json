@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "telekom.com",
-                "telekom.de",
-                "telesec.de"
-            ],
-            "domain_suffix": [
-                ".telekom.com",
-                ".telekom.de",
-                ".telesec.de"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["telekom.com","telekom.de","telesec.de"]}
+]}

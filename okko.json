@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "okkoapi.tv",
-                "playfamily.ru",
-                "okko.sport",
-                "okko.tv"
-            ],
-            "domain_suffix": [
-                ".okkoapi.tv",
-                ".playfamily.ru",
-                ".okko.sport",
-                ".okko.tv"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["okko.sport","okko.tv","okkoapi.tv","playfamily.ru"]}
+]}

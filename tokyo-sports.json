@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "tospo-keiba.jp",
-                "tokyo-sports.co.jp"
-            ],
-            "domain_suffix": [
-                ".tospo-keiba.jp",
-                ".tokyo-sports.co.jp"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["tokyo-sports.co.jp","tospo-keiba.jp"]}
+]}

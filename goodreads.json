@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "goodreads.com",
-                "gr-assets.com"
-            ],
-            "domain_suffix": [
-                ".goodreads.com",
-                ".gr-assets.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["goodreads.com","gr-assets.com"]}
+]}

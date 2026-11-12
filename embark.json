@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "arcraiders.com",
-                "embark-studios.com",
-                "embark.games",
-                "reachthefinals.com"
-            ],
-            "domain_suffix": [
-                ".arcraiders.com",
-                ".embark-studios.com",
-                ".embark.games",
-                ".reachthefinals.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["arcraiders.com","embark-studios.com","embark.games","reachthefinals.com"]}
+]}

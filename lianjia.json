@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "lianjia.com",
-                "ljcdn.com",
-                "beckyroom.com",
-                "bkzhibo.com",
-                "ke.com"
-            ],
-            "domain_suffix": [
-                ".lianjia.com",
-                ".ljcdn.com",
-                ".beckyroom.com",
-                ".bkzhibo.com",
-                ".ke.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["beckyroom.com","bkzhibo.com","ke.com","lianjia.com","ljcdn.com"]}
+]}

@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "dettol.com.cn",
-            "domain_suffix": ".dettol.com.cn"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["dettol.com.cn"]}
+]}

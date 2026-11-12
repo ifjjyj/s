@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "thepoizon.ru",
-            "domain_suffix": ".thepoizon.ru"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["thepoizon.ru"]}
+]}

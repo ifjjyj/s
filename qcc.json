@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "qcc.com",
-                "qichacha.com"
-            ],
-            "domain_suffix": [
-                ".qcc.com",
-                ".qichacha.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["qcc.com","qichacha.com"]}
+]}

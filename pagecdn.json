@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "pagecdn.com",
-                "pagecdn.io"
-            ],
-            "domain_suffix": [
-                ".pagecdn.com",
-                ".pagecdn.io"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["pagecdn.com","pagecdn.io"]}
+]}

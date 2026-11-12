@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "flowwow-images.com",
-                "flowwow.com"
-            ],
-            "domain_suffix": [
-                ".flowwow-images.com",
-                ".flowwow.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["flowwow-images.com","flowwow.com"]}
+]}

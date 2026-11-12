@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "hku.hk",
-                "xn--pssu7cv61af44b.hk",
-                "xn--pssu7cv61af44b.xn--j6w193g",
-                "hku.edu.hk"
-            ],
-            "domain_suffix": [
-                ".hku.hk",
-                ".xn--pssu7cv61af44b.hk",
-                ".xn--pssu7cv61af44b.xn--j6w193g",
-                ".hku.edu.hk"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["hku.edu.hk","hku.hk","xn--pssu7cv61af44b.hk","xn--pssu7cv61af44b.xn--j6w193g"]}
+]}

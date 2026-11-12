@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "sciencedirect.com",
-                "sciencedirectassets.com"
-            ],
-            "domain_suffix": [
-                ".sciencedirect.com",
-                ".sciencedirectassets.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["sciencedirect.com","sciencedirectassets.com"]}
+]}

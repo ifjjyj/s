@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "citizenlab.ca",
-                "citizenlab.org"
-            ],
-            "domain_suffix": [
-                ".citizenlab.ca",
-                ".citizenlab.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["citizenlab.ca","citizenlab.org"]}
+]}

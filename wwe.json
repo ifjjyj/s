@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "wwe.com",
-                "wwe9.com"
-            ],
-            "domain_suffix": [
-                ".wwe.com",
-                ".wwe9.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["wwe.com","wwe9.com"]}
+]}

@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "gepush.com",
-                "getui.cn",
-                "getui.com",
-                "getui.net",
-                "igehuo.com",
-                "igetui.com",
-                "igexin.com"
-            ],
-            "domain_suffix": [
-                ".gepush.com",
-                ".getui.cn",
-                ".getui.com",
-                ".getui.net",
-                ".igehuo.com",
-                ".igetui.com",
-                ".igexin.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["gepush.com","getui.cn","getui.com","getui.net","igehuo.com","igetui.com","igexin.com"]}
+]}

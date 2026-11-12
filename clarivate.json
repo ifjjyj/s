@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "clarivate.com",
-                "webofknowledge.com",
-                "webofscience.com",
-                "newisiknowledge.com",
-                "isiknowledge.com"
-            ],
-            "domain_suffix": [
-                ".clarivate.com",
-                ".webofknowledge.com",
-                ".webofscience.com",
-                ".newisiknowledge.com",
-                ".isiknowledge.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["clarivate.com","isiknowledge.com","newisiknowledge.com","webofknowledge.com","webofscience.com"]}
+]}

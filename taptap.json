@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "tapapks.com",
-                "tapimg.com",
-                "tapimg.net",
-                "taptap.cn",
-                "taptap.com",
-                "taptapdada.com",
-                "taptap.io"
-            ],
-            "domain_suffix": [
-                ".tapapks.com",
-                ".tapimg.com",
-                ".tapimg.net",
-                ".taptap.cn",
-                ".taptap.com",
-                ".taptapdada.com",
-                ".taptap.io"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["tapapks.com","tapimg.com","tapimg.net","taptap.cn","taptap.com","taptap.io","taptapdada.com"]}
+]}

@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "economist.com",
-                "economistgroup.com",
-                "economistgroupcareers.com",
-                "eiu.com"
-            ],
-            "domain_suffix": [
-                ".economist.com",
-                ".economistgroup.com",
-                ".economistgroupcareers.com",
-                ".eiu.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["economist.com","economistgroup.com","economistgroupcareers.com","eiu.com"]}
+]}

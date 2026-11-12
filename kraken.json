@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "kraken.com",
-                "kraken.onl"
-            ],
-            "domain_suffix": [
-                ".kraken.com",
-                ".kraken.onl"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["kraken.com","kraken.onl"]}
+]}

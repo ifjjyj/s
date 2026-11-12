@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "fcbox.com",
-                "fcboxmall.com"
-            ],
-            "domain_suffix": [
-                ".fcbox.com",
-                ".fcboxmall.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["fcbox.com","fcboxmall.com"]}
+]}

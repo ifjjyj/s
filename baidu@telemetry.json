@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "fclog.baidu.com",
-                "pimlog.baidu.com"
-            ],
-            "domain_suffix": [
-                ".fclog.baidu.com",
-                ".pimlog.baidu.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["fclog.baidu.com","pimlog.baidu.com"]}
+]}

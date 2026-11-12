@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "bmw.com.cn",
-                "alphabet.com.cn",
-                "alphabet.net.cn"
-            ],
-            "domain_suffix": [
-                ".bmw.com.cn",
-                ".alphabet.com.cn",
-                ".alphabet.net.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["alphabet.com.cn","alphabet.net.cn","bmw.com.cn"]}
+]}

@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "contentful.com",
-                "ctfassets.net"
-            ],
-            "domain_suffix": [
-                ".contentful.com",
-                ".ctfassets.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["contentful.com","ctfassets.net"]}
+]}

@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "dreamteamfc.com",
-                "page3.com",
-                "talksport.com",
-                "thesun.ie",
-                "sunbingo.co.uk",
-                "thescottishsun.co.uk",
-                "thesun.co.uk"
-            ],
-            "domain_suffix": [
-                ".dreamteamfc.com",
-                ".page3.com",
-                ".talksport.com",
-                ".thesun.ie",
-                ".sunbingo.co.uk",
-                ".thescottishsun.co.uk",
-                ".thesun.co.uk"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["dreamteamfc.com","page3.com","sunbingo.co.uk","talksport.com","thescottishsun.co.uk","thesun.co.uk","thesun.ie"]}
+]}

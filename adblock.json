@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "adblockcdn.com",
-                "getadblock.com"
-            ],
-            "domain_suffix": [
-                ".adblockcdn.com",
-                ".getadblock.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["adblockcdn.com","getadblock.com"]}
+]}

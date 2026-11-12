@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "spaceship.com",
-                "spacemail.com"
-            ],
-            "domain_suffix": [
-                ".spaceship.com",
-                ".spacemail.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["spacemail.com","spaceship.com"]}
+]}

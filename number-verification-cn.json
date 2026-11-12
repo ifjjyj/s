@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "id6.me",
-                "opencloud.wostore.cn",
-                "hs.wosms.cn",
-                "enrichgw.10010.com",
-                "hap.10010.com",
-                "cmpassport.com"
-            ],
-            "domain_suffix": ".cmpassport.com",
-            "domain_regex": "^nis.+\\.10010\\.com$"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain":["enrichgw.10010.com","hap.10010.com","hs.wosms.cn","id6.me","opencloud.wostore.cn"],"domain_suffix":["cmpassport.com"],"domain_regex":["^nis.+\\.10010\\.com$"]}
+]}

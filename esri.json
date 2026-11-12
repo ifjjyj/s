@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "arcgis.com",
-                "arcgisonline.com",
-                "esri.com"
-            ],
-            "domain_suffix": [
-                ".arcgis.com",
-                ".arcgisonline.com",
-                ".esri.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["arcgis.com","arcgisonline.com","esri.com"]}
+]}

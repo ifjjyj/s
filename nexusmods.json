@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "nexus-cdn.com",
-                "nexusmods.com"
-            ],
-            "domain_suffix": [
-                ".nexus-cdn.com",
-                ".nexusmods.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["nexus-cdn.com","nexusmods.com"]}
+]}

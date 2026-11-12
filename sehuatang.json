@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "sehuatang.net",
-                "sehuatang.org"
-            ],
-            "domain_suffix": [
-                ".sehuatang.net",
-                ".sehuatang.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["sehuatang.net","sehuatang.org"]}
+]}

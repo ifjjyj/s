@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "electronjs.org",
-            "domain_suffix": ".electronjs.org"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["electronjs.org"]}
+]}

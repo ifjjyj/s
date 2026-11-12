@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "thetype.cloud",
-            "domain_suffix": ".thetype.cloud"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["thetype.cloud"]}
+]}

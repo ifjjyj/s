@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "lifewire.com",
-            "domain_suffix": ".lifewire.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["lifewire.com"]}
+]}

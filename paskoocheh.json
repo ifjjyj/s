@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "paskoocheh.com",
-            "domain_suffix": ".paskoocheh.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["paskoocheh.com"]}
+]}

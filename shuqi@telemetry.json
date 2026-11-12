@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "shuqistat.com",
-            "domain_suffix": ".shuqistat.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["shuqistat.com"]}
+]}

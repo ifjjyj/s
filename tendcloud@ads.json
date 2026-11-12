@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "tdsdk.cpatrk.net",
-            "domain_suffix": ".tdsdk.cpatrk.net"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["tdsdk.cpatrk.net"]}
+]}

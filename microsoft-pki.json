@@ -1,15 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "crl.microsoft.com",
-                "mscrl.microsoft.com",
-                "ocsp.microsoft.com",
-                "oneocsp.microsoft.com",
-                "www.microsoft.com",
-                "msocsp.com"
-            ],
-            "domain_suffix": ".msocsp.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain":["crl.microsoft.com","mscrl.microsoft.com","ocsp.microsoft.com","oneocsp.microsoft.com","www.microsoft.com"],"domain_suffix":["msocsp.com"]}
+]}

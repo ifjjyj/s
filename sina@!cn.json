@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "hk.weibo.com",
-                "my.weibo.com",
-                "overseas.weibo.com",
-                "sg.weibo.com",
-                "th.weibo.com",
-                "tw.weibo.com",
-                "us.weibo.com"
-            ],
-            "domain_suffix": [
-                ".hk.weibo.com",
-                ".my.weibo.com",
-                ".overseas.weibo.com",
-                ".sg.weibo.com",
-                ".th.weibo.com",
-                ".tw.weibo.com",
-                ".us.weibo.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["hk.weibo.com","my.weibo.com","overseas.weibo.com","sg.weibo.com","th.weibo.com","tw.weibo.com","us.weibo.com"]}
+]}

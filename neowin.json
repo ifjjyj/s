@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "neow.in",
-                "neowin.net"
-            ],
-            "domain_suffix": [
-                ".neow.in",
-                ".neowin.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["neow.in","neowin.net"]}
+]}

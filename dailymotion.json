@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "dailymotion.com",
-                "dm-event.net",
-                "dmcdn.net"
-            ],
-            "domain_suffix": [
-                ".dailymotion.com",
-                ".dm-event.net",
-                ".dmcdn.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["dailymotion.com","dm-event.net","dmcdn.net"]}
+]}

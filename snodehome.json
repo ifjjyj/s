@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "szbdyd.com",
-                "snodehome.com",
-                "snodehome.cn"
-            ],
-            "domain_suffix": [
-                ".szbdyd.com",
-                ".snodehome.com",
-                ".snodehome.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["snodehome.cn","snodehome.com","szbdyd.com"]}
+]}

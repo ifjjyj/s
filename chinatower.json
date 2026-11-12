@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "chinatowercom.cn",
-                "china-tower.com",
-                "tower0788.com",
-                "tower0788.cn",
-                "tower.com.cn"
-            ],
-            "domain_suffix": [
-                ".chinatowercom.cn",
-                ".china-tower.com",
-                ".tower0788.com",
-                ".tower0788.cn",
-                ".tower.com.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["china-tower.com","chinatowercom.cn","tower.com.cn","tower0788.cn","tower0788.com"]}
+]}

@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "wfm.com",
-                "wholecitiesfoundation.org",
-                "wholefoods.com",
-                "wholefoodsmarket.com",
-                "wholekidsfoundation.org",
-                "wholeplanetfoundation.org",
-                "wholefoodsmarket.co.uk"
-            ],
-            "domain_suffix": [
-                ".wfm.com",
-                ".wholecitiesfoundation.org",
-                ".wholefoods.com",
-                ".wholefoodsmarket.com",
-                ".wholekidsfoundation.org",
-                ".wholeplanetfoundation.org",
-                ".wholefoodsmarket.co.uk"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["wfm.com","wholecitiesfoundation.org","wholefoods.com","wholefoodsmarket.co.uk","wholefoodsmarket.com","wholekidsfoundation.org","wholeplanetfoundation.org"]}
+]}

@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "bk6bba-resources.com",
-                "bk6bba-resources.ru",
-                "fon.bet",
-                "fon.promo"
-            ],
-            "domain_suffix": [
-                ".bk6bba-resources.com",
-                ".bk6bba-resources.ru",
-                ".fon.bet",
-                ".fon.promo"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["bk6bba-resources.com","bk6bba-resources.ru","fon.bet","fon.promo"]}
+]}

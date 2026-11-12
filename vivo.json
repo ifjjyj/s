@@ -1,26 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "budingscan.com",
-                "iqoo.com",
-                "vivo.cn",
-                "vivo.com",
-                "vvstc.com",
-                "blueos.com.cn",
-                "vivo.com.cn",
-                "vivoglobal.com"
-            ],
-            "domain_suffix": [
-                ".budingscan.com",
-                ".iqoo.com",
-                ".vivo.cn",
-                ".vivo.com",
-                ".vvstc.com",
-                ".blueos.com.cn",
-                ".vivo.com.cn",
-                ".vivoglobal.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["blueos.com.cn","budingscan.com","iqoo.com","vivo.cn","vivo.com","vivo.com.cn","vivoglobal.com","vvstc.com"]}
+]}

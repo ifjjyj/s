@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "codecademy.com",
-            "domain_suffix": ".codecademy.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["codecademy.com"]}
+]}

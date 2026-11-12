@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "huya.com",
-                "msstatic.com"
-            ],
-            "domain_suffix": [
-                ".huya.com",
-                ".msstatic.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["huya.com","msstatic.com"]}
+]}

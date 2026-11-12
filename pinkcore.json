@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "pinkcore.com",
-                "pinkcore.net"
-            ],
-            "domain_suffix": [
-                ".pinkcore.com",
-                ".pinkcore.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["pinkcore.com","pinkcore.net"]}
+]}

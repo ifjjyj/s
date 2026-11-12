@@ -1,32 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "myanonamouse.net",
-                "nebulance.io",
-                "torrentleech.cc",
-                "torrentleech.org",
-                "skyey2.com",
-                "skyeysnow.com",
-                "m-team.cc",
-                "m-team.io",
-                "mt.cc",
-                "dmhy.best",
-                "dmhy.org"
-            ],
-            "domain_suffix": [
-                ".myanonamouse.net",
-                ".nebulance.io",
-                ".torrentleech.cc",
-                ".torrentleech.org",
-                ".skyey2.com",
-                ".skyeysnow.com",
-                ".m-team.cc",
-                ".m-team.io",
-                ".mt.cc",
-                ".dmhy.best",
-                ".dmhy.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["dmhy.best","dmhy.org","m-team.cc","m-team.io","mt.cc","myanonamouse.net","nebulance.io","skyey2.com","skyeysnow.com","torrentleech.cc","torrentleech.org"]}
+]}

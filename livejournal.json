@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "livejournal.com",
-                "livejournal.net"
-            ],
-            "domain_suffix": [
-                ".livejournal.com",
-                ".livejournal.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["livejournal.com","livejournal.net"]}
+]}

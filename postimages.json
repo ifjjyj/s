@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "postimages.org",
-                "postimg.cc"
-            ],
-            "domain_suffix": [
-                ".postimages.org",
-                ".postimg.cc"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["postimages.org","postimg.cc"]}
+]}

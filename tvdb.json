@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "thetvdb.com",
-            "domain_suffix": ".thetvdb.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["thetvdb.com"]}
+]}

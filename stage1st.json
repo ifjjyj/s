@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "saraba1st.com",
-                "stage1st.com"
-            ],
-            "domain_suffix": [
-                ".saraba1st.com",
-                ".stage1st.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["saraba1st.com","stage1st.com"]}
+]}

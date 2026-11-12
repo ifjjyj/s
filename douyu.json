@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "douyu.com",
-                "douyu.tv",
-                "douyucdn.cn",
-                "douyucdn2.cn",
-                "douyuscdn.com",
-                "douyutv.com",
-                "edgesrv.com"
-            ],
-            "domain_suffix": [
-                ".douyu.com",
-                ".douyu.tv",
-                ".douyucdn.cn",
-                ".douyucdn2.cn",
-                ".douyuscdn.com",
-                ".douyutv.com",
-                ".edgesrv.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["douyu.com","douyu.tv","douyucdn.cn","douyucdn2.cn","douyuscdn.com","douyutv.com","edgesrv.com"]}
+]}

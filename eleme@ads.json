@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "adashx.ut.ele.me",
-                "h-adashx.ut.ele.me",
-                "v6-adashx.ut.ele.me"
-            ],
-            "domain_suffix": [
-                ".adashx.ut.ele.me",
-                ".h-adashx.ut.ele.me",
-                ".v6-adashx.ut.ele.me"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["adashx.ut.ele.me","h-adashx.ut.ele.me","v6-adashx.ut.ele.me"]}
+]}

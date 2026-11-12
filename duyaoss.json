@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "duyaoss.com",
-                "duyaossr.com"
-            ],
-            "domain_suffix": [
-                ".duyaoss.com",
-                ".duyaossr.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["duyaoss.com","duyaossr.com"]}
+]}

@@ -1,22 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "braventures.com",
-                "braveux.com",
-                "compass.is",
-                "fightforux.com",
-                "forthebadge.com",
-                "stockagainstphotography.com"
-            ],
-            "domain_suffix": [
-                ".braventures.com",
-                ".braveux.com",
-                ".compass.is",
-                ".fightforux.com",
-                ".forthebadge.com",
-                ".stockagainstphotography.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["braventures.com","braveux.com","compass.is","fightforux.com","forthebadge.com","stockagainstphotography.com"]}
+]}

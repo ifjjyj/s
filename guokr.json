@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "guokr.com",
-                "guokr.net"
-            ],
-            "domain_suffix": [
-                ".guokr.com",
-                ".guokr.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["guokr.com","guokr.net"]}
+]}

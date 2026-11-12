@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "embl-hamburg.de",
-                "embl.de",
-                "embl.fr",
-                "embl.it",
-                "embl.org",
-                "emblstatic.net",
-                "ebi.ac.uk"
-            ],
-            "domain_suffix": [
-                ".embl-hamburg.de",
-                ".embl.de",
-                ".embl.fr",
-                ".embl.it",
-                ".embl.org",
-                ".emblstatic.net",
-                ".ebi.ac.uk"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["ebi.ac.uk","embl-hamburg.de","embl.de","embl.fr","embl.it","embl.org","emblstatic.net"]}
+]}

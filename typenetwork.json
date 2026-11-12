@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "typenetwork.com",
-            "domain_suffix": ".typenetwork.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["typenetwork.com"]}
+]}

@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "haveibeenpwned.com",
-                "pwnedpasswords.com"
-            ],
-            "domain_suffix": [
-                ".haveibeenpwned.com",
-                ".pwnedpasswords.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["haveibeenpwned.com","pwnedpasswords.com"]}
+]}

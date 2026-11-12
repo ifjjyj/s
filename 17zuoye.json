@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "17zuoye.cn",
-                "17zuoye.com",
-                "17zuoye.net"
-            ],
-            "domain_suffix": [
-                ".17zuoye.cn",
-                ".17zuoye.com",
-                ".17zuoye.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["17zuoye.cn","17zuoye.com","17zuoye.net"]}
+]}

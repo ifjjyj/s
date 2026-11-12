@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "61.com",
-                "taomee.com"
-            ],
-            "domain_suffix": [
-                ".61.com",
-                ".taomee.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["61.com","taomee.com"]}
+]}
