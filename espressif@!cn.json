@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "esp32.com",
-                "esp8266.com",
-                "espressif.com"
-            ],
-            "domain_suffix": [
-                ".esp32.com",
-                ".esp8266.com",
-                ".espressif.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["esp32.com","esp8266.com","espressif.com"]}
+]}

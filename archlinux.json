@@ -1,22 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "archlinux.de",
-                "archlinux.org",
-                "archlinux.page",
-                "archlinuxarm.org",
-                "pkgbuild.com",
-                "archlinuxcn.org"
-            ],
-            "domain_suffix": [
-                ".archlinux.de",
-                ".archlinux.org",
-                ".archlinux.page",
-                ".archlinuxarm.org",
-                ".pkgbuild.com",
-                ".archlinuxcn.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["archlinux.de","archlinux.org","archlinux.page","archlinuxarm.org","archlinuxcn.org","pkgbuild.com"]}
+]}

@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "shireyishunjian.com",
-                "yingpianqu.com"
-            ],
-            "domain_suffix": [
-                ".shireyishunjian.com",
-                ".yingpianqu.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["shireyishunjian.com","yingpianqu.com"]}
+]}

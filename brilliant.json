@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "brilliant.org",
-            "domain_suffix": ".brilliant.org"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["brilliant.org"]}
+]}

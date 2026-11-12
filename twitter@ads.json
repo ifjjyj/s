@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "ads-twitter.com",
-            "domain_suffix": ".ads-twitter.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["ads-twitter.com"]}
+]}

@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "intercom.com",
-                "intercom.io",
-                "intercomassets.com",
-                "intercomcdn.com"
-            ],
-            "domain_suffix": [
-                ".intercom.com",
-                ".intercom.io",
-                ".intercomassets.com",
-                ".intercomcdn.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["intercom.com","intercom.io","intercomassets.com","intercomcdn.com"]}
+]}

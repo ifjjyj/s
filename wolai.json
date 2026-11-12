@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "wolai.com",
-                "wol.tv",
-                "wostatic.cn"
-            ],
-            "domain_suffix": [
-                ".wolai.com",
-                ".wol.tv",
-                ".wostatic.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["wol.tv","wolai.com","wostatic.cn"]}
+]}

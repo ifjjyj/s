@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "grafana.com",
-                "grafana.net"
-            ],
-            "domain_suffix": [
-                ".grafana.com",
-                ".grafana.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["grafana.com","grafana.net"]}
+]}

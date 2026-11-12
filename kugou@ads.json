@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "ads.service.kugou.com",
-                "adserviceretry.kglink.cn",
-                "adserviceretry.kugou.com"
-            ],
-            "domain_suffix": [
-                ".ads.service.kugou.com",
-                ".adserviceretry.kglink.cn",
-                ".adserviceretry.kugou.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["ads.service.kugou.com","adserviceretry.kglink.cn","adserviceretry.kugou.com"]}
+]}

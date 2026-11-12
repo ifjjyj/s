@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "bridgestone.cn",
-                "bridgestone.com.cn",
-                "nokiantyres.cn"
-            ],
-            "domain_suffix": [
-                ".bridgestone.cn",
-                ".bridgestone.com.cn",
-                ".nokiantyres.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["bridgestone.cn","bridgestone.com.cn","nokiantyres.cn"]}
+]}

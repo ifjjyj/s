@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "bigbuckbunny.org",
-                "blender.org",
-                "elephantsdream.org"
-            ],
-            "domain_suffix": [
-                ".bigbuckbunny.org",
-                ".blender.org",
-                ".elephantsdream.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["bigbuckbunny.org","blender.org","elephantsdream.org"]}
+]}

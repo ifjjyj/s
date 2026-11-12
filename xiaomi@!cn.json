@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "c.mi.com",
-                "global.market.xiaomi.com"
-            ],
-            "domain_suffix": [
-                ".c.mi.com",
-                ".global.market.xiaomi.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["c.mi.com","global.market.xiaomi.com"]}
+]}

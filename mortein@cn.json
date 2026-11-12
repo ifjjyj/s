@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "mortein.cn",
-            "domain_suffix": ".mortein.cn"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["mortein.cn"]}
+]}

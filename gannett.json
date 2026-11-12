@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "gannett-cdn.com",
-                "gannett.com",
-                "gannettdigital.com",
-                "usatoday.com",
-                "usatodaynetworkservice.com"
-            ],
-            "domain_suffix": [
-                ".gannett-cdn.com",
-                ".gannett.com",
-                ".gannettdigital.com",
-                ".usatoday.com",
-                ".usatodaynetworkservice.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["gannett-cdn.com","gannett.com","gannettdigital.com","usatoday.com","usatodaynetworkservice.com"]}
+]}

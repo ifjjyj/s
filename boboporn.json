@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "boboporn.com",
-                "boboporn.net",
-                "bobovip.cc",
-                "sesez.com"
-            ],
-            "domain_suffix": [
-                ".boboporn.com",
-                ".boboporn.net",
-                ".bobovip.cc",
-                ".sesez.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["boboporn.com","boboporn.net","bobovip.cc","sesez.com"]}
+]}

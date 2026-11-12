@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "ynoproject.net",
-            "domain_suffix": ".ynoproject.net"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["ynoproject.net"]}
+]}

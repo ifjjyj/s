@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "bit.ly",
-                "bitly.com",
-                "bitly.is",
-                "shorturl.at",
-                "tinyurl.com"
-            ],
-            "domain_suffix": [
-                ".bit.ly",
-                ".bitly.com",
-                ".bitly.is",
-                ".shorturl.at",
-                ".tinyurl.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["bit.ly","bitly.com","bitly.is","shorturl.at","tinyurl.com"]}
+]}

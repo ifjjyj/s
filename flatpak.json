@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "flathub.org",
-                "flatpak.org"
-            ],
-            "domain_suffix": [
-                ".flathub.org",
-                ".flatpak.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["flathub.org","flatpak.org"]}
+]}

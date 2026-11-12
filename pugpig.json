@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "pugpig-dev.com",
-                "pugpig-stage.com",
-                "pugpig.com"
-            ],
-            "domain_suffix": [
-                ".pugpig-dev.com",
-                ".pugpig-stage.com",
-                ".pugpig.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["pugpig-dev.com","pugpig-stage.com","pugpig.com"]}
+]}

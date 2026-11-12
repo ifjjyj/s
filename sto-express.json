@@ -1,22 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "sto-express.cn",
-                "sto-express.com",
-                "sto.cn",
-                "stointl.com",
-                "stosolution.com",
-                "sto-express.com.cn"
-            ],
-            "domain_suffix": [
-                ".sto-express.cn",
-                ".sto-express.com",
-                ".sto.cn",
-                ".stointl.com",
-                ".stosolution.com",
-                ".sto-express.com.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["sto-express.cn","sto-express.com","sto-express.com.cn","sto.cn","stointl.com","stosolution.com"]}
+]}

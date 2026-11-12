@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "jike.city",
-                "jikecdn.com",
-                "okjike.com",
-                "okjk.co",
-                "ruguoapp.com"
-            ],
-            "domain_suffix": [
-                ".jike.city",
-                ".jikecdn.com",
-                ".okjike.com",
-                ".okjk.co",
-                ".ruguoapp.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["jike.city","jikecdn.com","okjike.com","okjk.co","ruguoapp.com"]}
+]}

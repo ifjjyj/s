@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "botstop.com",
-                "hcaptcha.com",
-                "hcaptchastatus.com"
-            ],
-            "domain_suffix": [
-                ".botstop.com",
-                ".hcaptcha.com",
-                ".hcaptchastatus.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["botstop.com","hcaptcha.com","hcaptchastatus.com"]}
+]}

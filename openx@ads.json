@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "openx.net",
-                "openxadexchange.com",
-                "openxcdn.net",
-                "openxenterprise.com",
-                "openxmarket.asia"
-            ],
-            "domain_suffix": [
-                ".openx.net",
-                ".openxadexchange.com",
-                ".openxcdn.net",
-                ".openxenterprise.com",
-                ".openxmarket.asia"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["openx.net","openxadexchange.com","openxcdn.net","openxenterprise.com","openxmarket.asia"]}
+]}

@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "mihuashi.com",
-            "domain_suffix": ".mihuashi.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["mihuashi.com"]}
+]}

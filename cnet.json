@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "cnet.com",
-                "cnet.de",
-                "cnetfrance.fr",
-                "download.com",
-                "cnet.co.kr"
-            ],
-            "domain_suffix": [
-                ".cnet.com",
-                ".cnet.de",
-                ".cnetfrance.fr",
-                ".download.com",
-                ".cnet.co.kr"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["cnet.co.kr","cnet.com","cnet.de","cnetfrance.fr","download.com"]}
+]}

@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "localbitcoins.com",
-                "localbitcoinschain.com"
-            ],
-            "domain_suffix": [
-                ".localbitcoins.com",
-                ".localbitcoinschain.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["localbitcoins.com","localbitcoinschain.com"]}
+]}

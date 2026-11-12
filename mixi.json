@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "mixi.jp",
-                "mixi.net",
-                "mixi.co.jp"
-            ],
-            "domain_suffix": [
-                ".mixi.jp",
-                ".mixi.net",
-                ".mixi.co.jp"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["mixi.co.jp","mixi.jp","mixi.net"]}
+]}

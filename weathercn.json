@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "hf-aw.cn",
-                "hf-aw.com",
-                "huafeng-accuweather.cn",
-                "huafengaw.com",
-                "weathercn.com"
-            ],
-            "domain_suffix": [
-                ".hf-aw.cn",
-                ".hf-aw.com",
-                ".huafeng-accuweather.cn",
-                ".huafengaw.com",
-                ".weathercn.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["hf-aw.cn","hf-aw.com","huafeng-accuweather.cn","huafengaw.com","weathercn.com"]}
+]}

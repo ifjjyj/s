@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "surflite.co",
-                "surflite.net"
-            ],
-            "domain_suffix": [
-                ".surflite.co",
-                ".surflite.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["surflite.co","surflite.net"]}
+]}

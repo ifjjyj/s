@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "easy-jtag.com",
-                "z3x-team.com"
-            ],
-            "domain_suffix": [
-                ".easy-jtag.com",
-                ".z3x-team.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["easy-jtag.com","z3x-team.com"]}
+]}

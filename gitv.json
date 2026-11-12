@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "gitv.cn",
-                "gitv.tv"
-            ],
-            "domain_suffix": [
-                ".gitv.cn",
-                ".gitv.tv"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["gitv.cn","gitv.tv"]}
+]}

@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "chatwhores.com",
-                "chatwhores.net",
-                "chatwhores.org",
-                "chatwhores.sex",
-                "chatwhores.tv"
-            ],
-            "domain_suffix": [
-                ".chatwhores.com",
-                ".chatwhores.net",
-                ".chatwhores.org",
-                ".chatwhores.sex",
-                ".chatwhores.tv"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["chatwhores.com","chatwhores.net","chatwhores.org","chatwhores.sex","chatwhores.tv"]}
+]}

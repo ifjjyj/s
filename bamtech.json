@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "bamgrid.com",
-                "bamtech.net",
-                "dmed.technology"
-            ],
-            "domain_suffix": [
-                ".bamgrid.com",
-                ".bamtech.net",
-                ".dmed.technology"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["bamgrid.com","bamtech.net","dmed.technology"]}
+]}

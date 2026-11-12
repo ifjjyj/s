@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "rb.gy",
-                "rebrandly.com"
-            ],
-            "domain_suffix": [
-                ".rb.gy",
-                ".rebrandly.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["rb.gy","rebrandly.com"]}
+]}

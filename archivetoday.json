@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "archive.today",
-                "archive.fo",
-                "archive.is",
-                "archive.li",
-                "archive.md",
-                "archive.ph",
-                "archive.vn"
-            ],
-            "domain_suffix": [
-                ".archive.today",
-                ".archive.fo",
-                ".archive.is",
-                ".archive.li",
-                ".archive.md",
-                ".archive.ph",
-                ".archive.vn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["archive.fo","archive.is","archive.li","archive.md","archive.ph","archive.today","archive.vn"]}
+]}

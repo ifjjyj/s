@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "vgtime.com",
-            "domain_suffix": ".vgtime.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["vgtime.com"]}
+]}

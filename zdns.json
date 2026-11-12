@@ -1,34 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "zdns.cn",
-                "zdnscloud.biz",
-                "zdnscloud.cn",
-                "zdnscloud.com",
-                "zdnscloud.info",
-                "zdnscloud.net",
-                "zcmbc.com.cn",
-                "zdns.net.cn",
-                "zdns.org.cn",
-                "zdnscloud.com.cn",
-                "zdnscloud.net.cn",
-                "zdnscloud.org.cn"
-            ],
-            "domain_suffix": [
-                ".zdns.cn",
-                ".zdnscloud.biz",
-                ".zdnscloud.cn",
-                ".zdnscloud.com",
-                ".zdnscloud.info",
-                ".zdnscloud.net",
-                ".zcmbc.com.cn",
-                ".zdns.net.cn",
-                ".zdns.org.cn",
-                ".zdnscloud.com.cn",
-                ".zdnscloud.net.cn",
-                ".zdnscloud.org.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["zcmbc.com.cn","zdns.cn","zdns.net.cn","zdns.org.cn","zdnscloud.biz","zdnscloud.cn","zdnscloud.com","zdnscloud.com.cn","zdnscloud.info","zdnscloud.net","zdnscloud.net.cn","zdnscloud.org.cn"]}
+]}

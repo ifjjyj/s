@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "fibank.bg",
-                "meawallet.app",
-                "myfin.bg"
-            ],
-            "domain_suffix": [
-                ".fibank.bg",
-                ".meawallet.app",
-                ".myfin.bg"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["fibank.bg","meawallet.app","myfin.bg"]}
+]}

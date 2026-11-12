@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "coomer.party",
-                "coomer.st",
-                "coomer.su"
-            ],
-            "domain_suffix": [
-                ".coomer.party",
-                ".coomer.st",
-                ".coomer.su"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["coomer.party","coomer.st","coomer.su"]}
+]}

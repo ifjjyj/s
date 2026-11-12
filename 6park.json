@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "6park.com",
-                "6parkbbs.com",
-                "6parknews.com",
-                "cool18.com",
-                "popo8.com",
-                "parkvv.com",
-                "xwbo.com"
-            ],
-            "domain_suffix": [
-                ".6park.com",
-                ".6parkbbs.com",
-                ".6parknews.com",
-                ".cool18.com",
-                ".popo8.com",
-                ".parkvv.com",
-                ".xwbo.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["6park.com","6parkbbs.com","6parknews.com","cool18.com","parkvv.com","popo8.com","xwbo.com"]}
+]}

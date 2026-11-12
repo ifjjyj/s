@@ -1,22 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "frontwize.com",
-                "qingcache.com",
-                "qingcloud.com",
-                "qingstor.com",
-                "routewize.com",
-                "yunify.com"
-            ],
-            "domain_suffix": [
-                ".frontwize.com",
-                ".qingcache.com",
-                ".qingcloud.com",
-                ".qingstor.com",
-                ".routewize.com",
-                ".yunify.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["frontwize.com","qingcache.com","qingcloud.com","qingstor.com","routewize.com","yunify.com"]}
+]}

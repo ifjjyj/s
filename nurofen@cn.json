@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "nurofen.cn",
-                "nurofen.com.cn"
-            ],
-            "domain_suffix": [
-                ".nurofen.cn",
-                ".nurofen.com.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["nurofen.cn","nurofen.com.cn"]}
+]}

@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "xboxlive.cn",
-            "domain_suffix": ".xboxlive.cn"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["xboxlive.cn"]}
+]}

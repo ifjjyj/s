@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "catchplay.com",
-                "tra-ww000-cp.akamaized.net"
-            ],
-            "domain_suffix": [
-                ".catchplay.com",
-                ".tra-ww000-cp.akamaized.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["catchplay.com","tra-ww000-cp.akamaized.net"]}
+]}

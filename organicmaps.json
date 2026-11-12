@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "omaps.app",
-                "organicmaps.app"
-            ],
-            "domain_suffix": [
-                ".omaps.app",
-                ".organicmaps.app"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["omaps.app","organicmaps.app"]}
+]}

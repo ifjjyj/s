@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "medium.com",
-                "medium.systems"
-            ],
-            "domain_suffix": [
-                ".medium.com",
-                ".medium.systems"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["medium.com","medium.systems"]}
+]}

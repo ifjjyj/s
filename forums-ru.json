@@ -1,32 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "dtf.ru",
-                "joyreactor.cc",
-                "opennet.dev",
-                "opennet.ru",
-                "pikabu.ru",
-                "prodota.ru",
-                "tischenko.su",
-                "vc.ru",
-                "yap.ru",
-                "yapfiles.ru",
-                "yaplakal.com"
-            ],
-            "domain_suffix": [
-                ".dtf.ru",
-                ".joyreactor.cc",
-                ".opennet.dev",
-                ".opennet.ru",
-                ".pikabu.ru",
-                ".prodota.ru",
-                ".tischenko.su",
-                ".vc.ru",
-                ".yap.ru",
-                ".yapfiles.ru",
-                ".yaplakal.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["dtf.ru","joyreactor.cc","opennet.dev","opennet.ru","pikabu.ru","prodota.ru","tischenko.su","vc.ru","yap.ru","yapfiles.ru","yaplakal.com"]}
+]}

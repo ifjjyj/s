@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "ao3.org",
-                "archiveofourown.org",
-                "archiveofourown.com",
-                "archiveofourown.net"
-            ],
-            "domain_suffix": [
-                ".ao3.org",
-                ".archiveofourown.org",
-                ".archiveofourown.com",
-                ".archiveofourown.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["ao3.org","archiveofourown.com","archiveofourown.net","archiveofourown.org"]}
+]}

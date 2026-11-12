@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "udacity.com",
-            "domain_suffix": ".udacity.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["udacity.com"]}
+]}

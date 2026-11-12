@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "nordstrom.com",
-                "nordstrommedia.com"
-            ],
-            "domain_suffix": [
-                ".nordstrom.com",
-                ".nordstrommedia.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["nordstrom.com","nordstrommedia.com"]}
+]}

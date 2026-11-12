@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "kfs.io",
-                "kk.stream",
-                "kkbox.com",
-                "kktix.com",
-                "kkbox.com.tw"
-            ],
-            "domain_suffix": [
-                ".kfs.io",
-                ".kk.stream",
-                ".kkbox.com",
-                ".kktix.com",
-                ".kkbox.com.tw"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["kfs.io","kk.stream","kkbox.com","kkbox.com.tw","kktix.com"]}
+]}

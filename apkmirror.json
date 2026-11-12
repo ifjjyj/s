@@ -1,11 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "apkmirror.disqus.com",
-                "apkmirror.com"
-            ],
-            "domain_suffix": ".apkmirror.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain":["apkmirror.disqus.com"],"domain_suffix":["apkmirror.com"]}
+]}

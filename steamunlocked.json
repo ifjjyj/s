@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "steamunlocked.net",
-            "domain_suffix": ".steamunlocked.net"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["steamunlocked.net"]}
+]}

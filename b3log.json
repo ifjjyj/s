@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "b3log.org",
-                "b3logfile.com",
-                "hacpai.com",
-                "ld246.com"
-            ],
-            "domain_suffix": [
-                ".b3log.org",
-                ".b3logfile.com",
-                ".hacpai.com",
-                ".ld246.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["b3log.org","b3logfile.com","hacpai.com","ld246.com"]}
+]}

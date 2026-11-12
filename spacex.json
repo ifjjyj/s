@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "spacex.com",
-                "starlink.com"
-            ],
-            "domain_suffix": [
-                ".spacex.com",
-                ".starlink.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["spacex.com","starlink.com"]}
+]}

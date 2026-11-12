@@ -1,9 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "okaapps.com",
-            "domain_suffix": ".okaapps.com",
-            "domain_regex": "^(.+\\.)*zh\\.okaapps\\.com$"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["okaapps.com"],"domain_regex":["^(.+\\.)*zh\\.okaapps\\.com$"]}
+]}

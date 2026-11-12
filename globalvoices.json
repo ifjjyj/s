@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "globalvoices.org",
-                "globalvoicesonline.org"
-            ],
-            "domain_suffix": [
-                ".globalvoices.org",
-                ".globalvoicesonline.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["globalvoices.org","globalvoicesonline.org"]}
+]}

@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "spiceworks.com",
-                "spiceworksstatic.com"
-            ],
-            "domain_suffix": [
-                ".spiceworks.com",
-                ".spiceworksstatic.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["spiceworks.com","spiceworksstatic.com"]}
+]}

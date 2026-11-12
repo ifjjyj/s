@@ -1,33 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "ecapi-pchome.cdn.hinet.net",
-                "pchomeonline.com.tw",
-                "ecimg.tw",
-                "pchomeec.tw",
-                "pcloud.tw",
-                "pchome.com.tw",
-                "pchomepay.com.tw",
-                "pcstore.com.tw",
-                "piapp.com.tw",
-                "rakuya.com.tw",
-                "tagapie.com.tw",
-                "toget.com.tw"
-            ],
-            "domain_suffix": [
-                ".ecimg.tw",
-                ".pchomeec.tw",
-                ".pcloud.tw",
-                ".pchome.com.tw",
-                ".pchomeonline.com.tw",
-                ".pchomepay.com.tw",
-                ".pcstore.com.tw",
-                ".piapp.com.tw",
-                ".rakuya.com.tw",
-                ".tagapie.com.tw",
-                ".toget.com.tw"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain":["ecapi-pchome.cdn.hinet.net"],"domain_suffix":["ecimg.tw","pchome.com.tw","pchomeec.tw","pchomeonline.com.tw","pchomepay.com.tw","pcloud.tw","pcstore.com.tw","piapp.com.tw","rakuya.com.tw","tagapie.com.tw","toget.com.tw"]}
+]}

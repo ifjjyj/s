@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "pluto.tv",
-                "plutotv.net"
-            ],
-            "domain_suffix": [
-                ".pluto.tv",
-                ".plutotv.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["pluto.tv","plutotv.net"]}
+]}

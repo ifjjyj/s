@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "famima.vn",
-                "famifun.com.tw",
-                "family.co.jp",
-                "family.com.tw",
-                "familymart.com.my",
-                "familymart.com.ph",
-                "familymart.com.cn"
-            ],
-            "domain_suffix": [
-                ".famima.vn",
-                ".famifun.com.tw",
-                ".family.co.jp",
-                ".family.com.tw",
-                ".familymart.com.my",
-                ".familymart.com.ph",
-                ".familymart.com.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["famifun.com.tw","family.co.jp","family.com.tw","familymart.com.cn","familymart.com.my","familymart.com.ph","famima.vn"]}
+]}

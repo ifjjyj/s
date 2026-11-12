@@ -1,15 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "cavporn.com",
-                "cavporn.github.io"
-            ],
-            "domain_suffix": [
-                ".cavporn.com",
-                ".cavporn.github.io"
-            ],
-            "domain_regex": "(^|\\.)cav1(0[2-9]|1[0-9])\\.com$"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["cavporn.com","cavporn.github.io"],"domain_regex":["(^|\\.)cav1(0[2-9]|1[0-9])\\.com$"]}
+]}

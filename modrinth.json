@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "modrinth.com",
-            "domain_suffix": ".modrinth.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["modrinth.com"]}
+]}

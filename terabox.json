@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "1024terabox.com",
-                "bestclouddrive.com",
-                "freeterabox.com",
-                "nephobox.com",
-                "terabox.com",
-                "terabox1024.com",
-                "teraboxcdn.com"
-            ],
-            "domain_suffix": [
-                ".1024terabox.com",
-                ".bestclouddrive.com",
-                ".freeterabox.com",
-                ".nephobox.com",
-                ".terabox.com",
-                ".terabox1024.com",
-                ".teraboxcdn.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["1024terabox.com","bestclouddrive.com","freeterabox.com","nephobox.com","terabox.com","terabox1024.com","teraboxcdn.com"]}
+]}

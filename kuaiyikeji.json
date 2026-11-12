@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "dengguobi.com",
-                "houyicaiji.com",
-                "jinglingbiaozhu.com"
-            ],
-            "domain_suffix": [
-                ".dengguobi.com",
-                ".houyicaiji.com",
-                ".jinglingbiaozhu.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["dengguobi.com","houyicaiji.com","jinglingbiaozhu.com"]}
+]}

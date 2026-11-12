@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "daogou.ai",
-                "koudaitong.com",
-                "quntuantuan.cn",
-                "xinlingshou.com",
-                "youzan.com",
-                "youzanyun.com",
-                "yzcdn.cn"
-            ],
-            "domain_suffix": [
-                ".daogou.ai",
-                ".koudaitong.com",
-                ".quntuantuan.cn",
-                ".xinlingshou.com",
-                ".youzan.com",
-                ".youzanyun.com",
-                ".yzcdn.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["daogou.ai","koudaitong.com","quntuantuan.cn","xinlingshou.com","youzan.com","youzanyun.com","yzcdn.cn"]}
+]}

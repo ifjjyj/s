@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "coinonecore.com",
-                "coinonecorp.com",
-                "coinone.co.kr"
-            ],
-            "domain_suffix": [
-                ".coinonecore.com",
-                ".coinonecorp.com",
-                ".coinone.co.kr"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["coinone.co.kr","coinonecore.com","coinonecorp.com"]}
+]}

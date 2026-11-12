@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "artstation.com",
-                "artstationmedia.com"
-            ],
-            "domain_suffix": [
-                ".artstation.com",
-                ".artstationmedia.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["artstation.com","artstationmedia.com"]}
+]}

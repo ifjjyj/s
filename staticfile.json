@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "staticfile.net",
-                "staticfile.org"
-            ],
-            "domain_suffix": [
-                ".staticfile.net",
-                ".staticfile.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["staticfile.net","staticfile.org"]}
+]}

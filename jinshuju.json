@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "jinshuju.net",
-                "jinshujucdn.com",
-                "jsj.top"
-            ],
-            "domain_suffix": [
-                ".jinshuju.net",
-                ".jinshujucdn.com",
-                ".jsj.top"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["jinshuju.net","jinshujucdn.com","jsj.top"]}
+]}

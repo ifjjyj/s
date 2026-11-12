@@ -1,22 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "jwpcdn.com",
-                "jwplatform.com",
-                "jwplayer.com",
-                "jwpltx.com",
-                "jwpsrv.com",
-                "longtailvideo.com"
-            ],
-            "domain_suffix": [
-                ".jwpcdn.com",
-                ".jwplatform.com",
-                ".jwplayer.com",
-                ".jwpltx.com",
-                ".jwpsrv.com",
-                ".longtailvideo.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["jwpcdn.com","jwplatform.com","jwplayer.com","jwpltx.com","jwpsrv.com","longtailvideo.com"]}
+]}

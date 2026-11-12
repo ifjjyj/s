@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "trustwallet.com",
-            "domain_suffix": ".trustwallet.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["trustwallet.com"]}
+]}

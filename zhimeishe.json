@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "168sex.top",
-                "a7sex.com",
-                "ctotires.com",
-                "ferryclean.com",
-                "zhimeishe888.com"
-            ],
-            "domain_suffix": [
-                ".168sex.top",
-                ".a7sex.com",
-                ".ctotires.com",
-                ".ferryclean.com",
-                ".zhimeishe888.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["168sex.top","a7sex.com","ctotires.com","ferryclean.com","zhimeishe888.com"]}
+]}

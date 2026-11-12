@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "coolapk.com",
-                "coolapkmarket.com",
-                "coolapkmarket.net"
-            ],
-            "domain_suffix": [
-                ".coolapk.com",
-                ".coolapkmarket.com",
-                ".coolapkmarket.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["coolapk.com","coolapkmarket.com","coolapkmarket.net"]}
+]}

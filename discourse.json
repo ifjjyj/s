@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "discourse-cdn.com",
-                "discourse.group",
-                "discourse.org"
-            ],
-            "domain_suffix": [
-                ".discourse-cdn.com",
-                ".discourse.group",
-                ".discourse.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["discourse-cdn.com","discourse.group","discourse.org"]}
+]}

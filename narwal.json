@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "narwal.com",
-                "narwaltech.com"
-            ],
-            "domain_suffix": [
-                ".narwal.com",
-                ".narwaltech.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["narwal.com","narwaltech.com"]}
+]}

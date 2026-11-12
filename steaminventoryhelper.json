@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "sih-db.com",
-                "sih.app",
-                "steaminventoryhelper.com"
-            ],
-            "domain_suffix": [
-                ".sih-db.com",
-                ".sih.app",
-                ".steaminventoryhelper.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["sih-db.com","sih.app","steaminventoryhelper.com"]}
+]}

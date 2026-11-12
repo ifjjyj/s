@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "vultr.com",
-            "domain_suffix": ".vultr.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["vultr.com"]}
+]}

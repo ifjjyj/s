@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "monitor.music.qq.com",
-                "report.tencentmusic.com",
-                "stat.y.qq.com"
-            ],
-            "domain_suffix": [
-                ".monitor.music.qq.com",
-                ".report.tencentmusic.com",
-                ".stat.y.qq.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["monitor.music.qq.com","report.tencentmusic.com","stat.y.qq.com"]}
+]}

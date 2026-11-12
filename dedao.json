@@ -1,30 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "biji.com",
-                "ddmogo.com",
-                "dedao.cn",
-                "igetget.cn",
-                "igetget.com",
-                "luojilab.com",
-                "mogoo.com",
-                "sao.cn",
-                "saolife.com",
-                "umiwi.com"
-            ],
-            "domain_suffix": [
-                ".biji.com",
-                ".ddmogo.com",
-                ".dedao.cn",
-                ".igetget.cn",
-                ".igetget.com",
-                ".luojilab.com",
-                ".mogoo.com",
-                ".sao.cn",
-                ".saolife.com",
-                ".umiwi.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["biji.com","ddmogo.com","dedao.cn","igetget.cn","igetget.com","luojilab.com","mogoo.com","sao.cn","saolife.com","umiwi.com"]}
+]}

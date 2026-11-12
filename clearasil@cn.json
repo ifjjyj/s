@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "clearasil.cn",
-                "clearasil.com.cn"
-            ],
-            "domain_suffix": [
-                ".clearasil.cn",
-                ".clearasil.com.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["clearasil.cn","clearasil.com.cn"]}
+]}

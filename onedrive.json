@@ -1,32 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "1drv.com",
-                "1drv.ms",
-                "livefilestore.com",
-                "onedrive.co",
-                "onedrive.com",
-                "onedrive.eu",
-                "onedrive.net",
-                "onedrive.org",
-                "onedrive.co.uk",
-                "onedrive.live.com",
-                "storage.live.com"
-            ],
-            "domain_suffix": [
-                ".1drv.com",
-                ".1drv.ms",
-                ".livefilestore.com",
-                ".onedrive.co",
-                ".onedrive.com",
-                ".onedrive.eu",
-                ".onedrive.net",
-                ".onedrive.org",
-                ".onedrive.co.uk",
-                ".onedrive.live.com",
-                ".storage.live.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["1drv.com","1drv.ms","livefilestore.com","onedrive.co","onedrive.co.uk","onedrive.com","onedrive.eu","onedrive.live.com","onedrive.net","onedrive.org","storage.live.com"]}
+]}

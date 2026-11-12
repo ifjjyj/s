@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "playcover.io",
-                "playcover.workers.dev"
-            ],
-            "domain_suffix": [
-                ".playcover.io",
-                ".playcover.workers.dev"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["playcover.io","playcover.workers.dev"]}
+]}

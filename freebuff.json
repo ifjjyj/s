@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "codebuff.com",
-                "freebuff.com"
-            ],
-            "domain_suffix": [
-                ".codebuff.com",
-                ".freebuff.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["codebuff.com","freebuff.com"]}
+]}

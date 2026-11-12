@@ -1,31 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "apkmirror.disqus.com",
-                "uptodown.com",
-                "utdstc.com",
-                "apkcombo.com",
-                "apkmirror.com",
-                "apkpure.com",
-                "apkpure.net",
-                "apkpures.xyz",
-                "cdnpure.com",
-                "pureapk.com",
-                "winudf.com"
-            ],
-            "domain_suffix": [
-                ".uptodown.com",
-                ".utdstc.com",
-                ".apkcombo.com",
-                ".apkmirror.com",
-                ".apkpure.com",
-                ".apkpure.net",
-                ".apkpures.xyz",
-                ".cdnpure.com",
-                ".pureapk.com",
-                ".winudf.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain":["apkmirror.disqus.com"],"domain_suffix":["apkcombo.com","apkmirror.com","apkpure.com","apkpure.net","apkpures.xyz","cdnpure.com","pureapk.com","uptodown.com","utdstc.com","winudf.com"]}
+]}

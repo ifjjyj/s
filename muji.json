@@ -1,26 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "muji.com",
-                "muji.eu",
-                "muji.net",
-                "muji.tw",
-                "muji.us",
-                "mujikorea.net",
-                "muji.com.hk",
-                "muji.com.cn"
-            ],
-            "domain_suffix": [
-                ".muji.com",
-                ".muji.eu",
-                ".muji.net",
-                ".muji.tw",
-                ".muji.us",
-                ".mujikorea.net",
-                ".muji.com.hk",
-                ".muji.com.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["muji.com","muji.com.cn","muji.com.hk","muji.eu","muji.net","muji.tw","muji.us","mujikorea.net"]}
+]}

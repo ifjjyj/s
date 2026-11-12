@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "youku.tv",
-                "youkuplay.com"
-            ],
-            "domain_suffix": [
-                ".youku.tv",
-                ".youkuplay.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["youku.tv","youkuplay.com"]}
+]}

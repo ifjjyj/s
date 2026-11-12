@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "deepin.io",
-                "deepin.org"
-            ],
-            "domain_suffix": [
-                ".deepin.io",
-                ".deepin.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["deepin.io","deepin.org"]}
+]}

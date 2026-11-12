@@ -1,22 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "fanfictionero.com",
-                "fic.fan",
-                "ficador.com",
-                "ficbook.net",
-                "ficmania.com",
-                "teinon.net"
-            ],
-            "domain_suffix": [
-                ".fanfictionero.com",
-                ".fic.fan",
-                ".ficador.com",
-                ".ficbook.net",
-                ".ficmania.com",
-                ".teinon.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["fanfictionero.com","fic.fan","ficador.com","ficbook.net","ficmania.com","teinon.net"]}
+]}

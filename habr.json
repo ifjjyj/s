@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "habr.com",
-                "habrastorage.org"
-            ],
-            "domain_suffix": [
-                ".habr.com",
-                ".habrastorage.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["habr.com","habrastorage.org"]}
+]}

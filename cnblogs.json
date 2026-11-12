@@ -1,26 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "blogjava.net",
-                "cnblogs.com",
-                "cnblogs.vip",
-                "cnitblog.com",
-                "cnweblog.com",
-                "cppblog.com",
-                "phpweblog.net",
-                "teachblog.net"
-            ],
-            "domain_suffix": [
-                ".blogjava.net",
-                ".cnblogs.com",
-                ".cnblogs.vip",
-                ".cnitblog.com",
-                ".cnweblog.com",
-                ".cppblog.com",
-                ".phpweblog.net",
-                ".teachblog.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["blogjava.net","cnblogs.com","cnblogs.vip","cnitblog.com","cnweblog.com","cppblog.com","phpweblog.net","teachblog.net"]}
+]}

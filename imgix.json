@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "imgix.com",
-                "imgix.net"
-            ],
-            "domain_suffix": [
-                ".imgix.com",
-                ".imgix.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["imgix.com","imgix.net"]}
+]}

@@ -1,28 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "agkn.com",
-                "cohere.com",
-                "inmobi.com",
-                "ip-api.com",
-                "kochava.com",
-                "mobilefuse.com",
-                "talkatone.com",
-                "tktn.at",
-                "tktn.be"
-            ],
-            "domain_suffix": [
-                ".agkn.com",
-                ".cohere.com",
-                ".inmobi.com",
-                ".ip-api.com",
-                ".kochava.com",
-                ".mobilefuse.com",
-                ".talkatone.com",
-                ".tktn.at",
-                ".tktn.be"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["agkn.com","cohere.com","inmobi.com","ip-api.com","kochava.com","mobilefuse.com","talkatone.com","tktn.at","tktn.be"]}
+]}

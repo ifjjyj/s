@@ -1,26 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "beisen.com",
-                "beisen.cn",
-                "beisenapp.com",
-                "beisencloud.com",
-                "beisenpaas.com",
-                "bsurl.cc",
-                "bsurl.cn",
-                "zhiye.com"
-            ],
-            "domain_suffix": [
-                ".beisen.com",
-                ".beisen.cn",
-                ".beisenapp.com",
-                ".beisencloud.com",
-                ".beisenpaas.com",
-                ".bsurl.cc",
-                ".bsurl.cn",
-                ".zhiye.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["beisen.cn","beisen.com","beisenapp.com","beisencloud.com","beisenpaas.com","bsurl.cc","bsurl.cn","zhiye.com"]}
+]}

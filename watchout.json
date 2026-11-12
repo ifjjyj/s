@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "watchout.tw",
-                "waa.tw"
-            ],
-            "domain_suffix": [
-                ".watchout.tw",
-                ".waa.tw"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["waa.tw","watchout.tw"]}
+]}

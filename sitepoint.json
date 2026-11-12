@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "sitepoint.com",
-            "domain_suffix": ".sitepoint.com"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["sitepoint.com"]}
+]}

@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "adbehavior.ximalaya.com",
-                "adse.wsa.ximalaya.com",
-                "adse.ximalaya.com"
-            ],
-            "domain_suffix": [
-                ".adbehavior.ximalaya.com",
-                ".adse.wsa.ximalaya.com",
-                ".adse.ximalaya.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["adbehavior.ximalaya.com","adse.wsa.ximalaya.com","adse.ximalaya.com"]}
+]}

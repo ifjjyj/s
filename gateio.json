@@ -1,26 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "gate.com",
-                "gate.io",
-                "gate.tv",
-                "gateapi.io",
-                "gatedata.org",
-                "gateimg.com",
-                "gateio.live",
-                "gateio.services"
-            ],
-            "domain_suffix": [
-                ".gate.com",
-                ".gate.io",
-                ".gate.tv",
-                ".gateapi.io",
-                ".gatedata.org",
-                ".gateimg.com",
-                ".gateio.live",
-                ".gateio.services"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["gate.com","gate.io","gate.tv","gateapi.io","gatedata.org","gateimg.com","gateio.live","gateio.services"]}
+]}

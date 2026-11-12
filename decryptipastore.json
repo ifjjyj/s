@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "decrypt.day",
-            "domain_suffix": ".decrypt.day"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["decrypt.day"]}
+]}

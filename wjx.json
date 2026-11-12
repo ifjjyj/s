@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "sojump.com",
-                "wjx.cn",
-                "wjx.com",
-                "wjx.top"
-            ],
-            "domain_suffix": [
-                ".sojump.com",
-                ".wjx.cn",
-                ".wjx.com",
-                ".wjx.top"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["sojump.com","wjx.cn","wjx.com","wjx.top"]}
+]}

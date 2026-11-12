@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "2ch.net",
-                "5ch.io",
-                "5ch.net"
-            ],
-            "domain_suffix": [
-                ".2ch.net",
-                ".5ch.io",
-                ".5ch.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["2ch.net","5ch.io","5ch.net"]}
+]}

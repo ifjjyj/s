@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "tmdb-image-prod.b-cdn.net",
-                "tmdb-web-image-prod.b-cdn.net",
-                "themoviedb.org",
-                "tmdb.org"
-            ],
-            "domain_suffix": [
-                ".themoviedb.org",
-                ".tmdb.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain":["tmdb-image-prod.b-cdn.net","tmdb-web-image-prod.b-cdn.net"],"domain_suffix":["themoviedb.org","tmdb.org"]}
+]}

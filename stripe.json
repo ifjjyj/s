@@ -1,26 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "link.com",
-                "stripe-terminal-local-reader.net",
-                "stripe.com",
-                "stripe.dev",
-                "stripe.events",
-                "stripe.global",
-                "stripe.network",
-                "stripecdn.com"
-            ],
-            "domain_suffix": [
-                ".link.com",
-                ".stripe-terminal-local-reader.net",
-                ".stripe.com",
-                ".stripe.dev",
-                ".stripe.events",
-                ".stripe.global",
-                ".stripe.network",
-                ".stripecdn.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["link.com","stripe-terminal-local-reader.net","stripe.com","stripe.dev","stripe.events","stripe.global","stripe.network","stripecdn.com"]}
+]}

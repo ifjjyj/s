@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "heydoga.com",
-                "heyzo.com"
-            ],
-            "domain_suffix": [
-                ".heydoga.com",
-                ".heyzo.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["heydoga.com","heyzo.com"]}
+]}

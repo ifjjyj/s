@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "adsgram.ai",
-            "domain_suffix": ".adsgram.ai"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["adsgram.ai"]}
+]}

@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "javcc.cc",
-                "javcc.com"
-            ],
-            "domain_suffix": [
-                ".javcc.cc",
-                ".javcc.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["javcc.cc","javcc.com"]}
+]}

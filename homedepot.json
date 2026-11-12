@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "homedepot-static.com",
-                "homedepot.com"
-            ],
-            "domain_suffix": [
-                ".homedepot-static.com",
-                ".homedepot.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["homedepot-static.com","homedepot.com"]}
+]}

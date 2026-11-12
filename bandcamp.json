@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "bandcamp.com",
-                "bcbits.com"
-            ],
-            "domain_suffix": [
-                ".bandcamp.com",
-                ".bcbits.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["bandcamp.com","bcbits.com"]}
+]}

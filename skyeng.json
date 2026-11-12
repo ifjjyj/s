@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "sky.pro",
-                "skyeng.ru"
-            ],
-            "domain_suffix": [
-                ".sky.pro",
-                ".skyeng.ru"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["sky.pro","skyeng.ru"]}
+]}

@@ -1,22 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "fandango.com",
-                "mgo.com",
-                "mgo-images.com",
-                "ravm.tv",
-                "roku.com",
-                "rokutime.com"
-            ],
-            "domain_suffix": [
-                ".fandango.com",
-                ".mgo.com",
-                ".mgo-images.com",
-                ".ravm.tv",
-                ".roku.com",
-                ".rokutime.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["fandango.com","mgo-images.com","mgo.com","ravm.tv","roku.com","rokutime.com"]}
+]}

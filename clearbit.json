@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "clearbit.com",
-                "clearbitjs.com",
-                "clearbitscripts.com"
-            ],
-            "domain_suffix": [
-                ".clearbit.com",
-                ".clearbitjs.com",
-                ".clearbitscripts.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["clearbit.com","clearbitjs.com","clearbitscripts.com"]}
+]}

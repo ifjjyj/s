@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "broadbandreports.com",
-                "dslr.net",
-                "dslreports.com"
-            ],
-            "domain_suffix": [
-                ".broadbandreports.com",
-                ".dslr.net",
-                ".dslreports.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["broadbandreports.com","dslr.net","dslreports.com"]}
+]}

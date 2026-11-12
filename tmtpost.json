@@ -1,26 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "tmtpost.com",
-                "chaindd.com",
-                "72whys.com",
-                "checkzeit.com",
-                "tivitv.com",
-                "tmtsmartlife.com",
-                "tmtsmartrun.com",
-                "tigeek.net.cn"
-            ],
-            "domain_suffix": [
-                ".tmtpost.com",
-                ".chaindd.com",
-                ".72whys.com",
-                ".checkzeit.com",
-                ".tivitv.com",
-                ".tmtsmartlife.com",
-                ".tmtsmartrun.com",
-                ".tigeek.net.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["72whys.com","chaindd.com","checkzeit.com","tigeek.net.cn","tivitv.com","tmtpost.com","tmtsmartlife.com","tmtsmartrun.com"]}
+]}

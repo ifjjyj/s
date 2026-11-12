@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "pca.st",
-                "pocketcasts.com"
-            ],
-            "domain_suffix": [
-                ".pca.st",
-                ".pocketcasts.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["pca.st","pocketcasts.com"]}
+]}

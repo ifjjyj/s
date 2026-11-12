@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "getlantern.org",
-                "lantern.io"
-            ],
-            "domain_suffix": [
-                ".getlantern.org",
-                ".lantern.io"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["getlantern.org","lantern.io"]}
+]}

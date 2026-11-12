@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "lih.kg",
-                "lihkg.com"
-            ],
-            "domain_suffix": [
-                ".lih.kg",
-                ".lihkg.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["lih.kg","lihkg.com"]}
+]}

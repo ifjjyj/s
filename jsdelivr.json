@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "esm.run",
-                "jsdelivr.com",
-                "jsdelivr.net"
-            ],
-            "domain_suffix": [
-                ".esm.run",
-                ".jsdelivr.com",
-                ".jsdelivr.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["esm.run","jsdelivr.com","jsdelivr.net"]}
+]}

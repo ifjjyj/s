@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "github1s.com",
-                "sourcegraph.com"
-            ],
-            "domain_suffix": [
-                ".github1s.com",
-                ".sourcegraph.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["github1s.com","sourcegraph.com"]}
+]}

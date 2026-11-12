@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "tianpeng.com",
-                "zbj.com",
-                "zbjdev.com",
-                "zbjimg.com",
-                "zhubajie.com"
-            ],
-            "domain_suffix": [
-                ".tianpeng.com",
-                ".zbj.com",
-                ".zbjdev.com",
-                ".zbjimg.com",
-                ".zhubajie.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["tianpeng.com","zbj.com","zbjdev.com","zbjimg.com","zhubajie.com"]}
+]}

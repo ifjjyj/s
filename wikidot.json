@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "wdfiles.com",
-                "wikidot.com"
-            ],
-            "domain_suffix": [
-                ".wdfiles.com",
-                ".wikidot.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["wdfiles.com","wikidot.com"]}
+]}

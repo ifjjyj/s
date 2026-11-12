@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "imgur.com",
-                "imgur.io",
-                "imgurinc.com"
-            ],
-            "domain_suffix": [
-                ".imgur.com",
-                ".imgur.io",
-                ".imgurinc.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["imgur.com","imgur.io","imgurinc.com"]}
+]}

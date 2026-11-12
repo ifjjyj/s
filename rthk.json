@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "etvonline.hk",
-                "rthk.hk"
-            ],
-            "domain_suffix": [
-                ".etvonline.hk",
-                ".rthk.hk"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["etvonline.hk","rthk.hk"]}
+]}

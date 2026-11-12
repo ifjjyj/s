@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "paofu.cloud",
-                "paofuyun.me"
-            ],
-            "domain_suffix": [
-                ".paofu.cloud",
-                ".paofuyun.me"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["paofu.cloud","paofuyun.me"]}
+]}

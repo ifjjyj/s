@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "bjyouth.net",
-                "sqqnh.cn",
-                "sqqnh.org",
-                "bjyouth.gov.cn"
-            ],
-            "domain_suffix": [
-                ".bjyouth.net",
-                ".sqqnh.cn",
-                ".sqqnh.org",
-                ".bjyouth.gov.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["bjyouth.gov.cn","bjyouth.net","sqqnh.cn","sqqnh.org"]}
+]}

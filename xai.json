@@ -1,20 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "grok.com",
-                "grokbot.com",
-                "grokipedia.com",
-                "x.ai",
-                "grok.x.com"
-            ],
-            "domain_suffix": [
-                ".grok.com",
-                ".grokbot.com",
-                ".grokipedia.com",
-                ".x.ai",
-                ".grok.x.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["grok.com","grok.x.com","grokbot.com","grokipedia.com","x.ai"]}
+]}

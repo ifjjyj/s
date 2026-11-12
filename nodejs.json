@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "nodejs.org",
-            "domain_suffix": ".nodejs.org"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["nodejs.org"]}
+]}

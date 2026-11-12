@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "wf.pub",
-                "wanfangdata.com.cn"
-            ],
-            "domain_suffix": [
-                ".wf.pub",
-                ".wanfangdata.com.cn"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["wanfangdata.com.cn","wf.pub"]}
+]}

@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "ptzwx.com",
-                "quanben-xiaoshuo.com",
-                "quanben.io"
-            ],
-            "domain_suffix": [
-                ".ptzwx.com",
-                ".quanben-xiaoshuo.com",
-                ".quanben.io"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["ptzwx.com","quanben-xiaoshuo.com","quanben.io"]}
+]}

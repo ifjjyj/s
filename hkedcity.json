@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "edcity.hk",
-                "hkedcity.net",
-                "hkreadingcity.net"
-            ],
-            "domain_suffix": [
-                ".edcity.hk",
-                ".hkedcity.net",
-                ".hkreadingcity.net"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["edcity.hk","hkedcity.net","hkreadingcity.net"]}
+]}

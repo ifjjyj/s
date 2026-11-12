@@ -1,8 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": "clickstream.sberbank.ru",
-            "domain_suffix": ".clickstream.sberbank.ru"
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["clickstream.sberbank.ru"]}
+]}

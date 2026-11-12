@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "startpage.com",
-                "ixquick.com"
-            ],
-            "domain_suffix": [
-                ".startpage.com",
-                ".ixquick.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["ixquick.com","startpage.com"]}
+]}

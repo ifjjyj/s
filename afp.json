@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "afp.com",
-                "afpforum.com"
-            ],
-            "domain_suffix": [
-                ".afp.com",
-                ".afpforum.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["afp.com","afpforum.com"]}
+]}

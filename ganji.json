@@ -1,18 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "58ganji.com",
-                "58ganji-corp.com",
-                "ganji.com",
-                "ganjistatic1.com"
-            ],
-            "domain_suffix": [
-                ".58ganji.com",
-                ".58ganji-corp.com",
-                ".ganji.com",
-                ".ganjistatic1.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["58ganji-corp.com","58ganji.com","ganji.com","ganjistatic1.com"]}
+]}

@@ -1,24 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "anker-in.com",
-                "anker.com",
-                "ankersolix.com",
-                "eufy.com",
-                "eufylife.com",
-                "eufymake.com",
-                "soundcore.com"
-            ],
-            "domain_suffix": [
-                ".anker-in.com",
-                ".anker.com",
-                ".ankersolix.com",
-                ".eufy.com",
-                ".eufylife.com",
-                ".eufymake.com",
-                ".soundcore.com"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["anker-in.com","anker.com","ankersolix.com","eufy.com","eufylife.com","eufymake.com","soundcore.com"]}
+]}

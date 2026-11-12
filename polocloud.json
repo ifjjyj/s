@@ -1,14 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "polocloud.net",
-                "polocloud.xyz"
-            ],
-            "domain_suffix": [
-                ".polocloud.net",
-                ".polocloud.xyz"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["polocloud.net","polocloud.xyz"]}
+]}

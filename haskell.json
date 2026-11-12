@@ -1,16 +1,3 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "haskell.org",
-                "haskellstack.org",
-                "stackage.org"
-            ],
-            "domain_suffix": [
-                ".haskell.org",
-                ".haskellstack.org",
-                ".stackage.org"
-            ]
-        }
-    ]
-}
+{"version":1,"rules":[
+{"domain_suffix":["haskell.org","haskellstack.org","stackage.org"]}
+]}
