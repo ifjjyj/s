@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["volceapplog.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "volceapplog.com",
+            "domain_suffix": ".volceapplog.com"
+        }
+    ]
+}

@@ -1,3 +1,30 @@
-{"version":1,"rules":[
-{"domain_suffix":["marvel.com","marvel10thanniversary.com","marveldimensionofheroes.com","marvelparty.net","marvelpinball.com","marvelsdoubleagent.com","marvelspotlightplays.com","marvelsuperheroseptember.com","marvelsuperwar.com","themarvelexperiencetour.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "marvel.com",
+                "marvel10thanniversary.com",
+                "marveldimensionofheroes.com",
+                "marvelparty.net",
+                "marvelpinball.com",
+                "marvelsdoubleagent.com",
+                "marvelspotlightplays.com",
+                "marvelsuperheroseptember.com",
+                "marvelsuperwar.com",
+                "themarvelexperiencetour.com"
+            ],
+            "domain_suffix": [
+                ".marvel.com",
+                ".marvel10thanniversary.com",
+                ".marveldimensionofheroes.com",
+                ".marvelparty.net",
+                ".marvelpinball.com",
+                ".marvelsdoubleagent.com",
+                ".marvelspotlightplays.com",
+                ".marvelsuperheroseptember.com",
+                ".marvelsuperwar.com",
+                ".themarvelexperiencetour.com"
+            ]
+        }
+    ]
+}

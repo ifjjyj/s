@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["wamawama.com","wiwide.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "wamawama.com",
+                "wiwide.com"
+            ],
+            "domain_suffix": [
+                ".wamawama.com",
+                ".wiwide.com"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["edx-cdn.org","edx.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "edx.org",
+                "edx-cdn.org"
+            ],
+            "domain_suffix": [
+                ".edx.org",
+                ".edx-cdn.org"
+            ]
+        }
+    ]
+}

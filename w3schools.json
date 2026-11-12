@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["w3schools.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "w3schools.com",
+            "domain_suffix": ".w3schools.com"
+        }
+    ]
+}

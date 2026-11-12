@@ -1,3 +1,30 @@
-{"version":1,"rules":[
-{"domain_suffix":["chobit.cc","ci-en.jp","ci-en.net","dlaf.jp","dlsite.com","dlsite.com.tw","dlsite.jp","dlsitestudio.com","nijiyome.jp","triokini.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "chobit.cc",
+                "ci-en.jp",
+                "ci-en.net",
+                "dlaf.jp",
+                "dlsite.com",
+                "dlsite.jp",
+                "dlsitestudio.com",
+                "nijiyome.jp",
+                "triokini.com",
+                "dlsite.com.tw"
+            ],
+            "domain_suffix": [
+                ".chobit.cc",
+                ".ci-en.jp",
+                ".ci-en.net",
+                ".dlaf.jp",
+                ".dlsite.com",
+                ".dlsite.jp",
+                ".dlsitestudio.com",
+                ".nijiyome.jp",
+                ".triokini.com",
+                ".dlsite.com.tw"
+            ]
+        }
+    ]
+}

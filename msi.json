@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["msi.cn","msi.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "msi.cn",
+                "msi.com"
+            ],
+            "domain_suffix": [
+                ".msi.cn",
+                ".msi.com"
+            ]
+        }
+    ]
+}

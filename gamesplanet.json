@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["gamesplanet.com","gametap.com","gpstatic.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "gamesplanet.com",
+                "gametap.com",
+                "gpstatic.com"
+            ],
+            "domain_suffix": [
+                ".gamesplanet.com",
+                ".gametap.com",
+                ".gpstatic.com"
+            ]
+        }
+    ]
+}

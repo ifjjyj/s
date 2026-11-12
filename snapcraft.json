@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["snapcraft.io","snapstore.io"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "snapcraft.io",
+                "snapstore.io"
+            ],
+            "domain_suffix": [
+                ".snapcraft.io",
+                ".snapstore.io"
+            ]
+        }
+    ]
+}

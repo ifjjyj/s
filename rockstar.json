@@ -1,3 +1,21 @@
-{"version":1,"rules":[
-{"domain":["gamedownloads-rockstargames-com.akamaized.net","media-rockstargames-com.akamaized.net","videos-rockstargames-com.akamaized.net"],"domain_suffix":["rockstargames.com","rockstarnorth.com","rsg.ms","rsg.sc"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "gamedownloads-rockstargames-com.akamaized.net",
+                "media-rockstargames-com.akamaized.net",
+                "videos-rockstargames-com.akamaized.net",
+                "rockstargames.com",
+                "rockstarnorth.com",
+                "rsg.ms",
+                "rsg.sc"
+            ],
+            "domain_suffix": [
+                ".rockstargames.com",
+                ".rockstarnorth.com",
+                ".rsg.ms",
+                ".rsg.sc"
+            ]
+        }
+    ]
+}

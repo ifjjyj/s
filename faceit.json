@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["faceit-cdn.net","faceit.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "faceit.com",
+                "faceit-cdn.net"
+            ],
+            "domain_suffix": [
+                ".faceit.com",
+                ".faceit-cdn.net"
+            ]
+        }
+    ]
+}

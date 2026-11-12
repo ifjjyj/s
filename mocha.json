@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["mochajs.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "mochajs.org",
+            "domain_suffix": ".mochajs.org"
+        }
+    ]
+}

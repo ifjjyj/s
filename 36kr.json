@@ -1,3 +1,22 @@
-{"version":1,"rules":[
-{"domain_suffix":["36dianping.com","36kr.com","36krcdn.com","36krcnd.com","36linkr.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "36dianping.com",
+                "36linkr.com",
+                "36kr.com",
+                "36krcdn.com",
+                "36krcnd.com",
+                "adx.36kr.com"
+            ],
+            "domain_suffix": [
+                ".36dianping.com",
+                ".36linkr.com",
+                ".36kr.com",
+                ".36krcdn.com",
+                ".36krcnd.com",
+                ".adx.36kr.com"
+            ]
+        }
+    ]
+}

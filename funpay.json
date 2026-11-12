@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["funpay.com","funpay.ru","sfunpay.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "funpay.com",
+                "funpay.ru",
+                "sfunpay.com"
+            ],
+            "domain_suffix": [
+                ".funpay.com",
+                ".funpay.ru",
+                ".sfunpay.com"
+            ]
+        }
+    ]
+}

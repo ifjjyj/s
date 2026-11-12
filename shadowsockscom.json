@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["shadowsocks.com","shadowsocks.nl"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "shadowsocks.com",
+                "shadowsocks.nl"
+            ],
+            "domain_suffix": [
+                ".shadowsocks.com",
+                ".shadowsocks.nl"
+            ]
+        }
+    ]
+}

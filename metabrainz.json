@@ -1,3 +1,26 @@
-{"version":1,"rules":[
-{"domain_suffix":["acousticbrainz.org","bookbrainz.org","coverartarchive.org","critiquebrainz.org","listenbrainz.org","messybrainz.org","metabrainz.org","musicbrainz.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "acousticbrainz.org",
+                "bookbrainz.org",
+                "coverartarchive.org",
+                "critiquebrainz.org",
+                "listenbrainz.org",
+                "messybrainz.org",
+                "metabrainz.org",
+                "musicbrainz.org"
+            ],
+            "domain_suffix": [
+                ".acousticbrainz.org",
+                ".bookbrainz.org",
+                ".coverartarchive.org",
+                ".critiquebrainz.org",
+                ".listenbrainz.org",
+                ".messybrainz.org",
+                ".metabrainz.org",
+                ".musicbrainz.org"
+            ]
+        }
+    ]
+}

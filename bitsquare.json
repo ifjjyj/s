@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["bisq.io","bisq.network","bitsquare.io"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "bisq.io",
+                "bisq.network",
+                "bitsquare.io"
+            ],
+            "domain_suffix": [
+                ".bisq.io",
+                ".bisq.network",
+                ".bitsquare.io"
+            ]
+        }
+    ]
+}

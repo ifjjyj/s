@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["avmoo.click","avmoo.com","tellme.pw"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "avmoo.click",
+                "avmoo.com",
+                "tellme.pw"
+            ],
+            "domain_suffix": [
+                ".avmoo.click",
+                ".avmoo.com",
+                ".tellme.pw"
+            ]
+        }
+    ]
+}

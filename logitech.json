@@ -1,3 +1,36 @@
-{"version":1,"rules":[
-{"domain_suffix":["logi.com","logicool.co.jp","logicoolg.com","logitech.biz","logitech.com","logitech.com.cn","logitech.fr","logitech.io","logitechg.com","logitechg.com.cn","logitechg.fr","logitechio.com.cn","worldsfastestgamer.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "logitech.fr",
+                "logicoolg.com",
+                "logitech.biz",
+                "logitech.com",
+                "logi.com",
+                "logitech.io",
+                "logitechg.com",
+                "logitechg.fr",
+                "worldsfastestgamer.net",
+                "logicool.co.jp",
+                "logitech.com.cn",
+                "logitechg.com.cn",
+                "logitechio.com.cn"
+            ],
+            "domain_suffix": [
+                ".logitech.fr",
+                ".logicoolg.com",
+                ".logitech.biz",
+                ".logitech.com",
+                ".logi.com",
+                ".logitech.io",
+                ".logitechg.com",
+                ".logitechg.fr",
+                ".worldsfastestgamer.net",
+                ".logicool.co.jp",
+                ".logitech.com.cn",
+                ".logitechg.com.cn",
+                ".logitechio.com.cn"
+            ]
+        }
+    ]
+}

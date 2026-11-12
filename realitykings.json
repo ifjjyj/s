@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["realitykings.com","rk.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "realitykings.com",
+                "rk.com"
+            ],
+            "domain_suffix": [
+                ".realitykings.com",
+                ".rk.com"
+            ]
+        }
+    ]
+}

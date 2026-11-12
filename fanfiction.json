@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["fanfiction.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "fanfiction.net",
+            "domain_suffix": ".fanfiction.net"
+        }
+    ]
+}

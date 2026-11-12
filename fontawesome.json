@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["fontawesome.com","fortawesome.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "fontawesome.com",
+                "fortawesome.com"
+            ],
+            "domain_suffix": [
+                ".fontawesome.com",
+                ".fortawesome.com"
+            ]
+        }
+    ]
+}

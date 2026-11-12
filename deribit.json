@@ -1,3 +1,11 @@
-{"version":1,"rules":[
-{"domain":["deribit.cdn.prismic.io"],"domain_suffix":["deribit.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "deribit.cdn.prismic.io",
+                "deribit.com"
+            ],
+            "domain_suffix": ".deribit.com"
+        }
+    ]
+}

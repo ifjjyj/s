@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["webtype.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "webtype.com",
+            "domain_suffix": ".webtype.com"
+        }
+    ]
+}

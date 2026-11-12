@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["sourcehut.org","sr.ht"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "sourcehut.org",
+                "sr.ht"
+            ],
+            "domain_suffix": [
+                ".sourcehut.org",
+                ".sr.ht"
+            ]
+        }
+    ]
+}

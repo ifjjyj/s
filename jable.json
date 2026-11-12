@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["cdnlab.live","jable.tv","mushroomtrack.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "cdnlab.live",
+                "jable.tv",
+                "mushroomtrack.com"
+            ],
+            "domain_suffix": [
+                ".cdnlab.live",
+                ".jable.tv",
+                ".mushroomtrack.com"
+            ]
+        }
+    ]
+}

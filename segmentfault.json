@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["segmentfault.com","sifou.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "segmentfault.com",
+                "sifou.com"
+            ],
+            "domain_suffix": [
+                ".segmentfault.com",
+                ".sifou.com"
+            ]
+        }
+    ]
+}

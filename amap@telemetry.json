@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["adashx.ut.amap.com","dualstack-logs.amap.com","logs.amap.com","v6-adashx.ut.amap.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "adashx.ut.amap.com",
+                "dualstack-logs.amap.com",
+                "logs.amap.com",
+                "v6-adashx.ut.amap.com"
+            ],
+            "domain_suffix": [
+                ".adashx.ut.amap.com",
+                ".dualstack-logs.amap.com",
+                ".logs.amap.com",
+                ".v6-adashx.ut.amap.com"
+            ]
+        }
+    ]
+}

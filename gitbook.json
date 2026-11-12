@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["gitbook.com","gitbook.io"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "gitbook.com",
+                "gitbook.io"
+            ],
+            "domain_suffix": [
+                ".gitbook.com",
+                ".gitbook.io"
+            ]
+        }
+    ]
+}

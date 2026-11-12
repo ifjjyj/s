@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["deezer.com","dzcdn.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "deezer.com",
+                "dzcdn.net"
+            ],
+            "domain_suffix": [
+                ".deezer.com",
+                ".dzcdn.net"
+            ]
+        }
+    ]
+}

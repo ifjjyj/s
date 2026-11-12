@@ -1,3 +1,20 @@
-{"version":1,"rules":[
-{"domain_suffix":["hupun.com","hupun.com.cn","kata.com.cn","newniu.com","wanliniu.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "hupun.com",
+                "newniu.com",
+                "wanliniu.com",
+                "hupun.com.cn",
+                "kata.com.cn"
+            ],
+            "domain_suffix": [
+                ".hupun.com",
+                ".newniu.com",
+                ".wanliniu.com",
+                ".hupun.com.cn",
+                ".kata.com.cn"
+            ]
+        }
+    ]
+}

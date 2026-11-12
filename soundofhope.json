@@ -1,3 +1,26 @@
-{"version":1,"rules":[
-{"domain_suffix":["bayvoice.net","ozvoice.org","sohcradio.com","sohfrance.org","soundofhope.eu","soundofhope.kr","soundofhope.org","wanokokorosoh.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "bayvoice.net",
+                "ozvoice.org",
+                "sohcradio.com",
+                "sohfrance.org",
+                "soundofhope.eu",
+                "soundofhope.kr",
+                "soundofhope.org",
+                "wanokokorosoh.com"
+            ],
+            "domain_suffix": [
+                ".bayvoice.net",
+                ".ozvoice.org",
+                ".sohcradio.com",
+                ".sohfrance.org",
+                ".soundofhope.eu",
+                ".soundofhope.kr",
+                ".soundofhope.org",
+                ".wanokokorosoh.com"
+            ]
+        }
+    ]
+}

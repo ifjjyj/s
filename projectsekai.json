@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["pjsekai.sega.jp","sekai.colorfulpalette.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "sekai.colorfulpalette.org",
+                "pjsekai.sega.jp"
+            ],
+            "domain_suffix": [
+                ".sekai.colorfulpalette.org",
+                ".pjsekai.sega.jp"
+            ]
+        }
+    ]
+}

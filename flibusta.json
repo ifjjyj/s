@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["flibusta.is","flisland.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "flibusta.is",
+                "flisland.net"
+            ],
+            "domain_suffix": [
+                ".flibusta.is",
+                ".flisland.net"
+            ]
+        }
+    ]
+}

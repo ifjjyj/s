@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["ceno.app","censorship.no"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "ceno.app",
+                "censorship.no"
+            ],
+            "domain_suffix": [
+                ".ceno.app",
+                ".censorship.no"
+            ]
+        }
+    ]
+}

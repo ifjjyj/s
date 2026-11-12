@@ -1,3 +1,38 @@
-{"version":1,"rules":[
-{"domain":["app.moegirl.org.cn","storage.moegirl.org.cn"],"domain_suffix":["allhistory.com","chaz.fun","fgo.wiki","huijistatic.com","huijiwiki.com","mbalib.com","mcmod.cn","pwsannong.com","qiuwen.wiki","qiuwenbaike.cn","sec-wiki.com","shidianbaike.com","zdic.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "app.moegirl.org.cn",
+                "storage.moegirl.org.cn",
+                "allhistory.com",
+                "fgo.wiki",
+                "mbalib.com",
+                "sec-wiki.com",
+                "shidianbaike.com",
+                "chaz.fun",
+                "huijistatic.com",
+                "huijiwiki.com",
+                "mcmod.cn",
+                "pwsannong.com",
+                "qiuwenbaike.cn",
+                "qiuwen.wiki",
+                "zdic.net"
+            ],
+            "domain_suffix": [
+                ".allhistory.com",
+                ".fgo.wiki",
+                ".mbalib.com",
+                ".sec-wiki.com",
+                ".shidianbaike.com",
+                ".chaz.fun",
+                ".huijistatic.com",
+                ".huijiwiki.com",
+                ".mcmod.cn",
+                ".pwsannong.com",
+                ".qiuwenbaike.cn",
+                ".qiuwen.wiki",
+                ".zdic.net"
+            ]
+        }
+    ]
+}

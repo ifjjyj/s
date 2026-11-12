@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["stat.m.jd.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "stat.m.jd.com",
+            "domain_suffix": ".stat.m.jd.com"
+        }
+    ]
+}

@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["konachan.com","konachan.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "konachan.com",
+                "konachan.net"
+            ],
+            "domain_suffix": [
+                ".konachan.com",
+                ".konachan.net"
+            ]
+        }
+    ]
+}

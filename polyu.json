@@ -1,3 +1,20 @@
-{"version":1,"rules":[
-{"domain_suffix":["cpce-polyu.edu.hk","hkcc-polyu.edu.hk","polyu.edu.hk","polyu.hk","speed-polyu.edu.hk"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "polyu.hk",
+                "polyu.edu.hk",
+                "cpce-polyu.edu.hk",
+                "speed-polyu.edu.hk",
+                "hkcc-polyu.edu.hk"
+            ],
+            "domain_suffix": [
+                ".polyu.hk",
+                ".polyu.edu.hk",
+                ".cpce-polyu.edu.hk",
+                ".speed-polyu.edu.hk",
+                ".hkcc-polyu.edu.hk"
+            ]
+        }
+    ]
+}

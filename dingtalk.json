@@ -1,3 +1,32 @@
-{"version":1,"rules":[
-{"domain_suffix":["ddurl.to","dingding.xin","dingstore.cn","dingtalk.cn","dingtalk.com","dingtalk.net","dingtalkapps.com","dingtalkcloud.com","laiwang.com","lwurl.to","ztna-dingtalk.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "ddurl.to",
+                "dingding.xin",
+                "dingstore.cn",
+                "dingtalk.cn",
+                "dingtalk.com",
+                "dingtalk.net",
+                "dingtalkapps.com",
+                "dingtalkcloud.com",
+                "laiwang.com",
+                "lwurl.to",
+                "ztna-dingtalk.com"
+            ],
+            "domain_suffix": [
+                ".ddurl.to",
+                ".dingding.xin",
+                ".dingstore.cn",
+                ".dingtalk.cn",
+                ".dingtalk.com",
+                ".dingtalk.net",
+                ".dingtalkapps.com",
+                ".dingtalkcloud.com",
+                ".laiwang.com",
+                ".lwurl.to",
+                ".ztna-dingtalk.com"
+            ]
+        }
+    ]
+}

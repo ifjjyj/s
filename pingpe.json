@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["ping.pe"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "ping.pe",
+            "domain_suffix": ".ping.pe"
+        }
+    ]
+}

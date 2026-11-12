@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain":["disney.my.sentry.io","sentry.ppy.sh"],"domain_suffix":["insights-collector.gog.com","log-upload-os.hoyoverse.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "disney.my.sentry.io",
+                "log-upload-os.hoyoverse.com",
+                "sentry.ppy.sh",
+                "insights-collector.gog.com"
+            ],
+            "domain_suffix": [
+                ".log-upload-os.hoyoverse.com",
+                ".insights-collector.gog.com"
+            ]
+        }
+    ]
+}

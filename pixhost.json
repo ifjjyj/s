@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["pixhost.to"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "pixhost.to",
+            "domain_suffix": ".pixhost.to"
+        }
+    ]
+}

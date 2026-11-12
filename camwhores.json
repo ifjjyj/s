@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["camwhores.tv","camwhores.video"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "camwhores.tv",
+                "camwhores.video"
+            ],
+            "domain_suffix": [
+                ".camwhores.tv",
+                ".camwhores.video"
+            ]
+        }
+    ]
+}

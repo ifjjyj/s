@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["polymer-project.org","polymerproject.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "polymer-project.org",
+                "polymerproject.org"
+            ],
+            "domain_suffix": [
+                ".polymer-project.org",
+                ".polymerproject.org"
+            ]
+        }
+    ]
+}

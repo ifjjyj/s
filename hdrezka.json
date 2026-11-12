@@ -1,3 +1,42 @@
-{"version":1,"rules":[
-{"domain_suffix":["hdrezka-home.tv","hdrezka.ac","hdrezka.ag","hdrezka.cm","hdrezka.co","hdrezka.me","hdrezka.org","hdrezka.site","hdrzk.org","rezka.ag","rezka.fi","static.voidboost.com","statichdrezka.ac","stream.voidboost.cc","stream.voidboost.one","voidslam.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "rezka.ag",
+                "rezka.fi",
+                "hdrezka.ag",
+                "hdrezka.cm",
+                "hdrezka.co",
+                "hdrezka.me",
+                "hdrezka.ac",
+                "hdrezka.org",
+                "hdrezka-home.tv",
+                "hdrezka.site",
+                "statichdrezka.ac",
+                "hdrzk.org",
+                "voidslam.org",
+                "stream.voidboost.cc",
+                "stream.voidboost.one",
+                "static.voidboost.com"
+            ],
+            "domain_suffix": [
+                ".rezka.ag",
+                ".rezka.fi",
+                ".hdrezka.ag",
+                ".hdrezka.cm",
+                ".hdrezka.co",
+                ".hdrezka.me",
+                ".hdrezka.ac",
+                ".hdrezka.org",
+                ".hdrezka-home.tv",
+                ".hdrezka.site",
+                ".statichdrezka.ac",
+                ".hdrzk.org",
+                ".voidslam.org",
+                ".stream.voidboost.cc",
+                ".stream.voidboost.one",
+                ".static.voidboost.com"
+            ]
+        }
+    ]
+}

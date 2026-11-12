@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["crates.io","docs.rs","rust-lang.org","rustup.rs"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "rust-lang.org",
+                "rustup.rs",
+                "crates.io",
+                "docs.rs"
+            ],
+            "domain_suffix": [
+                ".rust-lang.org",
+                ".rustup.rs",
+                ".crates.io",
+                ".docs.rs"
+            ]
+        }
+    ]
+}

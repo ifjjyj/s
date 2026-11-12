@@ -1,3 +1,32 @@
-{"version":1,"rules":[
-{"domain_suffix":["myvodafone.com.au","myvodafone.com.ws","vodafone.co.uk","vodafone.com","vodafone.com.au","vodafone.com.tr","vodafone.de","vodafone.it","vodafone.nl","vodafoneziggo.nl","ziggo.nl"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "vodafone.com",
+                "vodafone.de",
+                "vodafone.it",
+                "vodafone.nl",
+                "vodafoneziggo.nl",
+                "ziggo.nl",
+                "myvodafone.com.au",
+                "myvodafone.com.ws",
+                "vodafone.co.uk",
+                "vodafone.com.au",
+                "vodafone.com.tr"
+            ],
+            "domain_suffix": [
+                ".vodafone.com",
+                ".vodafone.de",
+                ".vodafone.it",
+                ".vodafone.nl",
+                ".vodafoneziggo.nl",
+                ".ziggo.nl",
+                ".myvodafone.com.au",
+                ".myvodafone.com.ws",
+                ".vodafone.co.uk",
+                ".vodafone.com.au",
+                ".vodafone.com.tr"
+            ]
+        }
+    ]
+}

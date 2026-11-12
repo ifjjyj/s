@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["qixin.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "qixin.com",
+            "domain_suffix": ".qixin.com"
+        }
+    ]
+}

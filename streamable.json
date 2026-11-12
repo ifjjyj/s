@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["embed-cdn.com","streamable.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "embed-cdn.com",
+                "streamable.com"
+            ],
+            "domain_suffix": [
+                ".embed-cdn.com",
+                ".streamable.com"
+            ]
+        }
+    ]
+}

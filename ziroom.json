@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["ziroom.com","ziroomapartment.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "ziroom.com",
+                "ziroomapartment.com"
+            ],
+            "domain_suffix": [
+                ".ziroom.com",
+                ".ziroomapartment.com"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["v8.dev","v8project.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "v8.dev",
+                "v8project.org"
+            ],
+            "domain_suffix": [
+                ".v8.dev",
+                ".v8project.org"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["typekit.com","typekit.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "typekit.com",
+                "typekit.net"
+            ],
+            "domain_suffix": [
+                ".typekit.com",
+                ".typekit.net"
+            ]
+        }
+    ]
+}

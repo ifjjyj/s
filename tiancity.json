@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["tiancity.com","tiancitycdn.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "tiancity.com",
+                "tiancitycdn.com"
+            ],
+            "domain_suffix": [
+                ".tiancity.com",
+                ".tiancitycdn.com"
+            ]
+        }
+    ]
+}

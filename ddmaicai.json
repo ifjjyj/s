@@ -1,3 +1,28 @@
-{"version":1,"rules":[
-{"domain_suffix":["100.me","ddcorp.net","ddfresh.net","ddimg.mobi","ddmaicai.net","ddmc.mobi","dduser.mobi","ddxq.mobi","imaicai.mobi"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "100.me",
+                "ddcorp.net",
+                "ddfresh.net",
+                "ddimg.mobi",
+                "ddmaicai.net",
+                "ddmc.mobi",
+                "dduser.mobi",
+                "ddxq.mobi",
+                "imaicai.mobi"
+            ],
+            "domain_suffix": [
+                ".100.me",
+                ".ddcorp.net",
+                ".ddfresh.net",
+                ".ddimg.mobi",
+                ".ddmaicai.net",
+                ".ddmc.mobi",
+                ".dduser.mobi",
+                ".ddxq.mobi",
+                ".imaicai.mobi"
+            ]
+        }
+    ]
+}

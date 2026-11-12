@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["freecodecamp.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "freecodecamp.org",
+            "domain_suffix": ".freecodecamp.org"
+        }
+    ]
+}

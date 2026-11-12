@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["guanggaotongapp.cn","jutongbao.online","jutongbao.top"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "guanggaotongapp.cn",
+                "jutongbao.online",
+                "jutongbao.top"
+            ],
+            "domain_suffix": [
+                ".guanggaotongapp.cn",
+                ".jutongbao.online",
+                ".jutongbao.top"
+            ]
+        }
+    ]
+}

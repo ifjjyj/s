@@ -1,3 +1,30 @@
-{"version":1,"rules":[
-{"domain_suffix":["irsnp.com","mdcdn.cn","midea.cn","midea.com","midea.com.cn","mideaepayuat.com","msmartlife.cn","msmartlife.com","smartmidea.net","xiaomaigui.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "irsnp.com",
+                "mdcdn.cn",
+                "midea.cn",
+                "midea.com",
+                "mideaepayuat.com",
+                "msmartlife.cn",
+                "msmartlife.com",
+                "smartmidea.net",
+                "xiaomaigui.com",
+                "midea.com.cn"
+            ],
+            "domain_suffix": [
+                ".irsnp.com",
+                ".mdcdn.cn",
+                ".midea.cn",
+                ".midea.com",
+                ".mideaepayuat.com",
+                ".msmartlife.cn",
+                ".msmartlife.com",
+                ".smartmidea.net",
+                ".xiaomaigui.com",
+                ".midea.com.cn"
+            ]
+        }
+    ]
+}

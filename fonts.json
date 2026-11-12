@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["fonts.com","fonts.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "fonts.com",
+                "fonts.net"
+            ],
+            "domain_suffix": [
+                ".fonts.com",
+                ".fonts.net"
+            ]
+        }
+    ]
+}

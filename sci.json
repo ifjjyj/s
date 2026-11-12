@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["isiknowledge.com","newisiknowledge.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "newisiknowledge.com",
+                "isiknowledge.com"
+            ],
+            "domain_suffix": [
+                ".newisiknowledge.com",
+                ".isiknowledge.com"
+            ]
+        }
+    ]
+}

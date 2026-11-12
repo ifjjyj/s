@@ -1,3 +1,20 @@
-{"version":1,"rules":[
-{"domain_suffix":["xnxx-cdn.com","xnxx.com","xnxx.net","xnxx.tv","xnxx3.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "xnxx-cdn.com",
+                "xnxx.com",
+                "xnxx.net",
+                "xnxx.tv",
+                "xnxx3.com"
+            ],
+            "domain_suffix": [
+                ".xnxx-cdn.com",
+                ".xnxx.com",
+                ".xnxx.net",
+                ".xnxx.tv",
+                ".xnxx3.com"
+            ]
+        }
+    ]
+}

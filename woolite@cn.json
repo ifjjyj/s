@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["woolite.cn","woolite.com.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "woolite.cn",
+                "woolite.com.cn"
+            ],
+            "domain_suffix": [
+                ".woolite.cn",
+                ".woolite.com.cn"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["nxtv.jp","unext-info.jp","unext.co.jp","unext.jp"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "nxtv.jp",
+                "unext-info.jp",
+                "unext.jp",
+                "unext.co.jp"
+            ],
+            "domain_suffix": [
+                ".nxtv.jp",
+                ".unext-info.jp",
+                ".unext.jp",
+                ".unext.co.jp"
+            ]
+        }
+    ]
+}

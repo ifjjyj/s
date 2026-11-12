@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["bsky.app","bsky.network","bsky.social"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "bsky.app",
+                "bsky.network",
+                "bsky.social"
+            ],
+            "domain_suffix": [
+                ".bsky.app",
+                ".bsky.network",
+                ".bsky.social"
+            ]
+        }
+    ]
+}

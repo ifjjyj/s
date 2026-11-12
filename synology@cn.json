@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["quickconnect.cn","synology.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "quickconnect.cn",
+                "synology.cn"
+            ],
+            "domain_suffix": [
+                ".quickconnect.cn",
+                ".synology.cn"
+            ]
+        }
+    ]
+}

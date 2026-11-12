@@ -1,3 +1,20 @@
-{"version":1,"rules":[
-{"domain_suffix":["xv-ru.com","xvideos-ar.com","xvideos-cdn.com","xvideos-india.com","xvideos.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "xv-ru.com",
+                "xvideos-ar.com",
+                "xvideos-cdn.com",
+                "xvideos-india.com",
+                "xvideos.com"
+            ],
+            "domain_suffix": [
+                ".xv-ru.com",
+                ".xvideos-ar.com",
+                ".xvideos-cdn.com",
+                ".xvideos-india.com",
+                ".xvideos.com"
+            ]
+        }
+    ]
+}

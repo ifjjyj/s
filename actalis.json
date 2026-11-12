@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["actalis.com","actalis.it"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "actalis.com",
+                "actalis.it"
+            ],
+            "domain_suffix": [
+                ".actalis.com",
+                ".actalis.it"
+            ]
+        }
+    ]
+}

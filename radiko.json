@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["radiko-cf.com","radiko.jp","smartstream.ne.jp"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "radiko-cf.com",
+                "radiko.jp",
+                "smartstream.ne.jp"
+            ],
+            "domain_suffix": [
+                ".radiko-cf.com",
+                ".radiko.jp",
+                ".smartstream.ne.jp"
+            ]
+        }
+    ]
+}

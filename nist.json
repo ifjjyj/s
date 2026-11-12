@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["nist.gov","time.gov"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "nist.gov",
+                "time.gov"
+            ],
+            "domain_suffix": [
+                ".nist.gov",
+                ".time.gov"
+            ]
+        }
+    ]
+}

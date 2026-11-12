@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["log.dzen.ru"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "log.dzen.ru",
+            "domain_suffix": ".log.dzen.ru"
+        }
+    ]
+}

@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["4pcdn.org","4plebs.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "4pcdn.org",
+                "4plebs.org"
+            ],
+            "domain_suffix": [
+                ".4pcdn.org",
+                ".4plebs.org"
+            ]
+        }
+    ]
+}

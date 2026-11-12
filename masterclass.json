@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["masterclass.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "masterclass.com",
+            "domain_suffix": ".masterclass.com"
+        }
+    ]
+}

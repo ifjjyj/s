@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["hkporn.net","justav.net","twporn.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "hkporn.net",
+                "justav.net",
+                "twporn.net"
+            ],
+            "domain_suffix": [
+                ".hkporn.net",
+                ".justav.net",
+                ".twporn.net"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["musixmatch.com","mxmcdn.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "musixmatch.com",
+                "mxmcdn.net"
+            ],
+            "domain_suffix": [
+                ".musixmatch.com",
+                ".mxmcdn.net"
+            ]
+        }
+    ]
+}

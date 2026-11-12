@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["tumblr.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "tumblr.com",
+            "domain_suffix": ".tumblr.com"
+        }
+    ]
+}

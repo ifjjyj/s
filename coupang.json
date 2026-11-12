@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["coupang.com","coupangcdn.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "coupang.com",
+                "coupangcdn.com"
+            ],
+            "domain_suffix": [
+                ".coupang.com",
+                ".coupangcdn.com"
+            ]
+        }
+    ]
+}

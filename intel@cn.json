@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["intel.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "intel.cn",
+            "domain_suffix": ".intel.cn"
+        }
+    ]
+}

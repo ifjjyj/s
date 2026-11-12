@@ -1,3 +1,32 @@
-{"version":1,"rules":[
-{"domain_suffix":["equinox.io","ngrok-agent.com","ngrok-free.app","ngrok-free.dev","ngrok-free.pizza","ngrok.app","ngrok.com","ngrok.dev","ngrok.io","ngrok.pizza","ngrok.pro"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "equinox.io",
+                "ngrok-agent.com",
+                "ngrok-free.app",
+                "ngrok-free.dev",
+                "ngrok-free.pizza",
+                "ngrok.app",
+                "ngrok.com",
+                "ngrok.dev",
+                "ngrok.io",
+                "ngrok.pizza",
+                "ngrok.pro"
+            ],
+            "domain_suffix": [
+                ".equinox.io",
+                ".ngrok-agent.com",
+                ".ngrok-free.app",
+                ".ngrok-free.dev",
+                ".ngrok-free.pizza",
+                ".ngrok.app",
+                ".ngrok.com",
+                ".ngrok.dev",
+                ".ngrok.io",
+                ".ngrok.pizza",
+                ".ngrok.pro"
+            ]
+        }
+    ]
+}

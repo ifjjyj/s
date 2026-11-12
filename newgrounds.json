@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["newgrounds.com","ngfiles.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "newgrounds.com",
+                "ngfiles.com"
+            ],
+            "domain_suffix": [
+                ".newgrounds.com",
+                ".ngfiles.com"
+            ]
+        }
+    ]
+}

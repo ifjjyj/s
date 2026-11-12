@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["iina.io"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "iina.io",
+            "domain_suffix": ".iina.io"
+        }
+    ]
+}

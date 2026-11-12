@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["ibb.co","imgbb.com","simgbb.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "ibb.co",
+                "imgbb.com",
+                "simgbb.com"
+            ],
+            "domain_suffix": [
+                ".ibb.co",
+                ".imgbb.com",
+                ".simgbb.com"
+            ]
+        }
+    ]
+}

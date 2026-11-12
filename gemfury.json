@@ -1,3 +1,22 @@
-{"version":1,"rules":[
-{"domain_suffix":["fury.blog","fury.co","fury.dev","fury.help","fury.io","gemfury.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "fury.blog",
+                "fury.co",
+                "fury.dev",
+                "fury.help",
+                "fury.io",
+                "gemfury.com"
+            ],
+            "domain_suffix": [
+                ".fury.blog",
+                ".fury.co",
+                ".fury.dev",
+                ".fury.help",
+                ".fury.io",
+                ".gemfury.com"
+            ]
+        }
+    ]
+}

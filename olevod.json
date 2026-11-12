@@ -1,3 +1,28 @@
-{"version":1,"rules":[
-{"domain_suffix":["haiwaikan.com","iole.tv","olehd.com","olelive.com","olemovienews.com","olevod.com","olevod.io","olevod.tv","olevodtv.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "haiwaikan.com",
+                "iole.tv",
+                "olehd.com",
+                "olelive.com",
+                "olevod.com",
+                "olevod.io",
+                "olevod.tv",
+                "olevodtv.com",
+                "olemovienews.com"
+            ],
+            "domain_suffix": [
+                ".haiwaikan.com",
+                ".iole.tv",
+                ".olehd.com",
+                ".olelive.com",
+                ".olevod.com",
+                ".olevod.io",
+                ".olevod.tv",
+                ".olevodtv.com",
+                ".olemovienews.com"
+            ]
+        }
+    ]
+}

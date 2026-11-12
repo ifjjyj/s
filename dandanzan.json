@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["dandanzan.cc","nunuyy.cc"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "dandanzan.cc",
+                "nunuyy.cc"
+            ],
+            "domain_suffix": [
+                ".dandanzan.cc",
+                ".nunuyy.cc"
+            ]
+        }
+    ]
+}

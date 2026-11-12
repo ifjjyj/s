@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["startupschool.org","ycombinator.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "startupschool.org",
+                "ycombinator.com"
+            ],
+            "domain_suffix": [
+                ".startupschool.org",
+                ".ycombinator.com"
+            ]
+        }
+    ]
+}

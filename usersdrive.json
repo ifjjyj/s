@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["userdrive.org","usersdrive.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "userdrive.org",
+                "usersdrive.com"
+            ],
+            "domain_suffix": [
+                ".userdrive.org",
+                ".usersdrive.com"
+            ]
+        }
+    ]
+}

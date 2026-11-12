@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["mogu.com","mogucdn.com","mogujie.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "mogu.com",
+                "mogucdn.com",
+                "mogujie.com"
+            ],
+            "domain_suffix": [
+                ".mogu.com",
+                ".mogucdn.com",
+                ".mogujie.com"
+            ]
+        }
+    ]
+}

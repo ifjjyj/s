@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["taboola.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "taboola.com",
+            "domain_suffix": ".taboola.com"
+        }
+    ]
+}

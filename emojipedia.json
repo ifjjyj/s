@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["emojipedia.org","worldemojiawards.com","worldemojiday.com","xn--yt8h.la"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "emojipedia.org",
+                "worldemojiawards.com",
+                "worldemojiday.com",
+                "xn--yt8h.la"
+            ],
+            "domain_suffix": [
+                ".emojipedia.org",
+                ".worldemojiawards.com",
+                ".worldemojiday.com",
+                ".xn--yt8h.la"
+            ]
+        }
+    ]
+}

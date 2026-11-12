@@ -1,3 +1,22 @@
-{"version":1,"rules":[
-{"domain_suffix":["gamersky.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "gamersky.com",
+                "click.gamersky.com",
+                "ja.gamersky.com",
+                "ja1.gamersky.com",
+                "ja2.gamersky.com",
+                "wmbd.gamersky.com"
+            ],
+            "domain_suffix": [
+                ".gamersky.com",
+                ".click.gamersky.com",
+                ".ja.gamersky.com",
+                ".ja1.gamersky.com",
+                ".ja2.gamersky.com",
+                ".wmbd.gamersky.com"
+            ]
+        }
+    ]
+}

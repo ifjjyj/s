@@ -1,3 +1,26 @@
-{"version":1,"rules":[
-{"domain_suffix":["myshopify.com","shop.app","shopify.com","shopify.dev","shopifycdn.com","shopifycloud.com","shopifystatus.com","shopifysvc.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "myshopify.com",
+                "shop.app",
+                "shopify.com",
+                "shopify.dev",
+                "shopifycdn.com",
+                "shopifycloud.com",
+                "shopifystatus.com",
+                "shopifysvc.com"
+            ],
+            "domain_suffix": [
+                ".myshopify.com",
+                ".shop.app",
+                ".shopify.com",
+                ".shopify.dev",
+                ".shopifycdn.com",
+                ".shopifycloud.com",
+                ".shopifystatus.com",
+                ".shopifysvc.com"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,28 @@
-{"version":1,"rules":[
-{"domain_suffix":["editorx.com","parastorage.com","wix-code.com","wix.com","wixanswers.com","wixapps.net","wixmp.com","wixsite.com","wixstatic.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "editorx.com",
+                "parastorage.com",
+                "wix-code.com",
+                "wix.com",
+                "wixanswers.com",
+                "wixapps.net",
+                "wixmp.com",
+                "wixsite.com",
+                "wixstatic.com"
+            ],
+            "domain_suffix": [
+                ".editorx.com",
+                ".parastorage.com",
+                ".wix-code.com",
+                ".wix.com",
+                ".wixanswers.com",
+                ".wixapps.net",
+                ".wixmp.com",
+                ".wixsite.com",
+                ".wixstatic.com"
+            ]
+        }
+    ]
+}

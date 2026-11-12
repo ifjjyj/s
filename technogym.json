@@ -1,3 +1,26 @@
-{"version":1,"rules":[
-{"domain_suffix":["letsmoveforabetterworld.com","technogym.bg","technogym.ch","technogym.com","technogym.com.br","technogym.ru","technogym.su","wellnessinstitute.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "letsmoveforabetterworld.com",
+                "technogym.bg",
+                "technogym.ch",
+                "technogym.com",
+                "technogym.ru",
+                "technogym.su",
+                "wellnessinstitute.com",
+                "technogym.com.br"
+            ],
+            "domain_suffix": [
+                ".letsmoveforabetterworld.com",
+                ".technogym.bg",
+                ".technogym.ch",
+                ".technogym.com",
+                ".technogym.ru",
+                ".technogym.su",
+                ".wellnessinstitute.com",
+                ".technogym.com.br"
+            ]
+        }
+    ]
+}

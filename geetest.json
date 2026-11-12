@@ -1,3 +1,11 @@
-{"version":1,"rules":[
-{"domain":["geetest.datasink.sensorsdata.cn"],"domain_suffix":["geetest.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "geetest.datasink.sensorsdata.cn",
+                "geetest.com"
+            ],
+            "domain_suffix": ".geetest.com"
+        }
+    ]
+}

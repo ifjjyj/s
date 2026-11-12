@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["ad.api.moji.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "ad.api.moji.com",
+            "domain_suffix": ".ad.api.moji.com"
+        }
+    ]
+}

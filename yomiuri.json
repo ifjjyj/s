@@ -1,3 +1,36 @@
-{"version":1,"rules":[
-{"domain_suffix":["chuokoron.jp","fujinkoron.jp","hochi.news","ryokoyomiuri.co.jp","the-japan-news.com","ync.ne.jp","yomikyo.or.jp","yomilogi.com","yomiuri-johkai.co.jp","yomiuri-ryokou.co.jp","yomiuri-shimbun.pressreader.com","yomiuri-systec.co.jp","yomiuri.co.jp"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "chuokoron.jp",
+                "fujinkoron.jp",
+                "hochi.news",
+                "yomilogi.com",
+                "the-japan-news.com",
+                "yomikyo.or.jp",
+                "ync.ne.jp",
+                "ryokoyomiuri.co.jp",
+                "yomiuri-johkai.co.jp",
+                "yomiuri-ryokou.co.jp",
+                "yomiuri-shimbun.pressreader.com",
+                "yomiuri-systec.co.jp",
+                "yomiuri.co.jp"
+            ],
+            "domain_suffix": [
+                ".chuokoron.jp",
+                ".fujinkoron.jp",
+                ".hochi.news",
+                ".yomilogi.com",
+                ".the-japan-news.com",
+                ".yomikyo.or.jp",
+                ".ync.ne.jp",
+                ".ryokoyomiuri.co.jp",
+                ".yomiuri-johkai.co.jp",
+                ".yomiuri-ryokou.co.jp",
+                ".yomiuri-shimbun.pressreader.com",
+                ".yomiuri-systec.co.jp",
+                ".yomiuri.co.jp"
+            ]
+        }
+    ]
+}

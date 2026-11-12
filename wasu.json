@@ -1,3 +1,22 @@
-{"version":1,"rules":[
-{"domain_suffix":["aichongzoo.cn","hzdtv.tv","hzman.net","wasu.cn","wasu.tv","wasumedia.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "aichongzoo.cn",
+                "hzdtv.tv",
+                "hzman.net",
+                "wasu.cn",
+                "wasu.tv",
+                "wasumedia.cn"
+            ],
+            "domain_suffix": [
+                ".aichongzoo.cn",
+                ".hzdtv.tv",
+                ".hzman.net",
+                ".wasu.cn",
+                ".wasu.tv",
+                ".wasumedia.cn"
+            ]
+        }
+    ]
+}

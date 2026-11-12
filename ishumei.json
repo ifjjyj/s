@@ -1,3 +1,30 @@
-{"version":1,"rules":[
-{"domain_suffix":["fengkongbao.com","fengkongcloud.cn","fengkongcloud.com","ishumei.com","portal101.cn","portal102.cn","portal201.cn","portal301.cn","tebiefuza.cloud","tebiefuza.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "ishumei.com",
+                "fengkongbao.com",
+                "fengkongcloud.com",
+                "fengkongcloud.cn",
+                "portal101.cn",
+                "portal102.cn",
+                "portal201.cn",
+                "portal301.cn",
+                "tebiefuza.cloud",
+                "tebiefuza.cn"
+            ],
+            "domain_suffix": [
+                ".ishumei.com",
+                ".fengkongbao.com",
+                ".fengkongcloud.com",
+                ".fengkongcloud.cn",
+                ".portal101.cn",
+                ".portal102.cn",
+                ".portal201.cn",
+                ".portal301.cn",
+                ".tebiefuza.cloud",
+                ".tebiefuza.cn"
+            ]
+        }
+    ]
+}

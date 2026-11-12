@@ -1,3 +1,24 @@
-{"version":1,"rules":[
-{"domain_suffix":["dell-alw.com","dell-brand.com","dell.com.cn","dellemc.com.cn","dellmobile.cn","delltechnologies.com.cn","platform.dell.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "dell-brand.com",
+                "dell.com.cn",
+                "dell-alw.com",
+                "dellemc.com.cn",
+                "dellmobile.cn",
+                "delltechnologies.com.cn",
+                "platform.dell.com"
+            ],
+            "domain_suffix": [
+                ".dell-brand.com",
+                ".dell.com.cn",
+                ".dell-alw.com",
+                ".dellemc.com.cn",
+                ".dellmobile.cn",
+                ".delltechnologies.com.cn",
+                ".platform.dell.com"
+            ]
+        }
+    ]
+}

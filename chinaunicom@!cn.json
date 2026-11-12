@@ -1,3 +1,20 @@
-{"version":1,"rules":[
-{"domain_suffix":["chinaunicom.com.hk","chinaunicomglobal.com","cuguplus.com","cuniq.com","cuniq.sg"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "chinaunicom.com.hk",
+                "chinaunicomglobal.com",
+                "cuguplus.com",
+                "cuniq.com",
+                "cuniq.sg"
+            ],
+            "domain_suffix": [
+                ".chinaunicom.com.hk",
+                ".chinaunicomglobal.com",
+                ".cuguplus.com",
+                ".cuniq.com",
+                ".cuniq.sg"
+            ]
+        }
+    ]
+}

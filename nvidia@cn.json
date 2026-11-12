@@ -1,3 +1,17 @@
-{"version":1,"rules":[
-{"domain":["cn.download.nvidia.com"],"domain_suffix":["geforce.cn","gputechconf.cn","nvidia.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "geforce.cn",
+                "gputechconf.cn",
+                "nvidia.cn",
+                "cn.download.nvidia.com"
+            ],
+            "domain_suffix": [
+                ".geforce.cn",
+                ".gputechconf.cn",
+                ".nvidia.cn"
+            ]
+        }
+    ]
+}

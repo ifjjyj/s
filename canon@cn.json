@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["canon.cn","canon.com.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "canon.cn",
+                "canon.com.cn"
+            ],
+            "domain_suffix": [
+                ".canon.cn",
+                ".canon.com.cn"
+            ]
+        }
+    ]
+}

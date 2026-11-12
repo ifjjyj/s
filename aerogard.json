@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["aerogard.com.au","aerogard.com.cn","aerogardcn.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "aerogardcn.com",
+                "aerogard.com.au",
+                "aerogard.com.cn"
+            ],
+            "domain_suffix": [
+                ".aerogardcn.com",
+                ".aerogard.com.au",
+                ".aerogard.com.cn"
+            ]
+        }
+    ]
+}

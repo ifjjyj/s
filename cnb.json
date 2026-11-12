@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["cnb.cool","cnb.space"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "cnb.cool",
+                "cnb.space"
+            ],
+            "domain_suffix": [
+                ".cnb.cool",
+                ".cnb.space"
+            ]
+        }
+    ]
+}

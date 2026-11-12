@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["fly.dev","fly.io","flyio.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "fly.dev",
+                "fly.io",
+                "flyio.net"
+            ],
+            "domain_suffix": [
+                ".fly.dev",
+                ".fly.io",
+                ".flyio.net"
+            ]
+        }
+    ]
+}

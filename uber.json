@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["uber-assets.com","uber.com","ubereats.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "uber-assets.com",
+                "uber.com",
+                "ubereats.com"
+            ],
+            "domain_suffix": [
+                ".uber-assets.com",
+                ".uber.com",
+                ".ubereats.com"
+            ]
+        }
+    ]
+}

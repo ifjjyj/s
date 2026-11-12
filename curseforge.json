@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["curseforge.com","forgecdn.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "curseforge.com",
+                "forgecdn.net"
+            ],
+            "domain_suffix": [
+                ".curseforge.com",
+                ".forgecdn.net"
+            ]
+        }
+    ]
+}

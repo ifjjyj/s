@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["codeberg.org","codeberg.page"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "codeberg.org",
+                "codeberg.page"
+            ],
+            "domain_suffix": [
+                ".codeberg.org",
+                ".codeberg.page"
+            ]
+        }
+    ]
+}

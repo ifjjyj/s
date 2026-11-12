@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["kechuang.org","kexinshe.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "kechuang.org",
+                "kexinshe.com"
+            ],
+            "domain_suffix": [
+                ".kechuang.org",
+                ".kexinshe.com"
+            ]
+        }
+    ]
+}

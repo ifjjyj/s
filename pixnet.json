@@ -1,3 +1,28 @@
-{"version":1,"rules":[
-{"domain_suffix":["pimg.tw","pixanalytics.com","pixfs.net","pixinsight.com.tw","pixnet.cc","pixnet.net","pixnet.pro","pixnet.tw","pixplug.in"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "pimg.tw",
+                "pixanalytics.com",
+                "pixfs.net",
+                "pixnet.cc",
+                "pixnet.net",
+                "pixnet.pro",
+                "pixnet.tw",
+                "pixplug.in",
+                "pixinsight.com.tw"
+            ],
+            "domain_suffix": [
+                ".pimg.tw",
+                ".pixanalytics.com",
+                ".pixfs.net",
+                ".pixnet.cc",
+                ".pixnet.net",
+                ".pixnet.pro",
+                ".pixnet.tw",
+                ".pixplug.in",
+                ".pixinsight.com.tw"
+            ]
+        }
+    ]
+}

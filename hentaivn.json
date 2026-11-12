@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["hentaivn.de","hentaivn.la","hentaivn.net","htvncdn.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "hentaivn.de",
+                "hentaivn.la",
+                "hentaivn.net",
+                "htvncdn.net"
+            ],
+            "domain_suffix": [
+                ".hentaivn.de",
+                ".hentaivn.la",
+                ".hentaivn.net",
+                ".htvncdn.net"
+            ]
+        }
+    ]
+}

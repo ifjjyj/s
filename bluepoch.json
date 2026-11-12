@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["bluepoch.com","sl916.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "bluepoch.com",
+                "sl916.com"
+            ],
+            "domain_suffix": [
+                ".bluepoch.com",
+                ".sl916.com"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["pornpros.com","pornprosnetwork.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "pornpros.com",
+                "pornprosnetwork.com"
+            ],
+            "domain_suffix": [
+                ".pornpros.com",
+                ".pornprosnetwork.com"
+            ]
+        }
+    ]
+}

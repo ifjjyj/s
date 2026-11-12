@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["coding.me","coding.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "coding.me",
+                "coding.net"
+            ],
+            "domain_suffix": [
+                ".coding.me",
+                ".coding.net"
+            ]
+        }
+    ]
+}

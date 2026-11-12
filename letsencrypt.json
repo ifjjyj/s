@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["lencr.org","letsencrypt.com","letsencrypt.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "lencr.org",
+                "letsencrypt.com",
+                "letsencrypt.org"
+            ],
+            "domain_suffix": [
+                ".lencr.org",
+                ".letsencrypt.com",
+                ".letsencrypt.org"
+            ]
+        }
+    ]
+}

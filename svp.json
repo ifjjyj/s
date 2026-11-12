@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["svp-team.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "svp-team.com",
+            "domain_suffix": ".svp-team.com"
+        }
+    ]
+}

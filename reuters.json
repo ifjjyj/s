@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["reut.rs","reuters.com","reuters.tv","reutersmedia.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "reut.rs",
+                "reuters.com",
+                "reuters.tv",
+                "reutersmedia.net"
+            ],
+            "domain_suffix": [
+                ".reut.rs",
+                ".reuters.com",
+                ".reuters.tv",
+                ".reutersmedia.net"
+            ]
+        }
+    ]
+}

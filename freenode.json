@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["freenode.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "freenode.net",
+            "domain_suffix": ".freenode.net"
+        }
+    ]
+}

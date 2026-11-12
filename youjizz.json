@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["yjcontentdelivery.com","youjizz.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "yjcontentdelivery.com",
+                "youjizz.com"
+            ],
+            "domain_suffix": [
+                ".yjcontentdelivery.com",
+                ".youjizz.com"
+            ]
+        }
+    ]
+}

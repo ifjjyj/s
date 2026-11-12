@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["taikang.com","taikanglife.com","taikangzhijia.com","tkhealthcare.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "taikang.com",
+                "taikanglife.com",
+                "taikangzhijia.com",
+                "tkhealthcare.com"
+            ],
+            "domain_suffix": [
+                ".taikang.com",
+                ".taikanglife.com",
+                ".taikangzhijia.com",
+                ".tkhealthcare.com"
+            ]
+        }
+    ]
+}

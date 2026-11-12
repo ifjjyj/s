@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["cuinc.oen.tw","cuinc.tw"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "cuinc.tw",
+                "cuinc.oen.tw"
+            ],
+            "domain_suffix": [
+                ".cuinc.tw",
+                ".cuinc.oen.tw"
+            ]
+        }
+    ]
+}

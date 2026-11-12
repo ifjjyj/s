@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["tailscale.com","tailscale.io","ts.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "tailscale.com",
+                "tailscale.io",
+                "ts.net"
+            ],
+            "domain_suffix": [
+                ".tailscale.com",
+                ".tailscale.io",
+                ".ts.net"
+            ]
+        }
+    ]
+}

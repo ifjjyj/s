@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["bingads.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "bingads.com",
+            "domain_suffix": ".bingads.com"
+        }
+    ]
+}

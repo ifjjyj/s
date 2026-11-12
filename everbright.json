@@ -1,3 +1,40 @@
-{"version":1,"rules":[
-{"domain_suffix":["cebbank.com","ceblease.com","eb-ind.com","ebasset.com","ebchina.com","ebchinaintl.com","ebf.com.cn","ebfcn.com","ebfortune.com","ebscn-am.com","ebscn.com","ebtrust.com","everbright.com","secec.com","sunlife-everbright.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "ebtrust.com",
+                "ebscn-am.com",
+                "eb-ind.com",
+                "ebasset.com",
+                "ebchina.com",
+                "ebchinaintl.com",
+                "ceblease.com",
+                "ebfortune.com",
+                "sunlife-everbright.com",
+                "cebbank.com",
+                "ebfcn.com",
+                "ebscn.com",
+                "everbright.com",
+                "secec.com",
+                "ebf.com.cn"
+            ],
+            "domain_suffix": [
+                ".ebtrust.com",
+                ".ebscn-am.com",
+                ".eb-ind.com",
+                ".ebasset.com",
+                ".ebchina.com",
+                ".ebchinaintl.com",
+                ".ceblease.com",
+                ".ebfortune.com",
+                ".sunlife-everbright.com",
+                ".cebbank.com",
+                ".ebfcn.com",
+                ".ebscn.com",
+                ".everbright.com",
+                ".secec.com",
+                ".ebf.com.cn"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["akikocorp.cn","emoriko.com","sukasuka.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "akikocorp.cn",
+                "emoriko.com",
+                "sukasuka.cn"
+            ],
+            "domain_suffix": [
+                ".akikocorp.cn",
+                ".emoriko.com",
+                ".sukasuka.cn"
+            ]
+        }
+    ]
+}

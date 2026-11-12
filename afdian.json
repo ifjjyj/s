@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["afdian.com","afdian.net","afdiancdn.com","ifdian.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "afdian.com",
+                "afdian.net",
+                "afdiancdn.com",
+                "ifdian.net"
+            ],
+            "domain_suffix": [
+                ".afdian.com",
+                ".afdian.net",
+                ".afdiancdn.com",
+                ".ifdian.net"
+            ]
+        }
+    ]
+}

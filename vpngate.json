@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["opengw.net","vpngate.jp","vpngate.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "opengw.net",
+                "vpngate.jp",
+                "vpngate.net"
+            ],
+            "domain_suffix": [
+                ".opengw.net",
+                ".vpngate.jp",
+                ".vpngate.net"
+            ]
+        }
+    ]
+}

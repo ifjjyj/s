@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["kastatic.org","khanacademy.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "khanacademy.org",
+                "kastatic.org"
+            ],
+            "domain_suffix": [
+                ".khanacademy.org",
+                ".kastatic.org"
+            ]
+        }
+    ]
+}

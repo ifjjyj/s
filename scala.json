@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["scala-lang.org","scala-sbt.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "scala-lang.org",
+                "scala-sbt.org"
+            ],
+            "domain_suffix": [
+                ".scala-lang.org",
+                ".scala-sbt.org"
+            ]
+        }
+    ]
+}

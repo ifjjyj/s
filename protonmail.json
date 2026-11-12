@@ -1,3 +1,28 @@
-{"version":1,"rules":[
-{"domain_suffix":["pm.me","proton.me","protonmail.ch","protonmail.com","protonstatus.com","protontech.ch","protonvpn.ch","protonvpn.com","protonweb.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "pm.me",
+                "proton.me",
+                "protonmail.ch",
+                "protonmail.com",
+                "protonstatus.com",
+                "protontech.ch",
+                "protonvpn.ch",
+                "protonvpn.com",
+                "protonweb.com"
+            ],
+            "domain_suffix": [
+                ".pm.me",
+                ".proton.me",
+                ".protonmail.ch",
+                ".protonmail.com",
+                ".protonstatus.com",
+                ".protontech.ch",
+                ".protonvpn.ch",
+                ".protonvpn.com",
+                ".protonweb.com"
+            ]
+        }
+    ]
+}

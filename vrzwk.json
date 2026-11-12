@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["vrzwk.cn","vrzwk.com","vrzwk.net","vrzwk.top"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "vrzwk.cn",
+                "vrzwk.com",
+                "vrzwk.net",
+                "vrzwk.top"
+            ],
+            "domain_suffix": [
+                ".vrzwk.cn",
+                ".vrzwk.com",
+                ".vrzwk.net",
+                ".vrzwk.top"
+            ]
+        }
+    ]
+}

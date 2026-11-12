@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["codeium.com","codeiumdata.com","windsurf.build","windsurf.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "codeium.com",
+                "codeiumdata.com",
+                "windsurf.build",
+                "windsurf.com"
+            ],
+            "domain_suffix": [
+                ".codeium.com",
+                ".codeiumdata.com",
+                ".windsurf.build",
+                ".windsurf.com"
+            ]
+        }
+    ]
+}

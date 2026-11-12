@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["5w.ag","swag-live.co","swag.live"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "5w.ag",
+                "swag-live.co",
+                "swag.live"
+            ],
+            "domain_suffix": [
+                ".5w.ag",
+                ".swag-live.co",
+                ".swag.live"
+            ]
+        }
+    ]
+}

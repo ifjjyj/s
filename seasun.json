@@ -1,3 +1,26 @@
-{"version":1,"rules":[
-{"domain_suffix":["cbjq.com","seasungames.cn","seasungames.com","seasunwbl.com","testplus.cn","xishanju.com","xoyo.com","xoyocdn.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "seasungames.cn",
+                "seasungames.com",
+                "seasunwbl.com",
+                "xishanju.com",
+                "xoyo.com",
+                "xoyocdn.com",
+                "cbjq.com",
+                "testplus.cn"
+            ],
+            "domain_suffix": [
+                ".seasungames.cn",
+                ".seasungames.com",
+                ".seasunwbl.com",
+                ".xishanju.com",
+                ".xoyo.com",
+                ".xoyocdn.com",
+                ".cbjq.com",
+                ".testplus.cn"
+            ]
+        }
+    ]
+}

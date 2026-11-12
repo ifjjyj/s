@@ -1,3 +1,26 @@
-{"version":1,"rules":[
-{"domain_suffix":["extremetube.com","keezmovies.com","yopornshop.com","youporn.com","youporngay.com","youpornpremium.com","youpornru.com","ypncdn.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "extremetube.com",
+                "keezmovies.com",
+                "youporn.com",
+                "youporngay.com",
+                "youpornpremium.com",
+                "youpornru.com",
+                "yopornshop.com",
+                "ypncdn.com"
+            ],
+            "domain_suffix": [
+                ".extremetube.com",
+                ".keezmovies.com",
+                ".youporn.com",
+                ".youporngay.com",
+                ".youpornpremium.com",
+                ".youpornru.com",
+                ".yopornshop.com",
+                ".ypncdn.com"
+            ]
+        }
+    ]
+}

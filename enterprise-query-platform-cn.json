@@ -1,3 +1,36 @@
-{"version":1,"rules":[
-{"domain_suffix":["aiqicha.baidu.com","aiqicha.cn","aiqicha.com","jindidata.com","qcc.com","qichacha.com","qichamao.com","qixin.com","qyyjt.cn","tianyancha.com","x315.com","xcc.cn","xinchacha.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "aiqicha.com",
+                "qyyjt.cn",
+                "x315.com",
+                "xcc.cn",
+                "xinchacha.com",
+                "aiqicha.cn",
+                "qichamao.com",
+                "qcc.com",
+                "qichacha.com",
+                "qixin.com",
+                "jindidata.com",
+                "tianyancha.com",
+                "aiqicha.baidu.com"
+            ],
+            "domain_suffix": [
+                ".aiqicha.com",
+                ".qyyjt.cn",
+                ".x315.com",
+                ".xcc.cn",
+                ".xinchacha.com",
+                ".aiqicha.cn",
+                ".qichamao.com",
+                ".qcc.com",
+                ".qichacha.com",
+                ".qixin.com",
+                ".jindidata.com",
+                ".tianyancha.com",
+                ".aiqicha.baidu.com"
+            ]
+        }
+    ]
+}

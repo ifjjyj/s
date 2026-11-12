@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["myoffice.ru","myoffice.team"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "myoffice.ru",
+                "myoffice.team"
+            ],
+            "domain_suffix": [
+                ".myoffice.ru",
+                ".myoffice.team"
+            ]
+        }
+    ]
+}

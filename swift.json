@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["appleswift.com","swift.org","swiftui.cn","swiftui.com.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "appleswift.com",
+                "swift.org",
+                "swiftui.cn",
+                "swiftui.com.cn"
+            ],
+            "domain_suffix": [
+                ".appleswift.com",
+                ".swift.org",
+                ".swiftui.cn",
+                ".swiftui.com.cn"
+            ]
+        }
+    ]
+}

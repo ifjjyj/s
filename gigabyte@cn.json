@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["aoruszone.cn","gigabyte.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "aoruszone.cn",
+                "gigabyte.cn"
+            ],
+            "domain_suffix": [
+                ".aoruszone.cn",
+                ".gigabyte.cn"
+            ]
+        }
+    ]
+}

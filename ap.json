@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["ap.org","apnews.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "ap.org",
+                "apnews.com"
+            ],
+            "domain_suffix": [
+                ".ap.org",
+                ".apnews.com"
+            ]
+        }
+    ]
+}

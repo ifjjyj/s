@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["transferwise.com","wise.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "transferwise.com",
+                "wise.com"
+            ],
+            "domain_suffix": [
+                ".transferwise.com",
+                ".wise.com"
+            ]
+        }
+    ]
+}

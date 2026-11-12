@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["54647.global","54647.io","54647.online","54647.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "54647.global",
+                "54647.io",
+                "54647.online",
+                "54647.org"
+            ],
+            "domain_suffix": [
+                ".54647.global",
+                ".54647.io",
+                ".54647.online",
+                ".54647.org"
+            ]
+        }
+    ]
+}

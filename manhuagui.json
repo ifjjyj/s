@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["manhuagui.com","mhgui.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "manhuagui.com",
+                "mhgui.com"
+            ],
+            "domain_suffix": [
+                ".manhuagui.com",
+                ".mhgui.com"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["joyjoy.net","pandanet-igs.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "joyjoy.net",
+                "pandanet-igs.com"
+            ],
+            "domain_suffix": [
+                ".joyjoy.net",
+                ".pandanet-igs.com"
+            ]
+        }
+    ]
+}

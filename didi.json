@@ -1,3 +1,34 @@
-{"version":1,"rules":[
-{"domain_suffix":["didi-food.com","didi.cn","didialift.com","didiaustralia.blog","didichuxing.com","didiglobal.com","didimobility.co.jp","didistatic.com","diditaxi.com.cn","hongyibo.com.cn","udache.com","xiaojukeji.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "didi.cn",
+                "didialift.com",
+                "didichuxing.com",
+                "didistatic.com",
+                "udache.com",
+                "xiaojukeji.com",
+                "diditaxi.com.cn",
+                "hongyibo.com.cn",
+                "didi-food.com",
+                "didiaustralia.blog",
+                "didiglobal.com",
+                "didimobility.co.jp"
+            ],
+            "domain_suffix": [
+                ".didi.cn",
+                ".didialift.com",
+                ".didichuxing.com",
+                ".didistatic.com",
+                ".udache.com",
+                ".xiaojukeji.com",
+                ".diditaxi.com.cn",
+                ".hongyibo.com.cn",
+                ".didi-food.com",
+                ".didiaustralia.blog",
+                ".didiglobal.com",
+                ".didimobility.co.jp"
+            ]
+        }
+    ]
+}

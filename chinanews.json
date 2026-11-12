@@ -1,3 +1,28 @@
-{"version":1,"rules":[
-{"domain_suffix":["chinanews.com","chinanews.com.cn","chinaqw.com","cns.com.cn","cnsimg.net","ecns.cn","inewsweek.cn","jwview.com","xinmeng.info"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "chinanews.com",
+                "chinaqw.com",
+                "cnsimg.net",
+                "ecns.cn",
+                "inewsweek.cn",
+                "jwview.com",
+                "xinmeng.info",
+                "chinanews.com.cn",
+                "cns.com.cn"
+            ],
+            "domain_suffix": [
+                ".chinanews.com",
+                ".chinaqw.com",
+                ".cnsimg.net",
+                ".ecns.cn",
+                ".inewsweek.cn",
+                ".jwview.com",
+                ".xinmeng.info",
+                ".chinanews.com.cn",
+                ".cns.com.cn"
+            ]
+        }
+    ]
+}

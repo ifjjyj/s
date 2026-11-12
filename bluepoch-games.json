@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["sl916.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "sl916.com",
+            "domain_suffix": ".sl916.com"
+        }
+    ]
+}

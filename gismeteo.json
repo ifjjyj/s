@@ -1,3 +1,24 @@
-{"version":1,"rules":[
-{"domain_suffix":["gismeteo.by","gismeteo.com","gismeteo.net","gismeteo.ru","gismeteo.st","meteofor.com","meteofor.st"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "gismeteo.by",
+                "gismeteo.com",
+                "gismeteo.net",
+                "gismeteo.ru",
+                "gismeteo.st",
+                "meteofor.com",
+                "meteofor.st"
+            ],
+            "domain_suffix": [
+                ".gismeteo.by",
+                ".gismeteo.com",
+                ".gismeteo.net",
+                ".gismeteo.ru",
+                ".gismeteo.st",
+                ".meteofor.com",
+                ".meteofor.st"
+            ]
+        }
+    ]
+}

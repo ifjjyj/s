@@ -1,3 +1,24 @@
-{"version":1,"rules":[
-{"domain_suffix":["ajplus.net","aljazeera.com","aljazeera.net","palestineremix.com","sarajevopodopsadom.com","srebrenica360.com","syhacked.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "ajplus.net",
+                "aljazeera.com",
+                "aljazeera.net",
+                "palestineremix.com",
+                "sarajevopodopsadom.com",
+                "srebrenica360.com",
+                "syhacked.com"
+            ],
+            "domain_suffix": [
+                ".ajplus.net",
+                ".aljazeera.com",
+                ".aljazeera.net",
+                ".palestineremix.com",
+                ".sarajevopodopsadom.com",
+                ".srebrenica360.com",
+                ".syhacked.com"
+            ]
+        }
+    ]
+}

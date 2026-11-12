@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["digitalplayground.com","digitalplaygroundnetwork.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "digitalplayground.com",
+                "digitalplaygroundnetwork.com"
+            ],
+            "domain_suffix": [
+                ".digitalplayground.com",
+                ".digitalplaygroundnetwork.com"
+            ]
+        }
+    ]
+}

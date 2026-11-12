@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["internetdownloadmanager.com","registeridm.com","tonec.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "internetdownloadmanager.com",
+                "registeridm.com",
+                "tonec.com"
+            ],
+            "domain_suffix": [
+                ".internetdownloadmanager.com",
+                ".registeridm.com",
+                ".tonec.com"
+            ]
+        }
+    ]
+}

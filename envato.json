@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["envato-static.com","envato.com","envatousercontent.com","themeforest.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "envato-static.com",
+                "envato.com",
+                "envatousercontent.com",
+                "themeforest.net"
+            ],
+            "domain_suffix": [
+                ".envato-static.com",
+                ".envato.com",
+                ".envatousercontent.com",
+                ".themeforest.net"
+            ]
+        }
+    ]
+}

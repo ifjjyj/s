@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["meitustat.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "meitustat.com",
+            "domain_suffix": ".meitustat.com"
+        }
+    ]
+}

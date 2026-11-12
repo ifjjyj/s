@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["eft-store.com","escapefromtarkov.com","tarkov.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "tarkov.com",
+                "eft-store.com",
+                "escapefromtarkov.com"
+            ],
+            "domain_suffix": [
+                ".tarkov.com",
+                ".eft-store.com",
+                ".escapefromtarkov.com"
+            ]
+        }
+    ]
+}

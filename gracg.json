@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["gracg.com","procg.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "gracg.com",
+                "procg.cn"
+            ],
+            "domain_suffix": [
+                ".gracg.com",
+                ".procg.cn"
+            ]
+        }
+    ]
+}

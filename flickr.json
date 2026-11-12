@@ -1,3 +1,19 @@
-{"version":1,"rules":[
-{"domain_suffix":[".flickr","flic.kr","flickr.com","flickr.net","staticflickr.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "flic.kr",
+                "flickr.com",
+                "flickr.net",
+                "staticflickr.com"
+            ],
+            "domain_suffix": [
+                ".flickr",
+                ".flic.kr",
+                ".flickr.com",
+                ".flickr.net",
+                ".staticflickr.com"
+            ]
+        }
+    ]
+}

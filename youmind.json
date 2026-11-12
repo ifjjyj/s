@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["youmind.ai","youmind.com","youmind.site"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "youmind.ai",
+                "youmind.com",
+                "youmind.site"
+            ],
+            "domain_suffix": [
+                ".youmind.ai",
+                ".youmind.com",
+                ".youmind.site"
+            ]
+        }
+    ]
+}

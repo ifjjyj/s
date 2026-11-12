@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["fans66.tw","fansking.tw"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "fans66.tw",
+                "fansking.tw"
+            ],
+            "domain_suffix": [
+                ".fans66.tw",
+                ".fansking.tw"
+            ]
+        }
+    ]
+}

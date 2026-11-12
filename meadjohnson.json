@@ -1,3 +1,22 @@
-{"version":1,"rules":[
-{"domain_suffix":["enfinitas.com.cn","meadjohnson.com","meadjohnson.com.cn","meadjohnson.com.hk","meadjohnson.com.tw","meadjohnson.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "meadjohnson.com",
+                "meadjohnson.net",
+                "meadjohnson.com.hk",
+                "meadjohnson.com.tw",
+                "enfinitas.com.cn",
+                "meadjohnson.com.cn"
+            ],
+            "domain_suffix": [
+                ".meadjohnson.com",
+                ".meadjohnson.net",
+                ".meadjohnson.com.hk",
+                ".meadjohnson.com.tw",
+                ".enfinitas.com.cn",
+                ".meadjohnson.com.cn"
+            ]
+        }
+    ]
+}

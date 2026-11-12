@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["pplive.cn","pplive.com","pptv.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "pplive.cn",
+                "pplive.com",
+                "pptv.com"
+            ],
+            "domain_suffix": [
+                ".pplive.cn",
+                ".pplive.com",
+                ".pptv.com"
+            ]
+        }
+    ]
+}

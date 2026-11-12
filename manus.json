@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["manus.im","manuscdn.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "manus.im",
+                "manuscdn.com"
+            ],
+            "domain_suffix": [
+                ".manus.im",
+                ".manuscdn.com"
+            ]
+        }
+    ]
+}

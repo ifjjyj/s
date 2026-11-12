@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["aptoide.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "aptoide.com",
+            "domain_suffix": ".aptoide.com"
+        }
+    ]
+}

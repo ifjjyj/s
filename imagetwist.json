@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["imagetwist.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "imagetwist.com",
+            "domain_suffix": ".imagetwist.com"
+        }
+    ]
+}

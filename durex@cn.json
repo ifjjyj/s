@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["durex.com.cn","durexchina.com.cn","lovesexdurex.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "durex.com.cn",
+                "durexchina.com.cn",
+                "lovesexdurex.cn"
+            ],
+            "domain_suffix": [
+                ".durex.com.cn",
+                ".durexchina.com.cn",
+                ".lovesexdurex.cn"
+            ]
+        }
+    ]
+}

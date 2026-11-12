@@ -1,3 +1,22 @@
-{"version":1,"rules":[
-{"domain_suffix":["now-ashare.com","now-tv.com","now.com","now.com.hk","nowe.com","nowe.hk"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "now.com",
+                "nowe.com",
+                "nowe.hk",
+                "now-tv.com",
+                "now-ashare.com",
+                "now.com.hk"
+            ],
+            "domain_suffix": [
+                ".now.com",
+                ".nowe.com",
+                ".nowe.hk",
+                ".now-tv.com",
+                ".now-ashare.com",
+                ".now.com.hk"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["buymeacoff.ee","buymeacoffee.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "buymeacoff.ee",
+                "buymeacoffee.com"
+            ],
+            "domain_suffix": [
+                ".buymeacoff.ee",
+                ".buymeacoffee.com"
+            ]
+        }
+    ]
+}

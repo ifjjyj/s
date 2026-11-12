@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["muji.com.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "muji.com.cn",
+            "domain_suffix": ".muji.com.cn"
+        }
+    ]
+}

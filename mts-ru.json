@@ -1,3 +1,36 @@
-{"version":1,"rules":[
-{"domain_suffix":["dbo-dengi.online","kion.ru","mts-link.ru","mts-ws.net","mts.ru","mtsbank.ru","mtsdengi.ru","mtsmedia.ru","mymts.ru","on-media.ru","tvoyodbo.online"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "mts-ws.net",
+                "mts.ru",
+                "mymts.ru",
+                "dbo-dengi.online",
+                "mtsbank.ru",
+                "mtsdengi.ru",
+                "tvoyodbo.online",
+                "kion.ru",
+                "mtsmedia.ru",
+                "on-media.ru",
+                "mts-link.ru",
+                "a.mts.ru",
+                "obs.mts.ru"
+            ],
+            "domain_suffix": [
+                ".mts-ws.net",
+                ".mts.ru",
+                ".mymts.ru",
+                ".dbo-dengi.online",
+                ".mtsbank.ru",
+                ".mtsdengi.ru",
+                ".tvoyodbo.online",
+                ".kion.ru",
+                ".mtsmedia.ru",
+                ".on-media.ru",
+                ".mts-link.ru",
+                ".a.mts.ru",
+                ".obs.mts.ru"
+            ]
+        }
+    ]
+}

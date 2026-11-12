@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["deppon.com","deppon.com.cn","dpma.cc"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "deppon.com",
+                "dpma.cc",
+                "deppon.com.cn"
+            ],
+            "domain_suffix": [
+                ".deppon.com",
+                ".dpma.cc",
+                ".deppon.com.cn"
+            ]
+        }
+    ]
+}

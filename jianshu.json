@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["jianshu.com","jianshu.io","jianshuapi.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "jianshu.com",
+                "jianshu.io",
+                "jianshuapi.com"
+            ],
+            "domain_suffix": [
+                ".jianshu.com",
+                ".jianshu.io",
+                ".jianshuapi.com"
+            ]
+        }
+    ]
+}

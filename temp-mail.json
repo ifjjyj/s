@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["temp-mail.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "temp-mail.org",
+            "domain_suffix": ".temp-mail.org"
+        }
+    ]
+}

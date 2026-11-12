@@ -1,3 +1,26 @@
-{"version":1,"rules":[
-{"domain_suffix":["mycloudnas.com","myqnapcloud.cn","myqnapcloud.com","qlink.to","qlinkto.cn","qnap.com","qnap.com.cn","qnapsupport.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "myqnapcloud.com",
+                "qlink.to",
+                "qnap.com",
+                "qnapsupport.net",
+                "mycloudnas.com",
+                "myqnapcloud.cn",
+                "qlinkto.cn",
+                "qnap.com.cn"
+            ],
+            "domain_suffix": [
+                ".myqnapcloud.com",
+                ".qlink.to",
+                ".qnap.com",
+                ".qnapsupport.net",
+                ".mycloudnas.com",
+                ".myqnapcloud.cn",
+                ".qlinkto.cn",
+                ".qnap.com.cn"
+            ]
+        }
+    ]
+}

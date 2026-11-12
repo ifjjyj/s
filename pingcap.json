@@ -1,3 +1,24 @@
-{"version":1,"rules":[
-{"domain_suffix":["asktug.com","pingcap.cn","pingcap.com","tidb.ai","tidb.net","tidbcloud.com","tikv.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "asktug.com",
+                "pingcap.cn",
+                "pingcap.com",
+                "tidb.ai",
+                "tidb.net",
+                "tidbcloud.com",
+                "tikv.org"
+            ],
+            "domain_suffix": [
+                ".asktug.com",
+                ".pingcap.cn",
+                ".pingcap.com",
+                ".tidb.ai",
+                ".tidb.net",
+                ".tidbcloud.com",
+                ".tikv.org"
+            ]
+        }
+    ]
+}

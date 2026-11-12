@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["heptio.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "heptio.cn",
+            "domain_suffix": ".heptio.cn"
+        }
+    ]
+}

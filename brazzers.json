@@ -1,3 +1,20 @@
-{"version":1,"rules":[
-{"domain_suffix":["brazzer.com","brazzers.com","brazzers.xxx","brazzersnetwork.com","mofos.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "brazzer.com",
+                "brazzers.com",
+                "brazzers.xxx",
+                "brazzersnetwork.com",
+                "mofos.com"
+            ],
+            "domain_suffix": [
+                ".brazzer.com",
+                ".brazzers.com",
+                ".brazzers.xxx",
+                ".brazzersnetwork.com",
+                ".mofos.com"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["badjs.weixinbridge.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "badjs.weixinbridge.com",
+            "domain_suffix": ".badjs.weixinbridge.com"
+        }
+    ]
+}

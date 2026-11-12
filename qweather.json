@@ -1,3 +1,20 @@
-{"version":1,"rules":[
-{"domain_suffix":["hecdn.net","heweather.net","qweather.com","qweather.net","qweatherapi.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "hecdn.net",
+                "heweather.net",
+                "qweather.com",
+                "qweather.net",
+                "qweatherapi.com"
+            ],
+            "domain_suffix": [
+                ".hecdn.net",
+                ".heweather.net",
+                ".qweather.com",
+                ".qweather.net",
+                ".qweatherapi.com"
+            ]
+        }
+    ]
+}

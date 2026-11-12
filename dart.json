@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["dart.dev","dartlang.org","dartpad.dev"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "dart.dev",
+                "dartlang.org",
+                "dartpad.dev"
+            ],
+            "domain_suffix": [
+                ".dart.dev",
+                ".dartlang.org",
+                ".dartpad.dev"
+            ]
+        }
+    ]
+}

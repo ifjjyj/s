@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["syh.zybang.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "syh.zybang.com",
+            "domain_suffix": ".syh.zybang.com"
+        }
+    ]
+}

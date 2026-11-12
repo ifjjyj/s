@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["collector.xhamster.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "collector.xhamster.com",
+            "domain_suffix": ".collector.xhamster.com"
+        }
+    ]
+}

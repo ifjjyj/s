@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["gimy.cc","gimy.co","gimy.to","gimy.tv"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "gimy.cc",
+                "gimy.co",
+                "gimy.to",
+                "gimy.tv"
+            ],
+            "domain_suffix": [
+                ".gimy.cc",
+                ".gimy.co",
+                ".gimy.to",
+                ".gimy.tv"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["aiqicha.baidu.com","aiqicha.cn","aiqicha.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "aiqicha.cn",
+                "aiqicha.com",
+                "aiqicha.baidu.com"
+            ],
+            "domain_suffix": [
+                ".aiqicha.cn",
+                ".aiqicha.com",
+                ".aiqicha.baidu.com"
+            ]
+        }
+    ]
+}

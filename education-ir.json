@@ -1,3 +1,30 @@
-{"version":1,"rules":[
-{"domain_suffix":["done.ir","faradars.org","git.ir","iranlms.org","learnby.ir","maktabkhooneh.org","melotar.com","newdars.com","toplearn.com","webinarplus.online"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "faradars.org",
+                "git.ir",
+                "learnby.ir",
+                "maktabkhooneh.org",
+                "newdars.com",
+                "toplearn.com",
+                "melotar.com",
+                "done.ir",
+                "iranlms.org",
+                "webinarplus.online"
+            ],
+            "domain_suffix": [
+                ".faradars.org",
+                ".git.ir",
+                ".learnby.ir",
+                ".maktabkhooneh.org",
+                ".newdars.com",
+                ".toplearn.com",
+                ".melotar.com",
+                ".done.ir",
+                ".iranlms.org",
+                ".webinarplus.online"
+            ]
+        }
+    ]
+}

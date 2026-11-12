@@ -1,3 +1,28 @@
-{"version":1,"rules":[
-{"domain_suffix":["androidfilehost.com","borneo.world","borneoasia.com","borneoschematic.com","bosharso.net","easy-jtag.com","hostborneo.org","unlocktool.net","z3x-team.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "androidfilehost.com",
+                "unlocktool.net",
+                "borneo.world",
+                "borneoasia.com",
+                "borneoschematic.com",
+                "bosharso.net",
+                "hostborneo.org",
+                "easy-jtag.com",
+                "z3x-team.com"
+            ],
+            "domain_suffix": [
+                ".androidfilehost.com",
+                ".unlocktool.net",
+                ".borneo.world",
+                ".borneoasia.com",
+                ".borneoschematic.com",
+                ".bosharso.net",
+                ".hostborneo.org",
+                ".easy-jtag.com",
+                ".z3x-team.com"
+            ]
+        }
+    ]
+}

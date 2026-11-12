@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["analytics.tiktok.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "analytics.tiktok.com",
+            "domain_suffix": ".analytics.tiktok.com"
+        }
+    ]
+}

@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["itch.io","itch.zone"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "itch.io",
+                "itch.zone"
+            ],
+            "domain_suffix": [
+                ".itch.io",
+                ".itch.zone"
+            ]
+        }
+    ]
+}

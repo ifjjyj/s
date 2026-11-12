@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["xdty.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "xdty.org",
+            "domain_suffix": ".xdty.org"
+        }
+    ]
+}

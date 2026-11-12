@@ -1,3 +1,22 @@
-{"version":1,"rules":[
-{"domain_suffix":["nikkei-cnbc.co.jp","nikkei.co.jp","nikkei.com","nikkei.jp","nikkei4946.com","nikkeibp.co.jp"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "nikkei.com",
+                "nikkei.jp",
+                "nikkei4946.com",
+                "nikkei-cnbc.co.jp",
+                "nikkei.co.jp",
+                "nikkeibp.co.jp"
+            ],
+            "domain_suffix": [
+                ".nikkei.com",
+                ".nikkei.jp",
+                ".nikkei4946.com",
+                ".nikkei-cnbc.co.jp",
+                ".nikkei.co.jp",
+                ".nikkeibp.co.jp"
+            ]
+        }
+    ]
+}

@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["redhat.com","redhat.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "redhat.com",
+                "redhat.org"
+            ],
+            "domain_suffix": [
+                ".redhat.com",
+                ".redhat.org"
+            ]
+        }
+    ]
+}

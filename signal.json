@@ -1,3 +1,26 @@
-{"version":1,"rules":[
-{"domain_suffix":["signal.art","signal.group","signal.link","signal.me","signal.org","signal.tube","signalusers.org","whispersystems.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "signal.art",
+                "signal.group",
+                "signal.link",
+                "signal.me",
+                "signal.tube",
+                "signal.org",
+                "signalusers.org",
+                "whispersystems.org"
+            ],
+            "domain_suffix": [
+                ".signal.art",
+                ".signal.group",
+                ".signal.link",
+                ".signal.me",
+                ".signal.tube",
+                ".signal.org",
+                ".signalusers.org",
+                ".whispersystems.org"
+            ]
+        }
+    ]
+}

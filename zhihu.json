@@ -1,3 +1,22 @@
-{"version":1,"rules":[
-{"domain_suffix":["laiyagushi.com","vzuu.com","zhihu.com","zhimg.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "zhihu.com",
+                "zhimg.com",
+                "laiyagushi.com",
+                "vzuu.com",
+                "crash2.zhihu.com",
+                "zhihu-web-analytics.zhihu.com"
+            ],
+            "domain_suffix": [
+                ".zhihu.com",
+                ".zhimg.com",
+                ".laiyagushi.com",
+                ".vzuu.com",
+                ".crash2.zhihu.com",
+                ".zhihu-web-analytics.zhihu.com"
+            ]
+        }
+    ]
+}

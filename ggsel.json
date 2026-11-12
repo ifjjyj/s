@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["ggsel.com","ggsel.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "ggsel.com",
+                "ggsel.net"
+            ],
+            "domain_suffix": [
+                ".ggsel.com",
+                ".ggsel.net"
+            ]
+        }
+    ]
+}

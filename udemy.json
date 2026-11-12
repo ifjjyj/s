@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["udemy.com","udemycdn.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "udemy.com",
+                "udemycdn.com"
+            ],
+            "domain_suffix": [
+                ".udemy.com",
+                ".udemycdn.com"
+            ]
+        }
+    ]
+}

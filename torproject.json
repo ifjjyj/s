@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["torproject.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "torproject.org",
+            "domain_suffix": ".torproject.org"
+        }
+    ]
+}

@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["logger.qmai.cn","tracking.mcdonalds.com.cn","trackingprd.hwwt8.com","trackserver.shuxinyc.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "logger.qmai.cn",
+                "tracking.mcdonalds.com.cn",
+                "trackingprd.hwwt8.com",
+                "trackserver.shuxinyc.com"
+            ],
+            "domain_suffix": [
+                ".logger.qmai.cn",
+                ".tracking.mcdonalds.com.cn",
+                ".trackingprd.hwwt8.com",
+                ".trackserver.shuxinyc.com"
+            ]
+        }
+    ]
+}

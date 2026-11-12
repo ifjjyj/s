@@ -1,3 +1,16 @@
-{"version":1,"rules":[
-{"domain_suffix":["ciweimao.com","hbooker.com","kuangxiangit.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "ciweimao.com",
+                "hbooker.com",
+                "kuangxiangit.com"
+            ],
+            "domain_suffix": [
+                ".ciweimao.com",
+                ".hbooker.com",
+                ".kuangxiangit.com"
+            ]
+        }
+    ]
+}

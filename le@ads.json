@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["apple.www.letv.com","ark.letv.com","dc.letv.com","g3.letv.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "apple.www.letv.com",
+                "ark.letv.com",
+                "dc.letv.com",
+                "g3.letv.com"
+            ],
+            "domain_suffix": [
+                ".apple.www.letv.com",
+                ".ark.letv.com",
+                ".dc.letv.com",
+                ".g3.letv.com"
+            ]
+        }
+    ]
+}

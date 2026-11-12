@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["x18r.co","x18r.com","z18r.co","z18r.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "x18r.co",
+                "x18r.com",
+                "z18r.co",
+                "z18r.com"
+            ],
+            "domain_suffix": [
+                ".x18r.co",
+                ".x18r.com",
+                ".z18r.co",
+                ".z18r.com"
+            ]
+        }
+    ]
+}

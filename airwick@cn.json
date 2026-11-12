@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["airwick.com.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "airwick.com.cn",
+            "domain_suffix": ".airwick.com.cn"
+        }
+    ]
+}

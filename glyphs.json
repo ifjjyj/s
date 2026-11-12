@@ -1,3 +1,8 @@
-{"version":1,"rules":[
-{"domain_suffix":["glyphsapp.com"]}
-]}
+{
+    "rules": [
+        {
+            "domain": "glyphsapp.com",
+            "domain_suffix": ".glyphsapp.com"
+        }
+    ]
+}

@@ -1,3 +1,24 @@
-{"version":1,"rules":[
-{"domain_suffix":["22112211.xyz","deepflood.com","nodeget.com","nodeimage.com","nodequality.com","nodeseek.com","nodeseek.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "22112211.xyz",
+                "deepflood.com",
+                "nodeget.com",
+                "nodeimage.com",
+                "nodequality.com",
+                "nodeseek.com",
+                "nodeseek.org"
+            ],
+            "domain_suffix": [
+                ".22112211.xyz",
+                ".deepflood.com",
+                ".nodeget.com",
+                ".nodeimage.com",
+                ".nodequality.com",
+                ".nodeseek.com",
+                ".nodeseek.org"
+            ]
+        }
+    ]
+}

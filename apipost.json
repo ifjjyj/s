@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["apipost.cn","apipost.net"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "apipost.cn",
+                "apipost.net"
+            ],
+            "domain_suffix": [
+                ".apipost.cn",
+                ".apipost.net"
+            ]
+        }
+    ]
+}

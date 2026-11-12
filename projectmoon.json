@@ -1,3 +1,18 @@
-{"version":1,"rules":[
-{"domain_suffix":["limbuscompany.global","limbuscompanyapi.com","limbuscompanycdn.org","projectmoon.studio"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "projectmoon.studio",
+                "limbuscompany.global",
+                "limbuscompanyapi.com",
+                "limbuscompanycdn.org"
+            ],
+            "domain_suffix": [
+                ".projectmoon.studio",
+                ".limbuscompany.global",
+                ".limbuscompanyapi.com",
+                ".limbuscompanycdn.org"
+            ]
+        }
+    ]
+}

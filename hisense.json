@@ -1,3 +1,22 @@
-{"version":1,"rules":[
-{"domain_suffix":["hisense-home.com","hisense.com","hisensehitachi.com","hisensekf.com","hismarttv.com","juhaokan.org"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "hisense-home.com",
+                "hisense.com",
+                "hisensehitachi.com",
+                "hisensekf.com",
+                "hismarttv.com",
+                "juhaokan.org"
+            ],
+            "domain_suffix": [
+                ".hisense-home.com",
+                ".hisense.com",
+                ".hisensehitachi.com",
+                ".hisensekf.com",
+                ".hismarttv.com",
+                ".juhaokan.org"
+            ]
+        }
+    ]
+}

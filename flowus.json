@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["allflow.cn","flowus.cn"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "allflow.cn",
+                "flowus.cn"
+            ],
+            "domain_suffix": [
+                ".allflow.cn",
+                ".flowus.cn"
+            ]
+        }
+    ]
+}

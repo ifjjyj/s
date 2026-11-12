@@ -1,3 +1,14 @@
-{"version":1,"rules":[
-{"domain_suffix":["nyaa.net","nyaa.si"]}
-]}
+{
+    "rules": [
+        {
+            "domain": [
+                "nyaa.net",
+                "nyaa.si"
+            ],
+            "domain_suffix": [
+                ".nyaa.net",
+                ".nyaa.si"
+            ]
+        }
+    ]
+}
