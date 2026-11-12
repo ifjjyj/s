@@ -36,14 +36,6 @@ jobs:
           rm -rf "$WORK" && mkdir -p "$WORK"
 
           # ------------------------------------------------------------
-          # 开关
-          # ------------------------------------------------------------
-
-          # 是否对 b 分支（DustinWin 的 sing-box 规则集，原本是原样同步）也做域名合并优化：1 = 做，0 = 保持原样
-          # a、c 分支的域名规则集始终会做合并优化；m 分支是 mihomo 格式，不涉及
-          OPTIMIZE_B=1
-
-          # ------------------------------------------------------------
           # 命名规则表
           # ------------------------------------------------------------
 
@@ -237,34 +229,52 @@ jobs:
           }
 
           # ------------------------------------------------------------
-          # 合并去重工具
+          # 合并去重工具：把多个 .srs 合并成一个，并去掉冗余条目
           # ------------------------------------------------------------
 
-          # reduce.py：域名规则精简的核心逻辑，由 merge_rulesets（多合一）和 optimize_dir（单个精简）共用
-          # 用法：reduce.py <merge|single> <输出.json> <输入1.json> [输入2.json ...]
-          #   merge ：合并所有输入，总是生成输出
-          #   single：精简单个规则集；没有可精简的内容时以退出码 3 结束（调用方保持原文件不动），
-          #           有精简时生成输出，并在标准输出打印 "精简前条目数<TAB>精简后条目数"
-          # 精简规则（只处理纯域名规则：domain / domain_suffix / domain_keyword / domain_regex）：
-          #   0. 精确 domain "x" 加带点后缀 ".x"（只匹配子域）合起来等价于不带点后缀 "x"，合并成一条
+          # install_singbox：下载 SagerNet 最新稳定版 sing-box，路径放在全局变量 SB
+          # 用 releases/latest，只会取稳定版，不会取 alpha/beta
+          install_singbox() {
+            local tag ver
+            tag="$(gh api repos/SagerNet/sing-box/releases/latest --jq .tag_name)" || return 1
+            ver="${tag#v}"
+            mkdir -p "$WORK/sb"
+            gh release download "$tag" --repo SagerNet/sing-box \
+              --pattern "sing-box-${ver}-linux-amd64.tar.gz" --dir "$WORK/sb" || return 1
+            tar -xzf "$WORK/sb/sing-box-${ver}-linux-amd64.tar.gz" -C "$WORK/sb" || return 1
+            SB="$WORK/sb/sing-box-${ver}-linux-amd64/sing-box"
+            echo "合并使用 sing-box $tag"
+          }
+
+          # merge_rulesets <目标目录> <输出名> <输入1> [输入2 ...]
+          # 输入可以是 .srs（会先反编译）或 .json（源码格式，直接使用）
+          # 反编译所有输入 -> 合并去重 -> 去掉冗余条目 -> 编译，生成 <输出名>.srs 和 <输出名>.json
+          # 去冗余规则：
           #   1. domain_suffix 的 "x.com" 已覆盖 x.com 及所有子域，所以 a.x.com 可以删
           #   2. 精确 domain 被某个 suffix 覆盖的删掉
           #   3. 被 domain_keyword 命中的 suffix/domain 删掉
           #   4. 含其他字段（如 ip_cidr）的规则原样保留，不参与精简
-          # 内置自检：对每个原始条目构造探测域名，精简前后的匹配结果必须完全一致，否则报错退出
-          cat > "$WORK/reduce.py" <<'PY'
+          # 内置自检：精简后必须仍能覆盖精简前的每一条，否则报错退出
+          merge_rulesets() {
+            local dest="$1" out="$2" tmp f i=0; shift 2
+            local jsons=()
+            tmp="$WORK/merge-$out"; rm -rf "$tmp"; mkdir -p "$tmp"
+            for f in "$@"; do
+              if [ ! -f "$f" ]; then echo "::warning::合并 $out 缺少输入文件：$(basename "$f")"; return 1; fi
+              i=$((i + 1))
+              case "$f" in
+                *.json) cp "$f" "$tmp/in$i.json" || return 1 ;;
+                *)      "$SB" rule-set decompile "$f" -o "$tmp/in$i.json" || return 1 ;;
+              esac
+              jsons+=("$tmp/in$i.json")
+            done
+            python3 - "$tmp/$out.json" "${jsons[@]}" <<'PY' || return 1
           import json, sys
 
-          mode, out, ins = sys.argv[1], sys.argv[2], sys.argv[3:]
+          out, ins = sys.argv[1], sys.argv[2:]
           KEYS = {"domain", "domain_suffix", "domain_keyword", "domain_regex"}
-
-          def lst(v):
-              # sing-box 允许把字段写成单个字符串
-              return [v] if isinstance(v, str) else list(v)
-
           ver = 1
           suf, dom, kw, rx, other, seen = set(), set(), set(), set(), [], set()
-          raw = n_dr = 0   # raw：精简前的条目总数（含重复）；n_dr：纯域名规则的条数
 
           for p in ins:
               d = json.load(open(p, encoding="utf-8"))
@@ -272,12 +282,10 @@ jobs:
               for r in d.get("rules", []):
                   r = {k: v for k, v in r.items() if not (k == "type" and v == "default")}
                   if r and set(r) <= KEYS:
-                      n_dr += 1
-                      raw += sum(len(lst(v)) for v in r.values())
-                      dom.update(x.strip().lower() for x in lst(r.get("domain", [])))
-                      suf.update(x.strip().lower() for x in lst(r.get("domain_suffix", [])))
-                      kw.update(x.strip() for x in lst(r.get("domain_keyword", [])))
-                      rx.update(x.strip() for x in lst(r.get("domain_regex", [])))
+                      dom.update(x.strip().lower() for x in r.get("domain", []))
+                      suf.update(x.strip().lower() for x in r.get("domain_suffix", []))
+                      kw.update(x.strip() for x in r.get("domain_keyword", []))
+                      rx.update(x.strip() for x in r.get("domain_regex", []))
                   else:
                       s = json.dumps(r, sort_keys=True, ensure_ascii=False)
                       if s not in seen:
@@ -285,12 +293,6 @@ jobs:
                           other.append(r)
 
           dom.discard(""); suf.discard(""); suf.discard("."); kw.discard(""); rx.discard("")
-          dom0, suf0 = set(dom), set(suf)
-          n0 = (len(suf), len(dom), len(kw), len(rx))
-
-          # 第一步：精确 domain "x" + 带点后缀 ".x" -> 不带点后缀 "x"
-          for x in [x for x in dom if "." + x in suf]:
-              dom.discard(x); suf.discard("." + x); suf.add(x)
 
           def parents(d):
               p = d.split(".")
@@ -311,30 +313,14 @@ jobs:
           def kw_covered(d):
               return any(k in d for k in kws)
 
+          n0 = (len(suf), len(dom), len(kw), len(rx))
           suf_r = {d for d in suf if not suf_covered(d, suf) and not kw_covered(d)}
           dom_r = {d for d in dom if not dom_covered(d, suf) and not kw_covered(d)}
-          after = len(suf_r) + len(dom_r) + len(kw) + len(rx)
 
-          # single 模式：没有域名规则或没有任何精简时，保持原文件不动
-          if mode == "single" and (n_dr == 0 or after >= raw):
-              sys.exit(3)
-
-          # 自检：用原始条目构造探测域名（条目本身、条目的一个子域），比较精简前后的匹配结果
-          def match(h, D, S):
-              if h in D or h in S or any(k in h for k in kws):
-                  return True
-              p = h
-              while "." in p:
-                  p = p.split(".", 1)[1]
-                  if p in S or "." + p in S:
-                      return True
-              return False
-
-          for e in dom0 | suf0:
-              e0 = e.lstrip(".")
-              for h in (e0, "probe-x." + e0):
-                  if match(h, dom0, suf0) != match(h, dom_r, suf_r):
-                      sys.exit("自检失败：%s 的匹配结果在精简前后不一致（条目 %s）" % (h, e))
+          for d in suf:
+              assert d in suf_r or suf_covered(d, suf_r) or kw_covered(d), d
+          for d in dom:
+              assert d in dom_r or dom_covered(d, suf_r) or kw_covered(d), d
 
           m = {}
           if dom_r: m["domain"] = sorted(dom_r)
@@ -350,107 +336,8 @@ jobs:
               f.write(",\n".join(json.dumps(r, ensure_ascii=False, separators=(",", ":")) for r in rules))
               f.write("\n]}\n")
 
-          if mode == "single":
-              print("%d\t%d" % (raw, after))
-          else:
-              print("合并前 suffix/domain/keyword/regex = %s，合并后 = %s" % (n0, (len(suf_r), len(dom_r), len(kw), len(rx))))
+          print("合并前 suffix/domain/keyword/regex = %s，合并后 = %s" % (n0, (len(suf_r), len(dom_r), len(kw), len(rx))))
           PY
-
-          # opt_one.sh：精简若干个规则集文件（原地替换），由 optimize_dir 通过 xargs 并行调用
-          # 依赖环境变量：SB（sing-box 路径）、REDUCE（reduce.py 路径）
-          # 每个文件输出一行结果（制表符分隔）：
-          #   OK  <精简前条目数> <精简后条目数> <文件名>
-          #   SKIP <文件名>             没有可精简的内容（ip 规则集等），保持原样
-          #   FAIL <文件名> <原因>       出错，保持原样
-          cat > "$WORK/opt_one.sh" <<'SH'
-          T="$(mktemp -d)"
-          trap 'rm -rf "$T"' EXIT
-          for f in "$@"; do
-            name="$(basename "$f")"
-            rm -f "$T"/*
-            src="$f"
-            if [[ "$f" == *.srs ]]; then
-              if ! "$SB" rule-set decompile "$f" -o "$T/in.json" >/dev/null 2>&1; then
-                printf 'FAIL\t%s\t反编译失败\n' "$name"; continue
-              fi
-              src="$T/in.json"
-            fi
-            rc=0
-            st="$(python3 "$REDUCE" single "$T/out.json" "$src" 2>"$T/err")" || rc=$?
-            if [ "$rc" = 3 ]; then
-              printf 'SKIP\t%s\n' "$name"; continue
-            fi
-            if [ "$rc" != 0 ]; then
-              printf 'FAIL\t%s\t%s\n' "$name" "$(tail -n 1 "$T/err" | tr '\t\n' '  ')"; continue
-            fi
-            if [[ "$f" == *.srs ]]; then
-              if ! "$SB" rule-set compile "$T/out.json" -o "$T/out.srs" >/dev/null 2>&1 || [ ! -s "$T/out.srs" ]; then
-                printf 'FAIL\t%s\t编译失败\n' "$name"; continue
-              fi
-              cp "$T/out.srs" "$f"
-            else
-              cp "$T/out.json" "$f"
-            fi
-            printf 'OK\t%s\t%s\n' "$st" "$name"
-          done
-          SH
-
-          # install_singbox：下载 SagerNet 最新稳定版 sing-box，路径放在全局变量 SB
-          # 用 releases/latest，只会取稳定版，不会取 alpha/beta
-          # 已经安装过就直接返回（optimize_dir 和 adall 合并都会调用）
-          install_singbox() {
-            local tag ver
-            if [ -n "${SB:-}" ] && [ -x "$SB" ]; then return 0; fi
-            tag="$(gh api repos/SagerNet/sing-box/releases/latest --jq .tag_name)" || return 1
-            ver="${tag#v}"
-            mkdir -p "$WORK/sb"
-            gh release download "$tag" --repo SagerNet/sing-box \
-              --pattern "sing-box-${ver}-linux-amd64.tar.gz" --dir "$WORK/sb" || return 1
-            tar -xzf "$WORK/sb/sing-box-${ver}-linux-amd64.tar.gz" -C "$WORK/sb" || return 1
-            SB="$WORK/sb/sing-box-${ver}-linux-amd64/sing-box"
-            echo "合并使用 sing-box $tag"
-          }
-
-          # optimize_dir <目录> <标签>
-          # 对目录里的每个 .srs / .json 规则集做域名精简（并行处理），原地替换：
-          #   - 精确 domain "x" + 带点后缀 ".x" 合并成不带点后缀 "x"，并去掉冗余条目（规则见 reduce.py）
-          #   - 不含域名规则的（ip 规则集等）和没有可精简内容的，保持原文件不动
-          #   - 单个文件出错只警告并保持原样，不影响其他文件；sing-box 装不上则整体跳过，不影响同步
-          optimize_dir() {
-            local dir="$1" label="$2" log="$WORK/opt-$2.log"
-            if ! install_singbox; then
-              echo "::warning::sing-box 安装失败，$label 分支的规则集保持原样（未做合并优化）"
-              return 0
-            fi
-            : > "$log"
-            find "$dir" -type f \( -name '*.srs' -o -name '*.json' \) -print0 \
-              | SB="$SB" REDUCE="$WORK/reduce.py" xargs -0 -r -n 16 -P "$(nproc)" bash "$WORK/opt_one.sh" > "$log" || true
-            awk -F'\t' -v label="$label" '
-              $1 == "OK"   { ok++; b += $2; a += $3 }
-              $1 == "SKIP" { skip++ }
-              $1 == "FAIL" { fail++; if (fail <= 10) print "::warning::合并优化失败，已保留原文件：" $2 "（" $3 "）" }
-              END { printf "分支 %s 域名规则集合并优化：精简 %d 个，无需精简 %d 个，失败 %d 个；域名条目 %d -> %d\n", label, ok, skip, fail, b, a }
-            ' "$log"
-          }
-
-          # merge_rulesets <目标目录> <输出名> <输入1> [输入2 ...]
-          # 输入可以是 .srs（会先反编译）或 .json（源码格式，直接使用）
-          # 反编译所有输入 -> 合并去重 -> 去掉冗余条目 -> 编译，生成 <输出名>.srs 和 <输出名>.json
-          # 去冗余规则见 reduce.py 的说明（含 domain + .suffix 配对合并）
-          merge_rulesets() {
-            local dest="$1" out="$2" tmp f i=0; shift 2
-            local jsons=()
-            tmp="$WORK/merge-$out"; rm -rf "$tmp"; mkdir -p "$tmp"
-            for f in "$@"; do
-              if [ ! -f "$f" ]; then echo "::warning::合并 $out 缺少输入文件：$(basename "$f")"; return 1; fi
-              i=$((i + 1))
-              case "$f" in
-                *.json) cp "$f" "$tmp/in$i.json" || return 1 ;;
-                *)      "$SB" rule-set decompile "$f" -o "$tmp/in$i.json" || return 1 ;;
-              esac
-              jsons+=("$tmp/in$i.json")
-            done
-            python3 "$WORK/reduce.py" merge "$tmp/$out.json" "${jsons[@]}" || return 1
             "$SB" rule-set compile "$tmp/$out.json" -o "$tmp/$out.srs" || return 1
             put "$tmp/$out.json" "$dest/$out.json"
             put "$tmp/$out.srs"  "$dest/$out.srs"
@@ -513,18 +400,16 @@ jobs:
           }
 
           # ------------------------------------------------------------
-          # 分支 b：DustinWin / sing-box-ruleset
-          # 默认会做域名合并优化（OPTIMIZE_B=0 则原样同步）
+          # 分支 b：DustinWin / sing-box-ruleset（原样同步）
           # ------------------------------------------------------------
           clone https://github.com/DustinWin/ruleset_geodata.git sing-box-ruleset "$WORK/dw-sb"
           mkdir -p "$WORK/out-b"
           # git archive 导出文件时自动排除 .git 目录
           git -C "$WORK/dw-sb" archive HEAD | tar -x -C "$WORK/out-b"
-          if [ "$OPTIMIZE_B" = 1 ]; then optimize_dir "$WORK/out-b" b; fi
           publish_branch b "$WORK/out-b"
 
           # ------------------------------------------------------------
-          # 分支 m：DustinWin / mihomo-ruleset（原样同步，mihomo 格式不涉及合并优化）
+          # 分支 m：DustinWin / mihomo-ruleset（原样同步）
           # ------------------------------------------------------------
           clone https://github.com/DustinWin/ruleset_geodata.git mihomo-ruleset "$WORK/dw-mh"
           mkdir -p "$WORK/out-m"
@@ -539,7 +424,6 @@ jobs:
           #   geosite-google-xxx.srs   -> xxx.srs       （google-cn 除外；撞名时保留原名并警告）
           #   geosite-xxx-!cn.srs      -> xxx.srs       （撞名时保留原名并警告）
           #   geoip-xxx.srs            -> xxxip.srs     （如 geoip-cn.srs -> cnip.srs）
-          # geosite 生成后统一做域名合并优化；geoip 不含域名，不处理
           # ------------------------------------------------------------
           clone https://github.com/SagerNet/sing-geosite.git rule-set "$WORK/sg-site"
           clone https://github.com/SagerNet/sing-geoip.git   rule-set "$WORK/sg-ip"
@@ -568,13 +452,12 @@ jobs:
             TAKEN[${key}ip]=1
           done
 
-          # 第二步：生成 geosite 文件，并做域名合并优化
+          # 第二步：生成 geosite 文件
           for f in "$WORK"/sg-site/geosite-*.srs; do
             key="$(basename "$f" .srs)"; key="${key#geosite-}"
             site_name "$key" 1
             put "$f" "$WORK/out-a/$SN.srs"
           done
-          optimize_dir "$WORK/out-a" a
 
           # 第三步：生成 geoip 文件，geoip-xxx.srs -> xxxip.srs
           for f in "$WORK"/sg-ip/geoip-*.srs; do
@@ -602,8 +485,6 @@ jobs:
           #   QuixoticHeart：xxx.srs / xxx.json -> xxx3.srs / xxx3.json
           #   adall.srs / adall.json：ad、ads2、adrules 的域名部分合并去重后的结果
           #   adipall.srs / adipall.json：adrules 里的全部 ip 规则
-          # 上述文件（adall / adipall 除外，它们由合并工具生成，本身已精简）全部生成后，
-          # 统一对域名规则集（.srs 和 .json）做合并优化
           # ------------------------------------------------------------
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geosite "$WORK/lyc-site"
           clone https://github.com/lyc8503/sing-box-rules.git rule-set-geoip   "$WORK/lyc-ip"
@@ -677,10 +558,6 @@ jobs:
             qh_count=$((qh_count + 1))
           done
           echo "QuixoticHeart 规则文件已加入 c 分支：$qh_count 个"
-
-          # 第五步半：对 c 分支目前所有的域名规则集（.srs 和 .json）做合并优化
-          # 放在 adall 之前，这样下面合并用到的 ad.srs / ads2.srs 已经是精简过的
-          optimize_dir "$WORK/out-c" c
 
           # 第六步：处理 adrules（同步自 QuixoticHeart）
           #   1. 拆成域名部分和 ip 部分
