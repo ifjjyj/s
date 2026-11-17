@@ -84,14 +84,25 @@ jobs:
             [china-list]=cnall
           )
 
-          # 【并入 adall 的规则集】仅 c 分支使用，写的是 c 分支里最终的名称
-          # 这些规则集会和 ad、ads2、adrules 的域名部分一起合并成 adall，合并成功后它们的原文件从 c 分支删除
-          # （合并失败则保持原样，不删除）
+          # 【c 分支的合并规则】仅 c 分支使用，写的都是 c 分支里最终的名称
+          # 合并成功后，被合并的原文件从 c 分支删除；合并失败则保持原样，不删除
+
+          # 指定并入 adall 的规则集，和 ad、ads2、adrules 的域名部分一起合并
+          # 这里的名称优先于下面的后缀规则：即使以 @cn 结尾（如 telemetry@cn），也并入 adall 而不是 cnall
           AD_EXTRA=(
             telemetry telemetry@ads telemetry@cn telemetry@telemetry
             ads@ads ads@telemetry
             ads-and-telemetry ads-and-telemetry@ads ads-and-telemetry@cn ads-and-telemetry@telemetry
           )
+
+          # 名称以这些结尾的规则集，全部并入 adall
+          AD_SUFFIX=(@ads @telemetry)
+
+          # 额外并入 adall 的 domain_suffix（不带点：匹配该域名本身及所有子域）
+          AD_EXTRA_SUFFIX=(push-ads-cn.heytapmobi.com)
+
+          # 名称以这些结尾的规则集，全部并入 cnall（上面 AD_EXTRA 里的除外）
+          CN_SUFFIX=(@cn)
 
           # 【特殊重命名表】仅 a 分支使用：geosite-<键>.srs -> <值>.srs
           # 优先级高于自动改名规则
@@ -519,6 +530,27 @@ jobs:
             put "$tmp/$out.srs"  "$c/$out.srs"
           }
 
+          # list_by_suffix <后缀1> [后缀2 ...]
+          # 列出 c 分支目录（out-c）里名称（去掉 .srs / .json）以任一后缀结尾的规则集，去重（.srs 和 .json 同名只算一个），
+          # 结果放在全局数组 LIST 里；AD_EXTRA 里的名称不会列出（它们已经指定并入 adall）
+          list_by_suffix() {
+            local f name s
+            local -A seen=()
+            for s in "${AD_EXTRA[@]}"; do seen[$s]=1; done
+            LIST=()
+            for f in "$WORK"/out-c/*; do
+              [ -f "$f" ] || continue
+              name="$(basename "$f")"
+              case "$name" in *.srs|*.json) name="${name%.*}" ;; *) continue ;; esac
+              if [ -n "${seen[$name]:-}" ]; then continue; fi
+              for s in "$@"; do
+                if [[ "$name" == *"$s" ]]; then
+                  seen[$name]=1; LIST+=("$name"); break
+                fi
+              done
+            done
+          }
+
           # split_adrules <源.srs> <临时目录>
           # 把同时含域名和 ip 的规则集拆成两份，输出到临时目录：
           #   adrules-domain.json：域名部分（domain / suffix / keyword / regex 及其他非 ip 字段）
@@ -665,8 +697,10 @@ jobs:
           #   最后再用 SagerNet 的 geoip-cn.srs 覆盖为 cnip.srs
           #   DustinWin：xxx.srs / xxx.json -> xxx2.srs / xxx2.json（特殊项见 dw_name）
           #   QuixoticHeart：xxx.srs / xxx.json -> xxx3.srs / xxx3.json
-          #   adall.srs / adall.json：ad、ads2、adrules 的域名部分、AD_EXTRA 里的规则集合并去重后的结果
+          #   adall.srs / adall.json：ad、ads2、adrules 的域名部分、AD_EXTRA 里的规则集、所有 @ads / @telemetry 结尾的规则集、
+          #                           AD_EXTRA_SUFFIX 里的额外域名，合并去重后的结果
           #   proxy.srs / proxy.json：lyc 的 geolocation-!cn + DustinWin 的 proxy2 + QuixoticHeart 的 proxy3 合并后的结果
+          #   cnall.srs / cnall.json：lyc 的 china-list + 所有以 @cn 结尾的规则集合并后的结果
           #   adipall.srs / adipall.json：adrules 里的全部 ip 规则
           # 上述文件（adall / adipall 除外，它们由合并工具生成，本身已精简）全部生成后，
           # 统一对域名规则集（.srs 和 .json）做合并优化
@@ -751,14 +785,24 @@ jobs:
 
           # 第六步：处理 adrules（同步自 QuixoticHeart）
           #   1. 拆成域名部分和 ip 部分
-          #   2. 域名部分与 ad（lyc 的 category-ads-all）、ads2（DustinWin 的 ads）、
-          #      AD_EXTRA 里的 telemetry / ads 相关规则集合并去重 -> adall（AD_EXTRA 的原文件随后删除）
+          #   2. 域名部分与 ad（lyc 的 category-ads-all）、ads2（DustinWin 的 ads）、AD_EXTRA 里的规则集、
+          #      所有以 AD_SUFFIX（@ads / @telemetry）结尾的规则集、AD_EXTRA_SUFFIX 里的额外域名
+          #      合并去重 -> adall（被并入的规则集原文件随后删除）
           #   3. ip 部分单独编译 -> adipall
           # 任何一步失败都不中断同步，而是沿用远端 c 分支上一次的版本
           ADTMP="$WORK/adrules-split"; rm -rf "$ADTMP"; mkdir -p "$ADTMP"
           if install_singbox && split_adrules "$QH_DIR/adrules.srs" "$ADTMP"; then
-            if merge_group adall "$WORK/out-c/ad.srs" "$WORK/out-c/ads2.srs" "$ADTMP/adrules-domain.json" "${AD_EXTRA[@]}"; then
-              echo "adall 合并完成"
+            # 额外的 domain_suffix 写成一个临时 json，作为合并输入之一
+            ad_inputs=("$WORK/out-c/ad.srs" "$WORK/out-c/ads2.srs" "$ADTMP/adrules-domain.json")
+            if [ "${#AD_EXTRA_SUFFIX[@]}" -gt 0 ]; then
+              sfx=""
+              for d in "${AD_EXTRA_SUFFIX[@]}"; do sfx="$sfx${sfx:+,}\"$d\""; done
+              printf '{"version":2,"rules":[{"domain_suffix":[%s]}]}\n' "$sfx" > "$ADTMP/ad-extra-suffix.json"
+              ad_inputs+=("$ADTMP/ad-extra-suffix.json")
+            fi
+            list_by_suffix "${AD_SUFFIX[@]}"
+            if merge_group adall "${ad_inputs[@]}" "${AD_EXTRA[@]}" "${LIST[@]}"; then
+              echo "adall 合并完成（指定规则集 ${#AD_EXTRA[@]} 个，后缀匹配规则集 ${#LIST[@]} 个，额外 domain_suffix ${#AD_EXTRA_SUFFIX[@]} 条）"
             else
               echo "::warning::adall 合并失败，沿用远端 c 分支上一次的版本"
               keep_old adall
@@ -785,6 +829,17 @@ jobs:
             echo "proxy 合并完成"
           else
             echo "::warning::proxy 合并失败，proxy、proxy2、proxy3 保持原样"
+          fi
+
+          # 第八步：合并 cnall = lyc 的 china-list（已按 BASE_FIX 改名为 cnall）+ 所有以 CN_SUFFIX（@cn）结尾的规则集
+          # AD_EXTRA 里的名称除外（它们并入 adall）；成功后这些规则集的原文件从 c 分支删除，失败则保持原样
+          list_by_suffix "${CN_SUFFIX[@]}"
+          if [ "${#LIST[@]}" = 0 ]; then
+            echo "没有以 ${CN_SUFFIX[*]} 结尾的规则集，cnall 保持原样"
+          elif install_singbox && merge_group cnall cnall "${LIST[@]}"; then
+            echo "cnall 合并完成（并入 ${#LIST[@]} 个规则集）"
+          else
+            echo "::warning::cnall 合并失败，保持原样"
           fi
 
           echo "分支 c 共 $(ls "$WORK/out-c" | wc -l) 个文件"
