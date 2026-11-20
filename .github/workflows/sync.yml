@@ -1067,6 +1067,194 @@ jobs:
             echo "::error::m 分支生成失败（c 分支已正常发布），m 分支保持不变"
             exit 1
           fi
+          # ------------------------------------------------------------
+          # 【改动 1】把原来 m 分支末尾的这一段
+          #     if build_m; then
+          #       publish_branch m "$WORK/out-m"
+          #     else
+          #       echo "::error::m 分支生成失败（c 分支已正常发布），m 分支保持不变"
+          #       exit 1
+          #     fi
+          # 替换成下面这段（m 失败不再直接退出，只做标记，让最后一步的数据库照常生成）
+          # ------------------------------------------------------------
+          M_FAIL=0
+          if build_m; then
+            publish_branch m "$WORK/out-m"
+          else
+            echo "::error::m 分支生成失败（c 分支已正常发布），m 分支保持不变"
+            M_FAIL=1
+          fi
+
+          # ------------------------------------------------------------
+          # 【改动 2】紧接着加上面这一段之后：分支 g（最后一步）
+          # mihomo 的 geosite.dat + geoip.dat：由 c 分支最终的 .json 合并而来
+          # 必须放在最后：c、m 全部生成并发布完成后才读取 $WORK/out-c
+          #   - 名称 = c 分支里的规则集名称（大小写都能匹配）；一个规则集里域名进 geosite，ip 进 geoip
+          #   - domain_keyword / domain_regex 在 geosite.dat 里有对应类型，不像 mrs 那样丢弃
+          #   - 名称里的 @ 改成 _（geosite 里 @ 是属性语法）
+          #   - mihomo 要求自定义库里必须有 CN，否则判定无效并重新下载官方库：
+          #     geosite 的 CN 取 geo-cn（没有则 cnall），geoip 的 CN 取 cnip（没有则 cnall），脚本自动补
+          # 客户端用法：GEOSITE,<名称>,组名 和 GEOIP,<名称>,组名，库文件从 g 分支下载
+          # ------------------------------------------------------------
+
+          # 只收录客户端用到的规则集（空 = 全部收录，但 c 分支约 2000 个规则集，文件会非常大）
+          GEO_NAMES="adall anthropic openai gemini meta xai youtube play telegram twitter discord netflix disney spotify tiktok primevideo hulu abema bahamut reddit linkedin twitch github slack notion speedtestall paypal crypto amazon bytedance apple microsoft google media ai pt gfw games dev proxy apple-cn tld-cn geo-cn cnall adipall cnip telegramip"
+
+          cat > "$WORK/gen_geodata.py" <<'PY'
+          # gen_geodata.py <json目录> <输出目录>
+          # 把目录里的 sing-box 源码格式规则集（.json）合并成 v2ray 格式的 geosite.dat 和 geoip.dat
+          #   文件名（去掉 .json）= 规则集名称，统一转大写写入；客户端 GEOSITE / GEOIP 规则里大小写都能匹配
+          #   geosite：domain -> Full，domain_suffix -> Domain，domain_keyword -> Plain，domain_regex -> Regex
+          #            （带点后缀 ".x" 本应只匹配子域，这里近似为 Domain "x"，多匹配一个根域名本身，影响可忽略）
+          #   geoip  ：ip_cidr（含写成 IP 字面量的 domain）-> CIDR
+          #   一个规则集里域名和 ip 并存时，域名进 geosite，ip 进 geoip，名称相同、互不冲突
+          #   名称里的 "@" 在 geosite 里是"属性"语法，会被当作属性过滤，所以替换成 "_"
+          #   mihomo 加载自定义库时会先检查里面有没有 CN，没有就判定文件无效、删掉并重新下载官方库，
+          #   所以这里自动补一个 CN：geosite 的 CN 取 GEO-CN（没有则 CNALL），geoip 的 CN 取 CNIP（没有则 CNALL）
+          import ipaddress, json, os, re, sys
+
+          indir, outdir = sys.argv[1:3]
+          only = set(os.environ.get("GEO_NAMES", "").split())   # 非空时只收录这些名称（不含扩展名）
+
+          def varint(n):
+              b = bytearray()
+              while True:
+                  c = n & 0x7F; n >>= 7
+                  if n: b.append(c | 0x80)
+                  else: b.append(c); return bytes(b)
+
+          def field_len(no, data):          # 长度前缀字段（string / bytes / 嵌套消息）
+              return varint(no << 3 | 2) + varint(len(data)) + data
+
+          def field_vint(no, v):            # varint 字段
+              return varint(no << 3) + varint(v)
+
+          def lst(v):
+              return [v] if isinstance(v, str) else list(v)
+
+          PLAIN, REGEX, DOMAIN, FULL = 0, 1, 2, 3
+          BAD = re.compile(r"[\s/:*,'\"]")
+
+          def domain_msg(t, value):         # GeoSite.domain（proto3：枚举 0 不写）
+              return field_len(2, (field_vint(1, t) if t else b"") + field_len(2, value.encode()))
+
+          site, ip = {}, {}                 # 名称 -> 条目字节（不含 country_code）
+          st = dict(kw=0, rx=0, dotted=0, bad=0)
+
+          for fn in sorted(os.listdir(indir)):
+              if not fn.endswith(".json"):
+                  continue
+              if only and fn[:-5] not in only:
+                  continue
+              name = fn[:-5].replace("@", "_").upper()
+              try:
+                  rules = json.load(open(os.path.join(indir, fn), encoding="utf-8")).get("rules", [])
+              except Exception as e:
+                  print("::warning::geodata 跳过无法解析的 %s：%s" % (fn, e)); continue
+
+              ents, nets = {}, set()
+              for r in rules:
+                  if not isinstance(r, dict): continue
+                  for k, v in r.items():
+                      if k == "domain":
+                          for x in lst(v):
+                              x = x.strip().lower()
+                              try: nets.add(ipaddress.ip_network(x)); continue
+                              except ValueError: pass
+                              if x and not BAD.search(x): ents[(FULL, x)] = 1
+                              else: st["bad"] += 1
+                      elif k == "domain_suffix":
+                          for x in lst(v):
+                              x = x.strip().lower()
+                              if not x or BAD.search(x.lstrip(".")): st["bad"] += 1; continue
+                              if x.startswith("."): x = x[1:]; st["dotted"] += 1
+                              ents[(DOMAIN, x)] = 1
+                      elif k == "domain_keyword":
+                          for x in lst(v):
+                              if x.strip(): ents[(PLAIN, x.strip().lower())] = 1; st["kw"] += 1
+                      elif k == "domain_regex":
+                          for x in lst(v):
+                              if x.strip(): ents[(REGEX, x.strip())] = 1; st["rx"] += 1
+                      elif k == "ip_cidr":
+                          for x in lst(v):
+                              try: nets.add(ipaddress.ip_network(x.strip(), strict=False))
+                              except ValueError: st["bad"] += 1
+
+              sufs = {v for (t, v) in ents if t == DOMAIN}          # 被后缀覆盖的精确域名去掉，不影响匹配结果
+              for (t, v) in list(ents):
+                  if t == FULL and v in sufs: del ents[(t, v)]
+
+              if ents:
+                  site[name] = b"".join(domain_msg(t, v) for (t, v) in sorted(ents))
+              if nets:
+                  col = []
+                  for ver in (4, 6):
+                      col += list(ipaddress.collapse_addresses([n for n in nets if n.version == ver]))
+                  ip[name] = b"".join(
+                      field_len(2, field_len(1, n.network_address.packed) + (field_vint(2, n.prefixlen) if n.prefixlen else b""))
+                      for n in col)
+
+          def add_cn(d, label, prefer):
+              if "CN" in d: return
+              for src in prefer:
+                  if src in d:
+                      d["CN"] = d[src]; print("%s 里没有 CN，已用 %s 的内容补一个（mihomo 校验需要）" % (label, src)); return
+              print("::warning::%s 里没有 CN，也没有可替代的 %s，mihomo 会判定库无效并重新下载官方库" % (label, "/".join(prefer)))
+
+          add_cn(site, "geosite", ["GEO-CN", "CNALL"])
+          add_cn(ip, "geoip", ["CNIP", "CNALL"])
+
+          if not site and not ip:
+              sys.exit("没有生成任何内容")
+          os.makedirs(outdir, exist_ok=True)
+          # 按名称排序写入；每个条目 = country_code + 内容，再包一层 entry（字段 1）
+          for fname, d in (("geosite.dat", site), ("geoip.dat", ip)):
+              open(os.path.join(outdir, fname), "wb").write(
+                  b"".join(field_len(1, field_len(1, n.encode()) + d[n]) for n in sorted(d)))
+          print("geosite %d 个、geoip %d 个；keyword %d、regex %d、带点后缀 %d、非法条目 %d" %
+                (len(site), len(ip), st["kw"], st["rx"], st["dotted"], st["bad"]))
+          PY
+
+          # build_g：c 分支最终 json -> $WORK/out-g/geosite.dat + geoip.dat
+          build_g() {
+            local src="$WORK/geo-src" out="$WORK/out-g"
+            rm -rf "$src" "$out"; mkdir -p "$src" "$out"
+            if ! ls "$WORK"/out-c/*.json >/dev/null 2>&1; then
+              echo "::error::c 分支目录里没有 json 文件，无法生成数据库"; return 1
+            fi
+            cp "$WORK"/out-c/*.json "$src"/
+
+            # c 分支的 cnip.srs 来自 SagerNet，而 cnip.json 来自 lyc；以 .srs 为准重新导出 json
+            if [ -f "$WORK/out-c/cnip.srs" ] && install_singbox; then
+              if "$SB" rule-set decompile "$WORK/out-c/cnip.srs" -o "$src/cnip.tmp" >/dev/null 2>&1 && [ -s "$src/cnip.tmp" ]; then
+                mv "$src/cnip.tmp" "$src/cnip.json"
+              else
+                rm -f "$src/cnip.tmp"; echo "::warning::cnip.srs 反编译失败，数据库里的 cnip 沿用 lyc 的 json"
+              fi
+            fi
+
+            GEO_NAMES="$GEO_NAMES" python3 "$WORK/gen_geodata.py" "$src" "$out" || return 1
+            if [ ! -s "$out/geosite.dat" ] || [ ! -s "$out/geoip.dat" ]; then
+              echo "::error::geosite.dat 或 geoip.dat 为空"; return 1
+            fi
+            # 收录名单里的名称没生成出来（c 分支里不存在或没有可用内容）时给出警告
+            local n
+            for n in $GEO_NAMES; do
+              [ -f "$src/$n.json" ] || echo "::warning::数据库缺少规则集：$n（c 分支里没有 $n.json）"
+            done
+            ls -la "$out"
+          }
+
+          if build_g; then
+            publish_branch g "$WORK/out-g"
+          else
+            echo "::error::数据库生成失败，g 分支保持不变"
+            exit 1
+          fi
+
+          # 前面 m 分支失败过的话，这里让整个任务标红（不影响上面已经发布的 c 和 g）
+          [ "$M_FAIL" = 0 ] || exit 1
+
 
       # 保活：公共仓库 60 天无活动会被自动停用定时任务，这里定期重置计时
       - name: Keepalive
@@ -1074,3 +1262,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow enable "${{ github.workflow }}" --repo "${{ github.repository }}" || true
+          
