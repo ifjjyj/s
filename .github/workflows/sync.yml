@@ -850,7 +850,8 @@ jobs:
           #   - ip_cidr       -> ipcidr 规则集；裸 IP 补成 /32 或 /128，去重并合并相邻网段
           #   - domain 里写成 IP 字面量的条目，按 ip 处理
           #   - domain_keyword / domain_regex 以及其他字段（端口、进程名、logical 规则等）mrs 无法表示，丢弃，日志里会统计
-          #   - 一个 json 里同时含域名和 ip 时：域名部分 -> <名称>.mrs，ip 部分 -> <名称>-ipcidr.mrs
+          #   - 一个 json 里同时含域名和 ip 时：域名部分 -> <名称>.mrs，ip 部分 -> <名称>ip.mrs
+          #     （若 <名称>ip 已被 c 分支里的另一个规则集占用，则改用 <名称>ipall.mrs 并警告；再撞名则丢弃该 ip 部分并警告）
           #     只含其中一种时，直接用 <名称>.mrs（名称和 c 分支的 json 文件名一致）
           #   - 单个文件转换失败时，沿用远端 m 分支上一次的同名文件，不影响其他文件
           # ------------------------------------------------------------
@@ -890,6 +891,9 @@ jobs:
               d0 = d[1:] if d.startswith(".") else d
               return bool(d0) and not d0.startswith(".") and not d0.endswith(".") and ".." not in d0 and not BAD.search(d0)
 
+          # c 分支里所有 json 的名称：用来判断 <名称>ip 是否已被别的规则集占用
+          stems = {fn[:-5] for fn in os.listdir(indir) if fn.endswith(".json")}
+
           n_files = n_dom = n_ip = n_both = n_empty = 0
           bad = lost_kw = lost_rx = lost_other = 0
           lines, failed = [], []
@@ -904,7 +908,10 @@ jobs:
                   rules = d.get("rules", [])
               except Exception as e:
                   print("::warning::无法解析 %s，将沿用 m 分支上一次的版本：%s" % (fn, e))
-                  failed += [name + ".mrs", name + "-ipcidr.mrs"]
+                  failed.append(name + ".mrs")
+                  # 该文件原本可能拆出的 ip 部分（<名称>ip.mrs）：仅在没有同名 json 占用时才沿用
+                  if name + "ip" not in stems:
+                      failed.append(name + "ip.mrs")
                   continue
 
               dom, suf, nets = set(), set(), set()
@@ -958,18 +965,29 @@ jobs:
                   continue
 
               dom_dst = name + ".mrs"
-              ip_dst = name + ("-ipcidr.mrs" if dl else ".mrs")
+              ip_dst = name + ".mrs"          # 只含 ip：直接用原名
+              if dl and col:
+                  # 同时含域名和 ip：ip 部分命名为 <名称>ip.mrs，撞名则依次尝试 <名称>ipall.mrs，再撞名就丢弃
+                  if name + "ip" not in stems:
+                      ip_dst = name + "ip.mrs"
+                  elif name + "ipall" not in stems:
+                      ip_dst = name + "ipall.mrs"
+                      print("::warning::%s 的 ip 部分命名为 %sip 会与已有规则集撞名，已改为 %s" % (fn, name, ip_dst))
+                  else:
+                      ip_dst = None
+                      print("::warning::%s 的 ip 部分无法命名（%sip、%sipall 均已被占用），已丢弃该 ip 部分" % (fn, name, name))
+
               if dl:
                   p = os.path.join(stage, name + ".domain.txt")
                   open(p, "w", encoding="utf-8").write("\n".join(dl) + "\n")
                   lines.append("domain\t%s\t%s" % (p, os.path.join(outdir, dom_dst)))
                   n_dom += 1
-              if col:
+              if col and ip_dst:
                   p = os.path.join(stage, name + ".ip.txt")
                   open(p, "w", encoding="utf-8").write("\n".join(str(n) for n in col) + "\n")
                   lines.append("ipcidr\t%s\t%s" % (p, os.path.join(outdir, ip_dst)))
                   n_ip += 1
-              if dl and col:
+              if dl and col and ip_dst:
                   n_both += 1
                   print("::notice::%s 同时含域名和 ip，已拆成 %s 和 %s" % (fn, dom_dst, ip_dst))
 
@@ -997,7 +1015,9 @@ jobs:
           SH
 
           # keep_old_m <文件名>：沿用远端 m 分支上一次的同名文件（转换失败时用，没有就跳过）
+          # 本次已经成功生成了同名文件时不覆盖
           keep_old_m() {
+            if [ -e "$WORK/out-m/$1" ]; then return 0; fi
             if git cat-file -e "origin/m:$1" 2>/dev/null; then
               git show "origin/m:$1" > "$WORK/out-m/$1"
               echo "::notice::m 分支沿用上一次的 $1"
