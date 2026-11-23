@@ -77,11 +77,16 @@ jobs:
           #   - geolocation-!cn         -> proxy
           #                                c 分支里还会把 DustinWin 的 proxy2、QuixoticHeart 的 proxy3 合并进来
           #   - china-list              -> cnall（只有 lyc 有这个规则集）
+          #   - category-cas            -> casc（避免与 cas 撞名，原先自动命名为 casall）
+          #   - category-speedtest      -> stall（避免与 speedtest 撞名，原先自动命名为 speedtestall；
+          #                                       category-speedtest@ads 会自动变成 stall@ads）
           declare -A BASE_FIX=(
             [category-cryptocurrency]=crypto
             [geolocation-cn]=geo-cn
             [geolocation-!cn]=proxy
             [china-list]=cnall
+            [category-cas]=casc
+            [category-speedtest]=stall
           )
 
           # 【c 分支的合并规则】仅 c 分支使用，写的都是 c 分支里最终的名称
@@ -103,6 +108,10 @@ jobs:
 
           # 名称以这些结尾的规则集，全部并入 cnall（上面 AD_EXTRA 里的除外）
           CN_SUFFIX=(@cn)
+
+          # 额外并入 cnall 的规则集（写 c 分支里的最终名称），和 china-list、@cn 结尾的规则集一起合并
+          # 与 @cn 结尾的规则集不同：这里的规则集并入 cnall 后，原文件仍然保留在 c 分支，不会删除
+          CN_EXTRA=(tld-cn)
 
           # 【特殊重命名表】仅 a 分支使用：geosite-<键>.srs -> <值>.srs
           # 优先级高于自动改名规则
@@ -692,7 +701,7 @@ jobs:
           #   adall.srs / adall.json：ad、ads2、adrules 的域名部分、AD_EXTRA 里的规则集、所有 @ads / @telemetry 结尾的规则集、
           #                           AD_EXTRA_SUFFIX 里的额外域名，合并去重后的结果
           #   proxy.srs / proxy.json：lyc 的 geolocation-!cn + DustinWin 的 proxy2 + QuixoticHeart 的 proxy3 合并后的结果
-          #   cnall.srs / cnall.json：lyc 的 china-list + 所有以 @cn 结尾的规则集合并后的结果
+          #   cnall.srs / cnall.json：lyc 的 china-list + CN_EXTRA 里的规则集（tld-cn，并入后原文件保留）+ 所有以 @cn 结尾的规则集合并后的结果
           #   adipall.srs / adipall.json：adrules 里的全部 ip 规则
           # 上述文件（adall / adipall 除外，它们由合并工具生成，本身已精简）全部生成后，
           # 统一对域名规则集（.srs 和 .json）做合并优化
@@ -824,13 +833,22 @@ jobs:
             echo "::warning::proxy 合并失败，proxy、proxy2、proxy3 保持原样"
           fi
 
-          # 第八步：合并 cnall = lyc 的 china-list（已按 BASE_FIX 改名为 cnall）+ 所有以 CN_SUFFIX（@cn）结尾的规则集
-          # AD_EXTRA 里的名称除外（它们并入 adall）；成功后这些规则集的原文件从 c 分支删除，失败则保持原样
+          # 第八步：合并 cnall = lyc 的 china-list（已按 BASE_FIX 改名为 cnall）+ CN_EXTRA 里的规则集（tld-cn）
+          #         + 所有以 CN_SUFFIX（@cn）结尾的规则集
+          # AD_EXTRA 里的名称除外（它们并入 adall）
+          # @cn 结尾的规则集：合并成功后原文件从 c 分支删除，失败则保持原样
+          # CN_EXTRA 里的规则集：以文件路径传给 merge_group（路径输入合并后不删除），所以原文件始终保留
           list_by_suffix "${CN_SUFFIX[@]}"
-          if [ "${#LIST[@]}" = 0 ]; then
-            echo "没有以 ${CN_SUFFIX[*]} 结尾的规则集，cnall 保持原样"
-          elif install_singbox && merge_group cnall cnall "${LIST[@]}"; then
-            echo "cnall 合并完成（并入 ${#LIST[@]} 个规则集）"
+          cn_keep=()
+          for n in "${CN_EXTRA[@]}"; do
+            if [ -f "$WORK/out-c/$n.srs" ]; then cn_keep+=("$WORK/out-c/$n.srs")
+            elif [ -f "$WORK/out-c/$n.json" ]; then cn_keep+=("$WORK/out-c/$n.json")
+            else echo "::warning::cnall 合并：c 分支里找不到 $n，已跳过"; fi
+          done
+          if [ "$(( ${#LIST[@]} + ${#cn_keep[@]} ))" = 0 ]; then
+            echo "没有需要并入 cnall 的规则集，cnall 保持原样"
+          elif install_singbox && merge_group cnall cnall "${cn_keep[@]}" "${LIST[@]}"; then
+            echo "cnall 合并完成（保留原文件的规则集 ${#cn_keep[@]} 个，并入后删除原文件的规则集 ${#LIST[@]} 个）"
           else
             echo "::warning::cnall 合并失败，保持原样"
           fi
@@ -1121,7 +1139,7 @@ jobs:
           # ------------------------------------------------------------
 
           # 只收录客户端用到的规则集（空 = 全部收录，但 c 分支约 2000 个规则集，文件会非常大）
-          GEO_NAMES="adall anthropic openai gemini meta xai youtube play telegram twitter discord netflix disney spotify tiktok primevideo hulu abema bahamut reddit linkedin twitch github slack notion speedtestall paypal crypto amazon bytedance apple microsoft google media ai pt gfw games dev proxy apple-cn tld-cn geo-cn cnall adipall cnip telegramip"
+          GEO_NAMES="adall anthropic openai gemini meta xai youtube play telegram twitter discord netflix disney spotify tiktok primevideo hulu abema bahamut reddit linkedin twitch github slack notion stall paypal crypto amazon bytedance apple microsoft google media ai pt gfw games dev proxy apple-cn tld-cn geo-cn cnall adipall cnip telegramip"
 
           # 库里改名：源规则集=库里的名称（c 分支另有一个 cn 规则集，已被这里的 cn 取代，不会重复收录）
           GEO_RENAME="cnall=cn cnip=cn"
@@ -1365,4 +1383,3 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow enable "${{ github.workflow }}" --repo "${{ github.repository }}" || true
-          
