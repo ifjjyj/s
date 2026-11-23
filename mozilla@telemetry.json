@@ -1,10 +1,1 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "incoming.telemetry.mozilla.org",
-                "incoming-telemetry.thunderbird.net"
-            ]
-        }
-    ]
-}
+{"version":5,"rules":[{"domain":["incoming.telemetry.mozilla.org","incoming-telemetry.thunderbird.net"]}]}

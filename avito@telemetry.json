@@ -1,7 +1,1 @@
-{
-    "rules": [
-        {
-            "domain": "stats.avito.ru"
-        }
-    ]
-}
+{"version":5,"rules":[{"domain":"stats.avito.ru"}]}

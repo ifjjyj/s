@@ -1,3 +1,1 @@
-{"version":1,"rules":[
-{"domain_suffix":["devcon.org","ethereum.foundation","ethereum.org","etherscan.io"]}
-]}
+{"version":5,"rules":[{"domain_suffix":["devcon.org","ethereum.foundation","ethereum.org","etherscan.io"]}]}

@@ -1,3 +1,1 @@
-{"version":1,"rules":[
-{"domain_suffix":["a-map.cn","a-map.co","a-map.link","a-map.vip","acloudrender.com","amap.com","amap.net","amapauto.com","anav.com","autonavi.com","gaode.com"]}
-]}
+{"version":5,"rules":[{"domain_suffix":["a-map.cn","a-map.co","a-map.link","a-map.vip","acloudrender.com","amap.com","amap.net","amapauto.com","anav.com","autonavi.com","gaode.com"]}]}

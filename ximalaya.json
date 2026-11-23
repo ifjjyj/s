@@ -1,3 +1,1 @@
-{"version":1,"rules":[
-{"domain_suffix":["ximalaya.com","xmcdn.com"]}
-]}
+{"version":5,"rules":[{"domain_suffix":["ximalaya.com","xmcdn.com"]}]}

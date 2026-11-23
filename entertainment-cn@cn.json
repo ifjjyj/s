@@ -1,7 +1,1 @@
-{
-    "rules": [
-        {
-            "domain_regex": "^.+-mihayo\\.akamaized\\.net$"
-        }
-    ]
-}
+{"version":5,"rules":[{"domain_regex":"^.+-mihayo\\.akamaized\\.net$"}]}

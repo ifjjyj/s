@@ -1,11 +1,1 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "log-sdk.gifshow.com",
-                "wlog.kuaishou.com",
-                "apilog-web.acfun.cn"
-            ]
-        }
-    ]
-}
+{"version":5,"rules":[{"domain":["log-sdk.gifshow.com","wlog.kuaishou.com","apilog-web.acfun.cn"]}]}

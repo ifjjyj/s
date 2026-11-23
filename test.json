@@ -1,7 +1,1 @@
-{
-    "rules": [
-        {
-            "domain": "test.example.com"
-        }
-    ]
-}
+{"version":5,"rules":[{"domain":"test.example.com"}]}

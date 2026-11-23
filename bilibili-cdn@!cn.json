@@ -1,7 +1,1 @@
-{
-    "rules": [
-        {
-            "domain": "upos-hz-mirrorakam.akamaized.net"
-        }
-    ]
-}
+{"version":5,"rules":[{"domain":"upos-hz-mirrorakam.akamaized.net"}]}

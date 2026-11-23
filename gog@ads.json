@@ -1,3 +1,1 @@
-{"version":1,"rules":[
-{"domain_suffix":["insights-collector.gog.com"]}
-]}
+{"version":5,"rules":[{"domain_suffix":["insights-collector.gog.com"]}]}

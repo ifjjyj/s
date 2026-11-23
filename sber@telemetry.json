@@ -1,3 +1,1 @@
-{"version":1,"rules":[
-{"domain":["error-tracking.megamarket.tech","metrics.21-school.ru","sentry.sberauto.com","tracing-http.megamarket.tech"],"domain_suffix":["clickstream.sberbank.ru"]}
-]}
+{"version":5,"rules":[{"domain":["error-tracking.megamarket.tech","metrics.21-school.ru","sentry.sberauto.com","tracing-http.megamarket.tech"],"domain_suffix":["clickstream.sberbank.ru"]}]}

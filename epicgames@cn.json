@@ -1,10 +1,1 @@
-{
-    "rules": [
-        {
-            "domain_regex": [
-                "^cdn\\d-epicgames-\\d+\\.file\\.myqcloud\\.com$",
-                "^epicgames-download\\d-\\d+\\.file\\.myqcloud\\.com$"
-            ]
-        }
-    ]
-}
+{"version":5,"rules":[{"domain_regex":["^cdn\\d-epicgames-\\d+\\.file\\.myqcloud\\.com$","^epicgames-download\\d-\\d+\\.file\\.myqcloud\\.com$"]}]}

@@ -1,10 +1,1 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "metrika.kontur.ru",
-                "sentry.kontur.host"
-            ]
-        }
-    ]
-}
+{"version":5,"rules":[{"domain":["metrika.kontur.ru","sentry.kontur.host"]}]}

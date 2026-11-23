@@ -1,7 +1,1 @@
-{
-    "rules": [
-        {
-            "domain": "disney.my.sentry.io"
-        }
-    ]
-}
+{"version":5,"rules":[{"domain":"disney.my.sentry.io"}]}

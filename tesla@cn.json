@@ -1,3 +1,1 @@
-{"version":1,"rules":[
-{"domain_suffix":["tesla.cn","tesla.com.cn","teslamotors.cn","teslamotors.com.cn"]}
-]}
+{"version":5,"rules":[{"domain_suffix":["tesla.cn","tesla.com.cn","teslamotors.cn","teslamotors.com.cn"]}]}

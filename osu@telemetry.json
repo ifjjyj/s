@@ -1,7 +1,1 @@
-{
-    "rules": [
-        {
-            "domain": "sentry.ppy.sh"
-        }
-    ]
-}
+{"version":5,"rules":[{"domain":"sentry.ppy.sh"}]}

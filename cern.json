@@ -1,3 +1,1 @@
-{"version":1,"rules":[
-{"domain_suffix":[".cern","ams02.space","cern.ch","cixp.net","dotcernpilot.info","ippog.org","linearcollider.org"]}
-]}
+{"version":5,"rules":[{"domain_suffix":[".cern","ams02.space","cern.ch","cixp.net","dotcernpilot.info","ippog.org","linearcollider.org"]}]}

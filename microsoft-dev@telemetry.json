@@ -1,10 +1,1 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "dc.services.visualstudio.com",
-                "rt.services.visualstudio.com"
-            ]
-        }
-    ]
-}
+{"version":5,"rules":[{"domain":["dc.services.visualstudio.com","rt.services.visualstudio.com"]}]}

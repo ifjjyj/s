@@ -1,11 +1,1 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "ads.x5.ru",
-                "ads.x5media.ru",
-                "sentry.x5.ru"
-            ]
-        }
-    ]
-}
+{"version":5,"rules":[{"domain":["ads.x5.ru","ads.x5media.ru","sentry.x5.ru"]}]}

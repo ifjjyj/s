@@ -1,7 +1,1 @@
-{
-    "rules": [
-        {
-            "domain": "stats.vk-portal.net"
-        }
-    ]
-}
+{"version":5,"rules":[{"domain":"stats.vk-portal.net"}]}

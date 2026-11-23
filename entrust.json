@@ -1,3 +1,1 @@
-{"version":1,"rules":[
-{"domain_suffix":["affirmtrust.com","atos.net","certificat2.com","entrust.cn","entrust.com","entrust.net","entrustdatacard.com","myatos.net","trendmicro.com"]}
-]}
+{"version":5,"rules":[{"domain_suffix":["affirmtrust.com","atos.net","certificat2.com","entrust.cn","entrust.com","entrust.net","entrustdatacard.com","myatos.net","trendmicro.com"]}]}

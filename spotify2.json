@@ -1,3 +1,1 @@
-{"version":5,"rules":[
-{"domain_suffix":["pscdn.co","scdn.co","spoti.fi","spotilocal.com"],"domain_keyword":["spotify"]}
-]}
+{"version":5,"rules":[{"domain_suffix":["pscdn.co","scdn.co","spoti.fi","spotilocal.com"],"domain_keyword":["spotify"]}]}

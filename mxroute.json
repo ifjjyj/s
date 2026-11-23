@@ -1,3 +1,1 @@
-{"version":1,"rules":[
-{"domain_suffix":["mxlogin.com","mxroute.com","mxroutedocs.com","mxroutehelp.com","mxrouting.net"]}
-]}
+{"version":5,"rules":[{"domain_suffix":["mxlogin.com","mxroute.com","mxroutedocs.com","mxroutehelp.com","mxrouting.net"]}]}

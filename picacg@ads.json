@@ -1,10 +1,1 @@
-{
-    "rules": [
-        {
-            "domain": [
-                "ad-channel.diwodiwo.xyz",
-                "ad-display.diwodiwo.xyz"
-            ]
-        }
-    ]
-}
+{"version":5,"rules":[{"domain":["ad-channel.diwodiwo.xyz","ad-display.diwodiwo.xyz"]}]}
