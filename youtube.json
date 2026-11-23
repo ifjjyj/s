@@ -1,3 +1,1 @@
-{"version":5,"rules":[
-{"domain":["yt3.googleusercontent.com"],"domain_suffix":["ggpht.cn","ggpht.com","googlevideo.com","gvt1.com","gvt2.com","video.google.com","youtu.be","yt.be","ytimg.com"],"domain_keyword":["youtube"]}
-]}
+{"version":5,"rules":[{"domain":["yt3.googleusercontent.com"],"domain_suffix":["ggpht.cn","ggpht.com","googlevideo.com","gvt1.com","gvt2.com","video.google.com","youtu.be","yt.be","ytimg.com"],"domain_keyword":["youtube"]}]}
