@@ -90,7 +90,10 @@ jobs:
           )
 
           # 【c 分支的合并规则】仅 c 分支使用，写的都是 c 分支里最终的名称
-          # 合并成功后，被合并的原文件从 c 分支删除；合并失败则保持原样，不删除
+          # 所有参与合并的规则集（ad、ads2、proxy2、proxy3、gfw、@cn、@!cn、@ads、-cn 系列等）原文件一律保留在 c 分支，不会删除
+          # 合并结果写入输出规则集（adall / proxy / cnall 以及拆出的 adipall / proxyip / cnip）；
+          # 输出名和某个输入同名时（proxy、cnall、cnip），该文件会被合并结果替换
+          # 合并失败则保持原样
 
           # 指定并入 adall 的规则集，和 ad、ads2、adrules 的域名部分一起合并
           # 这里的名称优先于下面的后缀规则：即使以 @cn 结尾（如 telemetry@cn），也并入 adall 而不是 cnall
@@ -109,9 +112,20 @@ jobs:
           # 名称以这些结尾的规则集，全部并入 cnall（上面 AD_EXTRA 里的除外）
           CN_SUFFIX=(@cn)
 
-          # 额外并入 cnall 的规则集（写 c 分支里的最终名称），和 china-list、@cn 结尾的规则集一起合并
-          # 与 @cn 结尾的规则集不同：这里的规则集并入 cnall 后，原文件仍然保留在 c 分支，不会删除
+          # 额外并入 cnall 的规则集（写 c 分支里的最终名称），和 china-list、@cn、-cn 系列结尾的规则集一起合并
           CN_EXTRA=(tld-cn)
+
+          # 名称以这些结尾的规则集：其中的域名规则并入 cnall，ip 规则并入 cnip
+          # 注意是带横杠的后缀：geo-cn、apple-cn、apple-cn2、xxx-cn3 会匹配，而 @cn 结尾的、cn2、cn3 本身不会
+          CN_DASH_SUFFIX=(-cn -cn2 -cn3)
+
+          # 名称以这些结尾的规则集：其中的域名规则并入 proxy，ip 规则并入 proxyip
+          # （proxyip 不存在时自动新建；这些规则集都没有 ip 规则时不会新建 proxyip）
+          # 注意：@!cn 和 @cn 是两回事，两者互不匹配
+          PROXY_SUFFIX=(@!cn)
+
+          # 额外并入 proxy 的规则集（写 c 分支里最终名称），与 proxy2、proxy3 和 @!cn 结尾的规则集一起合并
+          PROXY_EXTRA=(gfw)
 
           # 【特殊重命名表】仅 a 分支使用：geosite-<键>.srs -> <值>.srs
           # 优先级高于自动改名规则
@@ -294,7 +308,7 @@ jobs:
           # 合并去重工具
           # ------------------------------------------------------------
 
-          # reduce.py：域名规则精简的核心逻辑，由 merge_rulesets（多合一）和 optimize_dir（单个精简）共用
+          # reduce.py：域名规则精简的核心逻辑，由 merge_group（多合一）和 optimize_dir（单个精简）共用
           # 用法：reduce.py <merge|single> <输出.json> <输入1.json> [输入2.json ...]
           #   merge ：合并所有输入，总是生成输出
           #   single：精简单个规则集；没有可精简的内容时以退出码 3 结束（调用方保持原文件不动），
@@ -487,56 +501,100 @@ jobs:
             ' "$log"
           }
 
-          # merge_rulesets <目标目录> <输出名> <输入1> [输入2 ...]
-          # 输入可以是 .srs（会先反编译）或 .json（源码格式，直接使用）
-          # 反编译所有输入 -> 合并去重 -> 去掉冗余条目 -> 编译，生成 <输出名>.srs 和 <输出名>.json
-          # 去冗余规则见 reduce.py 的说明（含 domain + .suffix 配对合并）
-          merge_rulesets() {
-            local dest="$1" out="$2" tmp f i=0; shift 2
-            local jsons=()
-            tmp="$WORK/merge-$out"; rm -rf "$tmp"; mkdir -p "$tmp"
-            for f in "$@"; do
-              if [ ! -f "$f" ]; then echo "::warning::合并 $out 缺少输入文件：$(basename "$f")"; return 1; fi
-              i=$((i + 1))
-              case "$f" in
-                *.json) cp "$f" "$tmp/in$i.json" || return 1 ;;
-                *)      "$SB" rule-set decompile "$f" -o "$tmp/in$i.json" || return 1 ;;
-              esac
-              jsons+=("$tmp/in$i.json")
-            done
-            python3 "$WORK/reduce.py" merge "$tmp/$out.json" "${jsons[@]}" || return 1
-            "$SB" rule-set compile "$tmp/$out.json" -o "$tmp/$out.srs" || return 1
-            put "$tmp/$out.json" "$dest/$out.json"
-            put "$tmp/$out.srs"  "$dest/$out.srs"
+          # ip_name_of <域名规则集输出名>：结果放在全局变量 IPN 里
+          # 合并时拆出来的 ip 规则单独作为规则集，名称是"输出名 + ip"（proxy -> proxyip，cnall 例外 -> cnip）
+          # adall 例外：adip 是安道尔的 geoip，不能用，沿用 adipall
+          ip_name_of() {
+            case "$1" in
+              adall) IPN="adipall" ;;
+              cnall) IPN="cnip" ;;
+              *)     IPN="${1}ip" ;;
+            esac
+          }
+
+          # has_set <名称>：c 分支目录里有 <名称>.srs 或 <名称>.json 时返回 0
+          has_set() {
+            [ -f "$WORK/out-c/$1.srs" ] || [ -f "$WORK/out-c/$1.json" ]
           }
 
           # merge_group <输出名> <输入1> [输入2 ...]
-          # 把 c 分支目录（out-c）里的多个规则集合并去重成 <输出名>.srs 和 <输出名>.json（调用 merge_rulesets）
+          # 把 c 分支目录（out-c）里的多个规则集合并去重，生成 <输出名>.srs 和 <输出名>.json
           # 输入有两种写法：
-          #   - 普通名称（如 proxy2）：取 out-c 里的 <名称>.srs，没有就取 <名称>.json，都没有则警告并跳过；
-          #                            合并成功后，这些输入的原文件会从 out-c 删除（相当于已并入输出）
-          #   - 绝对路径（如 "$ADTMP/adrules-domain.json"）：文件必须存在，否则合并失败；合并后不删除
-          # 输出名可以和某个普通输入同名（如 proxy 合并 proxy、proxy2、proxy3），此时原文件会被合并结果替换
-          # 合并失败时返回 1，out-c 保持原样（任何输入都不会被删除）
+          #   - 普通名称（如 proxy2）：取 out-c 里的 <名称>.srs，没有就取 <名称>.json，都没有则警告并跳过
+          #   - 绝对路径（如 "$ADTMP/ad-extra-suffix.json"）：文件必须存在，否则合并失败
+          # 所有输入的原文件都保留，不会删除；只有输出名和某个输入同名时
+          # （如 proxy 合并 proxy、proxy2、proxy3），该文件才会被合并结果替换
+          # 处理流程：
+          #   1. 所有输入转成 json，把 ip 规则（ip_cidr，以及写成 IP 字面量的 domain）拆出来，只剩域名部分
+          #   2. 域名部分合并去重（规则见 reduce.py）-> <输出名>
+          #   3. ip 部分合并去重，并合并相邻/包含的网段 -> <输出名>ip（名称见 ip_name_of）；
+          #      out-c 里已有同名的 ip 规则集时，会把它一起合并进来；输入里没有任何 ip 规则时，不新建也不改动它
+          # 合并失败时返回 1，out-c 保持原样
           merge_group() {
-            local out="$1" c="$WORK/out-c" n tmp inputs=() used=(); shift
+            local out="$1" c="$WORK/out-c" n f tmp ipn i=0 inputs=() doms=() base=() have_dom=0 have_ip=0; shift
+            ip_name_of "$out"; ipn="$IPN"
             for n in "$@"; do
               case "$n" in
                 /*)
                   if [ ! -f "$n" ]; then echo "::warning::合并 $out 缺少输入文件：$(basename "$n")"; return 1; fi
                   inputs+=("$n") ;;
                 *)
-                  if [ -f "$c/$n.srs" ]; then inputs+=("$c/$n.srs"); used+=("$n")
-                  elif [ -f "$c/$n.json" ]; then inputs+=("$c/$n.json"); used+=("$n")
+                  if [ -f "$c/$n.srs" ]; then inputs+=("$c/$n.srs")
+                  elif [ -f "$c/$n.json" ]; then inputs+=("$c/$n.json")
                   else echo "::warning::合并 $out：找不到 $n，已跳过"; fi ;;
               esac
             done
             if [ "${#inputs[@]}" = 0 ]; then return 1; fi
-            tmp="$WORK/group-$out"; rm -rf "$tmp"; mkdir -p "$tmp"
-            merge_rulesets "$tmp" "$out" "${inputs[@]}" || return 1
-            for n in "${used[@]}"; do rm -f "$c/$n.srs" "$c/$n.json"; done
-            put "$tmp/$out.json" "$c/$out.json"
-            put "$tmp/$out.srs"  "$c/$out.srs"
+
+            tmp="$WORK/group-$out"; rm -rf "$tmp"; mkdir -p "$tmp/in" "$tmp/dom" "$tmp/res"
+
+            # 1. 转成 json 并拆出 ip 规则：域名部分在 $tmp/dom/，ip 汇总在 $tmp/ip.json
+            for f in "${inputs[@]}"; do
+              i=$((i + 1))
+              case "$f" in
+                *.json) cp "$f" "$tmp/in/in$i.json" || return 1 ;;
+                *)      "$SB" rule-set decompile "$f" -o "$tmp/in/in$i.json" || return 1 ;;
+              esac
+            done
+            python3 "$WORK/split_ip.py" "$tmp/dom" "$tmp/ip.json" "$tmp"/in/*.json || return 1
+
+            # 2. 域名部分
+            while IFS= read -r -d '' f; do doms+=("$f"); done \
+              < <(find "$tmp/dom" -type f -name '*.json' -print0 | sort -z)
+            if [ "${#doms[@]}" -gt 0 ]; then
+              python3 "$WORK/reduce.py" merge "$tmp/res/$out.json" "${doms[@]}" || return 1
+              "$SB" rule-set compile "$tmp/res/$out.json" -o "$tmp/res/$out.srs" || return 1
+              have_dom=1
+            fi
+
+            # 3. ip 部分
+            if [ -s "$tmp/ip.json" ]; then
+              if [ -f "$c/$ipn.srs" ]; then
+                "$SB" rule-set decompile "$c/$ipn.srs" -o "$tmp/ip-base.json" || return 1
+                base=("$tmp/ip-base.json")
+              elif [ -f "$c/$ipn.json" ]; then
+                cp "$c/$ipn.json" "$tmp/ip-base.json" || return 1
+                base=("$tmp/ip-base.json")
+              fi
+              python3 "$WORK/merge_ip.py" "$tmp/res/$ipn.json" "${base[@]}" "$tmp/ip.json" || return 1
+              "$SB" rule-set compile "$tmp/res/$ipn.json" -o "$tmp/res/$ipn.srs" || return 1
+              have_ip=1
+            fi
+
+            if [ "$have_dom" = 0 ] && [ "$have_ip" = 0 ]; then return 1; fi
+
+            # 4. 全部成功后才改动 out-c：放入结果（输出名和已有文件同名时有意替换，所以先删旧的，避免"重名覆盖"警告）
+            if [ "$have_dom" = 1 ]; then
+              rm -f "$c/$out.srs" "$c/$out.json"
+              put "$tmp/res/$out.json" "$c/$out.json"
+              put "$tmp/res/$out.srs"  "$c/$out.srs"
+            fi
+            if [ "$have_ip" = 1 ]; then
+              rm -f "$c/$ipn.srs" "$c/$ipn.json"
+              put "$tmp/res/$ipn.json" "$c/$ipn.json"
+              put "$tmp/res/$ipn.srs"  "$c/$ipn.srs"
+              echo "合并 $out：ip 规则已拆出，单独作为 $ipn"
+            fi
           }
 
           # list_by_suffix <后缀1> [后缀2 ...]
@@ -560,61 +618,105 @@ jobs:
             done
           }
 
-          # split_adrules <源.srs> <临时目录>
-          # 把同时含域名和 ip 的规则集拆成两份，输出到临时目录：
-          #   adrules-domain.json：域名部分（domain / suffix / keyword / regex 及其他非 ip 字段）
-          #   adipall.json：全部 ip_cidr，含 domain 字段里写成 IP 字面量的条目（按 /32 或 /128 处理），
-          #                 去重并合并相邻网段；源里没有 ip 规则时不生成这个文件
-          split_adrules() {
-            local src="$1" tmp="$2"
-            "$SB" rule-set decompile "$src" -o "$tmp/src.json" || return 1
-            python3 - "$tmp/src.json" "$tmp/adrules-domain.json" "$tmp/adipall.json" <<'PY' || return 1
+          # split_ip.py：把若干规则集 json 各拆成"域名部分"和"ip 部分"
+          # 用法：split_ip.py <域名部分输出目录> <ip汇总输出.json> <输入1.json> [输入2.json ...]
+          #   域名部分：<输出目录>/<输入文件名>.json，去掉了 ip_cidr 和写成 IP 字面量的 domain；没有剩余规则则不生成
+          #   ip 部分：所有输入的 ip_cidr（含 domain 字段里的 IP 字面量，按 /32 或 /128 处理）汇总成一个 json；没有 ip 规则则不生成
+          cat > "$WORK/split_ip.py" <<'PY'
+          import ipaddress, json, os, sys
+
+          dom_dir, ip_out, ins = sys.argv[1], sys.argv[2], sys.argv[3:]
+
+          def lst(v):
+              return [v] if isinstance(v, str) else list(v)
+
+          ver, nets, n_dom_sets, n_bad = 1, set(), 0, 0
+          for p in ins:
+              d = json.load(open(p, encoding="utf-8"))
+              v = d.get("version", 1)
+              ver = max(ver, v)
+              dom_rules = []
+              for r in d.get("rules", []):
+                  r = {k: x for k, x in r.items() if not (k == "type" and x == "default")}
+                  for c in lst(r.pop("ip_cidr", [])):
+                      try:
+                          nets.add(ipaddress.ip_network(c.strip(), strict=False))
+                      except ValueError:
+                          n_bad += 1
+                  if "domain" in r:
+                      keep = []
+                      for x in lst(r["domain"]):
+                          try:
+                              nets.add(ipaddress.ip_network(x.strip()))   # IP 字面量当作 /32 或 /128
+                          except ValueError:
+                              keep.append(x)
+                      if keep:
+                          r["domain"] = keep
+                      else:
+                          del r["domain"]
+                  if r:
+                      dom_rules.append(r)
+              if dom_rules:
+                  n_dom_sets += 1
+                  with open(os.path.join(dom_dir, os.path.basename(p)), "w", encoding="utf-8") as f:   # 每个 rule 对象单独一行
+                      f.write('{"version":%d,"rules":[\n' % v)
+                      f.write(",\n".join(json.dumps(x, ensure_ascii=False, separators=(",", ":")) for x in dom_rules))
+                      f.write("\n]}\n")
+
+          if nets:
+              with open(ip_out, "w", encoding="utf-8") as f:
+                  f.write('{"version":%d,"rules":[\n' % ver)
+                  f.write(json.dumps({"ip_cidr": sorted(str(n) for n in nets)}, ensure_ascii=False, separators=(",", ":")))
+                  f.write("\n]}\n")
+          if n_bad:
+              print("::warning::拆分时跳过了 %d 条无法解析的 ip_cidr" % n_bad)
+          print("拆分 %d 个规则集：含域名规则的 %d 个，ip 网段 %d 条（去重后）" % (len(ins), n_dom_sets, len(nets)))
+          PY
+
+          # merge_ip.py：合并若干规则集 json 里的 ip_cidr，去重并合并相邻/包含的网段
+          # 用法：merge_ip.py <输出.json> <输入1.json> [输入2.json ...]
+          # 输入里 ip_cidr 以外的字段（极少见）原样保留，不参与合并
+          cat > "$WORK/merge_ip.py" <<'PY'
           import ipaddress, json, sys
 
-          src, dom_out, ip_out = sys.argv[1:4]
-          d = json.load(open(src, encoding="utf-8"))
-          ver = d.get("version", 1)
-          nets, dom_rules = set(), []
+          out, ins = sys.argv[1], sys.argv[2:]
 
-          for r in d.get("rules", []):
-              r = dict(r)
-              for c in r.pop("ip_cidr", []):
-                  try:
-                      nets.add(ipaddress.ip_network(c.strip(), strict=False))
-                  except ValueError:
-                      sys.exit("无法解析的 ip_cidr：" + c)
-              if "domain" in r:
-                  keep = []
-                  for x in r["domain"]:
+          def lst(v):
+              return [v] if isinstance(v, str) else list(v)
+
+          ver, nets, other, seen, n_bad, n_raw = 1, set(), [], set(), 0, 0
+          for p in ins:
+              d = json.load(open(p, encoding="utf-8"))
+              ver = max(ver, d.get("version", 1))
+              for r in d.get("rules", []):
+                  r = {k: v for k, v in r.items() if not (k == "type" and v == "default")}
+                  for c in lst(r.pop("ip_cidr", [])):
+                      n_raw += 1
                       try:
-                          nets.add(ipaddress.ip_network(x.strip()))   # IP 字面量当作 /32 或 /128
+                          nets.add(ipaddress.ip_network(c.strip(), strict=False))
                       except ValueError:
-                          keep.append(x)
-                  if keep:
-                      r["domain"] = keep
-                  else:
-                      del r["domain"]
-              if r:
-                  dom_rules.append(r)
+                          n_bad += 1
+                  if r:
+                      s = json.dumps(r, sort_keys=True, ensure_ascii=False)
+                      if s not in seen:
+                          seen.add(s)
+                          other.append(r)
 
-          def dump(path, rules):
-              with open(path, "w", encoding="utf-8") as f:   # 每个 rule 对象单独一行
-                  f.write('{"version":%d,"rules":[\n' % ver)
-                  f.write(",\n".join(json.dumps(x, ensure_ascii=False, separators=(",", ":")) for x in rules))
-                  f.write("\n]}\n")
+          col = []
+          for v in (4, 6):
+              col += list(ipaddress.collapse_addresses([n for n in nets if n.version == v]))
+          if not col:
+              sys.exit("合并结果为空")
+          if n_bad:
+              print("::warning::合并 ip 时跳过了 %d 条无法解析的 ip_cidr" % n_bad)
 
-          dump(dom_out, dom_rules)
-          n_ip = 0
-          if nets:
-              col = []
-              for v in (4, 6):
-                  col += list(ipaddress.collapse_addresses([n for n in nets if n.version == v]))
-              col.sort(key=lambda n: (n.version, n))
-              dump(ip_out, [{"ip_cidr": [str(n) for n in col]}])
-              n_ip = len(col)
-          print("拆分完成：域名部分 %d 条规则，ip_cidr %d 条" % (len(dom_rules), n_ip))
+          rules = [{"ip_cidr": [str(n) for n in col]}] + other
+          with open(out, "w", encoding="utf-8") as f:   # 每个 rule 对象单独一行
+              f.write('{"version":%d,"rules":[\n' % ver)
+              f.write(",\n".join(json.dumps(r, ensure_ascii=False, separators=(",", ":")) for r in rules))
+              f.write("\n]}\n")
+          print("ip_cidr 合并前 %d 条，合并后 %d 条" % (n_raw, len(col)))
           PY
-          }
 
           # ------------------------------------------------------------
           # 分支 b：DustinWin / sing-box-ruleset
@@ -689,6 +791,7 @@ jobs:
           #         + QuixoticHeart singbox/version5 的全部规则文件（名称后加 3）
           #         + 合并去重生成的 adall（ad + ads2 + adrules 的域名部分）
           #         + 从 adrules 拆出的 ip 规则 adipall（注意：adip 是安道尔 geoip，不能用这个名字）
+          # 所有合并（adall / proxy / cnall）遇到 ip 规则都会拆出来单独作为规则集，名称是 <输出名>ip（见 ip_name_of）
           # 命名规则：
           #   rule-set-geosite 分支：geosite-xxx.*          -> xxx.*     （手动项见 SITE_FIX / BASE_FIX）
           #                          geosite-category-xxx.* -> xxx.*     （撞名时 -> xxxall.*）
@@ -701,8 +804,13 @@ jobs:
           #   adall.srs / adall.json：ad、ads2、adrules 的域名部分、AD_EXTRA 里的规则集、所有 @ads / @telemetry 结尾的规则集、
           #                           AD_EXTRA_SUFFIX 里的额外域名，合并去重后的结果
           #   proxy.srs / proxy.json：lyc 的 geolocation-!cn + DustinWin 的 proxy2 + QuixoticHeart 的 proxy3 合并后的结果
+          #                           + gfw（并入后原文件保留）+ 所有以 @!cn 结尾的规则集（见 PROXY_SUFFIX）
+          #   proxyip.srs / proxyip.json：上述规则集里的 ip 规则（有才生成）
           #   cnall.srs / cnall.json：lyc 的 china-list + CN_EXTRA 里的规则集（tld-cn，并入后原文件保留）+ 所有以 @cn 结尾的规则集合并后的结果
-          #   adipall.srs / adipall.json：adrules 里的全部 ip 规则
+          #                           + 所有以 -cn / -cn2 / -cn3 结尾的规则集里的域名规则（见 CN_DASH_SUFFIX）
+          #   cnip.srs / cnip.json：SagerNet 的 geoip-cn + 所有以 -cn / -cn2 / -cn3 结尾的规则集里的 ip 规则，合并去重后的结果
+          #   adipall.srs / adipall.json：adrules 里的全部 ip 规则（以及其他合并输入里的 ip 规则）
+          # 以上所有参与合并的规则集，原文件都保留在 c 分支，不会删除
           # 上述文件（adall / adipall 除外，它们由合并工具生成，本身已精简）全部生成后，
           # 统一对域名规则集（.srs 和 .json）做合并优化
           # c 分支发布完成后，其最终的 .json 文件会被转换成 mihomo 的 mrs 格式，发布到 m 分支（见文末）
@@ -785,17 +893,16 @@ jobs:
           # 放在 adall 之前，这样下面合并用到的 ad.srs / ads2.srs 已经是精简过的
           optimize_dir "$WORK/out-c" c
 
-          # 第六步：处理 adrules（同步自 QuixoticHeart）
-          #   1. 拆成域名部分和 ip 部分
-          #   2. 域名部分与 ad（lyc 的 category-ads-all）、ads2（DustinWin 的 ads）、AD_EXTRA 里的规则集、
-          #      所有以 AD_SUFFIX（@ads / @telemetry）结尾的规则集、AD_EXTRA_SUFFIX 里的额外域名
-          #      合并去重 -> adall（被并入的规则集原文件随后删除）
-          #   3. ip 部分单独编译 -> adipall
+          # 第六步：合并 adall（同时生成 adipall）
+          #   adall = ad（lyc 的 category-ads-all）+ ads2（DustinWin 的 ads）+ adrules（同步自 QuixoticHeart）的域名部分
+          #           + AD_EXTRA 里的规则集 + 所有以 AD_SUFFIX（@ads / @telemetry）结尾的规则集 + AD_EXTRA_SUFFIX 里的额外域名
+          #   adipall = adrules 里的 ip 规则（merge_group 自动拆出；其他输入里如果也有 ip 规则，会一起并入）
+          #   所有参与合并的规则集原文件都保留
           # 任何一步失败都不中断同步，而是沿用远端 c 分支上一次的版本
           ADTMP="$WORK/adrules-split"; rm -rf "$ADTMP"; mkdir -p "$ADTMP"
-          if install_singbox && split_adrules "$QH_DIR/adrules.srs" "$ADTMP"; then
+          if install_singbox; then
+            ad_inputs=("$WORK/out-c/ad.srs" "$WORK/out-c/ads2.srs" "$QH_DIR/adrules.srs")
             # 额外的 domain_suffix 写成一个临时 json，作为合并输入之一
-            ad_inputs=("$WORK/out-c/ad.srs" "$WORK/out-c/ads2.srs" "$ADTMP/adrules-domain.json")
             if [ "${#AD_EXTRA_SUFFIX[@]}" -gt 0 ]; then
               sfx=""
               for d in "${AD_EXTRA_SUFFIX[@]}"; do sfx="$sfx${sfx:+,}\"$d\""; done
@@ -806,53 +913,55 @@ jobs:
             if merge_group adall "${ad_inputs[@]}" "${AD_EXTRA[@]}" "${LIST[@]}"; then
               echo "adall 合并完成（指定规则集 ${#AD_EXTRA[@]} 个，后缀匹配规则集 ${#LIST[@]} 个，额外 domain_suffix ${#AD_EXTRA_SUFFIX[@]} 条）"
             else
-              echo "::warning::adall 合并失败，沿用远端 c 分支上一次的版本"
+              echo "::warning::adall / adipall 合并失败，沿用远端 c 分支上一次的版本"
               keep_old adall
-            fi
-            if [ ! -f "$ADTMP/adipall.json" ]; then
-              echo "::warning::adrules 里没有 ip 规则，本次不生成 adipall"
-            elif "$SB" rule-set compile "$ADTMP/adipall.json" -o "$ADTMP/adipall.srs"; then
-              put "$ADTMP/adipall.json" "$WORK/out-c/adipall.json"
-              put "$ADTMP/adipall.srs"  "$WORK/out-c/adipall.srs"
-              echo "adipall 生成完成"
-            else
-              echo "::warning::adipall 编译失败，沿用远端 c 分支上一次的版本"
               keep_old adipall
             fi
           else
-            echo "::warning::adrules 拆分失败，adall 和 adipall 沿用远端 c 分支上一次的版本"
+            echo "::warning::sing-box 安装失败，adall 和 adipall 沿用远端 c 分支上一次的版本"
             keep_old adall
             keep_old adipall
           fi
 
           # 第七步：合并 proxy = lyc 的 geolocation-!cn（已按 BASE_FIX 改名为 proxy）+ DustinWin 的 proxy2 + QuixoticHeart 的 proxy3
-          # 合并成功后 proxy2、proxy3 从 c 分支删除；失败则保持原样（proxy、proxy2、proxy3 并存）
-          if install_singbox && merge_group proxy proxy proxy2 proxy3; then
-            echo "proxy 合并完成"
+          #         + PROXY_EXTRA 里的规则集（gfw）+ 所有以 PROXY_SUFFIX（@!cn）结尾的规则集
+          # 这些规则集里的 ip 规则会被拆出来，并入 proxyip（不存在则新建；没有 ip 规则则不新建）
+          # 所有参与合并的规则集原文件都保留；合并失败则全部保持原样
+          list_by_suffix "${PROXY_SUFFIX[@]}"
+          px_in=(); declare -A px_seen=()
+          for n in "${PROXY_EXTRA[@]}" "${LIST[@]}"; do
+            if ! has_set "$n"; then echo "::warning::proxy 合并：c 分支里找不到 $n，已跳过"; continue; fi
+            if [ -z "${px_seen[$n]:-}" ]; then px_seen[$n]=1; px_in+=("$n"); fi
+          done
+          if install_singbox && merge_group proxy proxy proxy2 proxy3 "${px_in[@]}"; then
+            echo "proxy 合并完成（PROXY_EXTRA 和 @!cn 结尾的规则集共 ${#px_in[@]} 个）"
           else
-            echo "::warning::proxy 合并失败，proxy、proxy2、proxy3 保持原样"
+            echo "::warning::proxy 合并失败，保持原样"
           fi
 
-          # 第八步：合并 cnall = lyc 的 china-list（已按 BASE_FIX 改名为 cnall）+ CN_EXTRA 里的规则集（tld-cn）
-          #         + 所有以 CN_SUFFIX（@cn）结尾的规则集
+          # 第八步：合并 cnall = lyc 的 china-list（已按 BASE_FIX 改名为 cnall）
+          #         + CN_EXTRA 里的规则集（tld-cn）+ 所有以 CN_SUFFIX（@cn）结尾的规则集
+          #         + 所有以 CN_DASH_SUFFIX（-cn / -cn2 / -cn3）结尾的规则集
+          # 这些规则集里的 ip 规则会被拆出来，并入 cnip（SagerNet 的 geoip-cn）
           # AD_EXTRA 里的名称除外（它们并入 adall）
-          # @cn 结尾的规则集：合并成功后原文件从 c 分支删除，失败则保持原样
-          # CN_EXTRA 里的规则集：以文件路径传给 merge_group（路径输入合并后不删除），所以原文件始终保留
-          list_by_suffix "${CN_SUFFIX[@]}"
-          cn_keep=()
+          # 所有参与合并的规则集原文件都保留；合并失败则全部保持原样
+          cn_in=(); declare -A cn_seen=()
           for n in "${CN_EXTRA[@]}"; do
-            if [ -f "$WORK/out-c/$n.srs" ]; then cn_keep+=("$WORK/out-c/$n.srs")
-            elif [ -f "$WORK/out-c/$n.json" ]; then cn_keep+=("$WORK/out-c/$n.json")
-            else echo "::warning::cnall 合并：c 分支里找不到 $n，已跳过"; fi
+            if ! has_set "$n"; then echo "::warning::cnall 合并：c 分支里找不到 $n，已跳过"; continue; fi
+            cn_seen[$n]=1; cn_in+=("$n")
           done
-          if [ "$(( ${#LIST[@]} + ${#cn_keep[@]} ))" = 0 ]; then
+          list_by_suffix "${CN_SUFFIX[@]}" "${CN_DASH_SUFFIX[@]}"
+          for n in "${LIST[@]}"; do
+            if [ -z "${cn_seen[$n]:-}" ]; then cn_seen[$n]=1; cn_in+=("$n"); fi
+          done
+          if [ "${#cn_in[@]}" = 0 ]; then
             echo "没有需要并入 cnall 的规则集，cnall 保持原样"
-          elif install_singbox && merge_group cnall cnall "${cn_keep[@]}" "${LIST[@]}"; then
-            echo "cnall 合并完成（保留原文件的规则集 ${#cn_keep[@]} 个，并入后删除原文件的规则集 ${#LIST[@]} 个）"
+          elif install_singbox && merge_group cnall cnall "${cn_in[@]}"; then
+            echo "cnall 合并完成（CN_EXTRA、@cn 和 -cn 系列结尾的规则集共 ${#cn_in[@]} 个）"
           else
             echo "::warning::cnall 合并失败，保持原样"
           fi
-          
+
           # 第九步：下载 zashboard 面板（最新稳定版、无字体版）-> zb.zip
           # latest/download 只会指向最新的正式版（不含 pre-release）
           # 下载失败或压缩包损坏时，沿用远端 c 分支上一次的 zb.zip，不影响其他规则集
