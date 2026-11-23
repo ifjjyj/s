@@ -834,7 +834,26 @@ jobs:
           else
             echo "::warning::cnall 合并失败，保持原样"
           fi
-
+          
+          # 第九步：下载 zashboard 面板（最新稳定版、无字体版）-> zb.zip
+          # latest/download 只会指向最新的正式版（不含 pre-release）
+          # 下载失败或压缩包损坏时，沿用远端 c 分支上一次的 zb.zip，不影响其他规则集
+          ZB_URL="https://github.com/Zephyruso/zashboard/releases/latest/download/dist-no-fonts.zip"
+          ZB_TMP="$WORK/zb-download.zip"
+          rm -f "$ZB_TMP"
+          if curl -fsSL --retry 3 --retry-delay 5 --connect-timeout 20 --max-time 300 \
+                  -o "$ZB_TMP" "$ZB_URL" \
+             && [ -s "$ZB_TMP" ] \
+             && python3 -m zipfile -t "$ZB_TMP" >/dev/null 2>&1; then
+            put "$ZB_TMP" "$WORK/out-c/zb.zip"
+            echo "zashboard 面板下载完成：zb.zip（$(du -h "$WORK/out-c/zb.zip" | cut -f1)）"
+          else
+            echo "::warning::zashboard 面板下载或校验失败，沿用远端 c 分支上一次的 zb.zip"
+            if git cat-file -e "origin/c:zb.zip" 2>/dev/null; then
+              git show "origin/c:zb.zip" > "$WORK/out-c/zb.zip"
+            fi
+          fi
+          
           echo "分支 c 共 $(ls "$WORK/out-c" | wc -l) 个文件"
           publish_branch c "$WORK/out-c"
 
