@@ -113,7 +113,9 @@ jobs:
           CN_SUFFIX=(@cn)
 
           # 额外并入 cnall 的规则集（写 c 分支里的最终名称），和 china-list、@cn、-cn 系列结尾的规则集一起合并
-          CN_EXTRA=(tld-cn)
+          # geo-cn 本来就会被下面的 -cn 后缀规则匹配到，这里再显式写一次（重复无害，会自动去重）：域名部分并入 cnall，ip 部分并入 cnip
+          # cnip2 是 DustinWin 的 cnip，只含 ip 规则，并入 cnip（没有域名部分，不会影响 cnall）
+          CN_EXTRA=(tld-cn geo-cn cnip2)
 
           # 名称以这些结尾的规则集：其中的域名规则并入 cnall，ip 规则并入 cnip
           # 注意是带横杠的后缀：geo-cn、apple-cn、apple-cn2、xxx-cn3 会匹配，而 @cn 结尾的、cn2、cn3 本身不会
@@ -126,6 +128,11 @@ jobs:
 
           # 额外并入 proxy 的规则集（写 c 分支里最终名称），与 proxy2、proxy3 和 @!cn 结尾的规则集一起合并
           PROXY_EXTRA=(gfw)
+
+          # 额外并入 proxyip 的 ip 规则集（写 c 分支里的最终名称），原文件保留
+          # 它们只含 ip 规则，和上面各规则集拆出来的 ip 规则一起合并去重后写入 proxyip
+          # 想把 DustinWin / QuixoticHeart 的同名版本也并进来，直接加上 netflixip2、telegramip2、netflixip3 之类的名字即可
+          PROXY_IP_EXTRA=(facebookip telegramip netflixip twitterip)
 
           # 【特殊重命名表】仅 a 分支使用：geosite-<键>.srs -> <值>.srs
           # 优先级高于自动改名规则
@@ -330,13 +337,12 @@ jobs:
               # sing-box 允许把字段写成单个字符串
               return [v] if isinstance(v, str) else list(v)
 
-          ver = 1
+          VER = 5   # 统一输出 version 5
           suf, dom, kw, rx, other, seen = set(), set(), set(), set(), [], set()
           raw = n_dr = 0   # raw：精简前的条目总数（含重复）；n_dr：纯域名规则的条数
 
           for p in ins:
               d = json.load(open(p, encoding="utf-8"))
-              ver = max(ver, d.get("version", 1))
               for r in d.get("rules", []):
                   r = {k: v for k, v in r.items() if not (k == "type" and v == "default")}
                   if r and set(r) <= KEYS:
@@ -413,10 +419,8 @@ jobs:
           if not rules:
               sys.exit("合并结果为空")
 
-          with open(out, "w", encoding="utf-8") as f:   # 每个 rule 对象单独一行
-              f.write('{"version":%d,"rules":[\n' % ver)
-              f.write(",\n".join(json.dumps(r, ensure_ascii=False, separators=(",", ":")) for r in rules))
-              f.write("\n]}\n")
+          with open(out, "w", encoding="utf-8") as f:   # 紧凑单行：无空格、无换行
+              f.write(json.dumps({"version": VER, "rules": rules}, ensure_ascii=False, separators=(",", ":")))
 
           if mode == "single":
               print("%d\t%d" % (raw, after))
@@ -499,6 +503,99 @@ jobs:
               $1 == "FAIL" { fail++; if (fail <= 10) print "::warning::合并优化失败，已保留原文件：" $2 "（" $3 "）" }
               END { printf "分支 %s 域名规则集合并优化：精简 %d 个，无需精简 %d 个，失败 %d 个；域名条目 %d -> %d\n", label, ok, skip, fail, b, a }
             ' "$log"
+          }
+
+          # norm.py：把目录里所有 sing-box 规则集统一成 version 5 + 紧凑单行 json
+          # 用法：norm.py <目录> <sing-box 路径，可为空> <标签>
+          #   .json：version 改成 5；整个文件输出成无空格、无换行的单行（末尾也不留换行）；没有 rules 数组的 json 原样不动
+          #   .srs ：头部版本已经是 5 的直接跳过；否则 反编译 -> version 改成 5 -> 重新编译；
+          #          sing-box 路径为空（安装失败）时 srs 保持原样
+          #   单个文件出错只警告并保持原样，不影响其他文件
+          cat > "$WORK/norm.py" <<'PY'
+          import json, os, shutil, subprocess, sys, tempfile
+          from concurrent.futures import ThreadPoolExecutor
+
+          root, sb, label = sys.argv[1], sys.argv[2], sys.argv[3]
+          VER = 5
+
+          def dump(d):
+              out = {"version": VER}
+              out.update({k: v for k, v in d.items() if k != "version"})
+              return json.dumps(out, ensure_ascii=False, separators=(",", ":"))
+
+          def fix_json(p):
+              try:
+                  raw = open(p, encoding="utf-8").read()
+                  d = json.loads(raw)
+              except Exception as e:
+                  return "FAIL", "无法解析：%s" % e
+              if not isinstance(d, dict) or not isinstance(d.get("rules"), list):
+                  return "SKIP", ""
+              new = dump(d)
+              if new == raw:
+                  return "SKIP", ""
+              with open(p, "w", encoding="utf-8") as f:
+                  f.write(new)
+              return "OK", ""
+
+          def fix_srs(p):
+              if not sb:
+                  return "SKIP", ""
+              with open(p, "rb") as f:
+                  h = f.read(4)
+              if len(h) == 4 and h[:3] == b"SRS" and h[3] == VER:
+                  return "SKIP", ""
+              with tempfile.TemporaryDirectory() as t:
+                  j, s = os.path.join(t, "a.json"), os.path.join(t, "a.srs")
+                  r = subprocess.run([sb, "rule-set", "decompile", p, "-o", j], capture_output=True, text=True)
+                  if r.returncode != 0 or not os.path.exists(j):
+                      return "FAIL", "反编译失败"
+                  try:
+                      d = json.load(open(j, encoding="utf-8"))
+                  except Exception as e:
+                      return "FAIL", "反编译结果无法解析：%s" % e
+                  if not isinstance(d, dict) or not isinstance(d.get("rules"), list):
+                      return "FAIL", "反编译结果没有 rules"
+                  with open(j, "w", encoding="utf-8") as f:
+                      f.write(dump(d))
+                  r = subprocess.run([sb, "rule-set", "compile", j, "-o", s], capture_output=True, text=True)
+                  if r.returncode != 0 or not os.path.exists(s) or os.path.getsize(s) == 0:
+                      return "FAIL", "重新编译失败"
+                  shutil.copyfile(s, p)
+              return "OK", ""
+
+          def work(p):
+              try:
+                  return p, (fix_json(p) if p.endswith(".json") else fix_srs(p))
+              except Exception as e:
+                  return p, ("FAIL", str(e))
+
+          files = []
+          for d, dirs, fs in os.walk(root):
+              dirs[:] = [x for x in dirs if x != ".git"]
+              files += [os.path.join(d, f) for f in fs if f.endswith((".json", ".srs"))]
+
+          ok = skip = fail = 0
+          with ThreadPoolExecutor(max_workers=os.cpu_count() or 2) as ex:
+              for p, (st, msg) in ex.map(work, sorted(files)):
+                  if st == "OK": ok += 1
+                  elif st == "SKIP": skip += 1
+                  else:
+                      fail += 1
+                      if fail <= 10:
+                          print("::warning::统一 version 5 / 紧凑格式失败，已保留原文件：%s（%s）" % (os.path.relpath(p, root), msg))
+          print("分支 %s 统一 version 5 + 紧凑单行：处理 %d 个，无需处理 %d 个，失败 %d 个" % (label, ok, skip, fail))
+          PY
+
+          # normalize_dir <目录> <标签>：对目录里所有 .json / .srs 统一成 version 5 + 紧凑单行（见 norm.py）
+          # 必须在该目录的所有合并、优化都做完之后、发布之前调用
+          # sing-box 装不上时：json 照常处理，srs 保持原样并警告
+          normalize_dir() {
+            local dir="$1" label="$2"
+            if ! install_singbox; then
+              echo "::warning::sing-box 安装失败，$label 分支只统一了 json，srs 保持原样（未统一 version 5）"
+            fi
+            python3 "$WORK/norm.py" "$dir" "${SB:-}" "$label" || echo "::warning::$label 分支统一 version 5 / 紧凑格式时出错，保持原样"
           }
 
           # ip_name_of <域名规则集输出名>：结果放在全局变量 IPN 里
@@ -630,11 +727,10 @@ jobs:
           def lst(v):
               return [v] if isinstance(v, str) else list(v)
 
-          ver, nets, n_dom_sets, n_bad = 1, set(), 0, 0
+          VER = 5   # 统一输出 version 5
+          nets, n_dom_sets, n_bad = set(), 0, 0
           for p in ins:
               d = json.load(open(p, encoding="utf-8"))
-              v = d.get("version", 1)
-              ver = max(ver, v)
               dom_rules = []
               for r in d.get("rules", []):
                   r = {k: x for k, x in r.items() if not (k == "type" and x == "default")}
@@ -658,16 +754,12 @@ jobs:
                       dom_rules.append(r)
               if dom_rules:
                   n_dom_sets += 1
-                  with open(os.path.join(dom_dir, os.path.basename(p)), "w", encoding="utf-8") as f:   # 每个 rule 对象单独一行
-                      f.write('{"version":%d,"rules":[\n' % v)
-                      f.write(",\n".join(json.dumps(x, ensure_ascii=False, separators=(",", ":")) for x in dom_rules))
-                      f.write("\n]}\n")
+                  with open(os.path.join(dom_dir, os.path.basename(p)), "w", encoding="utf-8") as f:   # 紧凑单行
+                      f.write(json.dumps({"version": VER, "rules": dom_rules}, ensure_ascii=False, separators=(",", ":")))
 
           if nets:
-              with open(ip_out, "w", encoding="utf-8") as f:
-                  f.write('{"version":%d,"rules":[\n' % ver)
-                  f.write(json.dumps({"ip_cidr": sorted(str(n) for n in nets)}, ensure_ascii=False, separators=(",", ":")))
-                  f.write("\n]}\n")
+              with open(ip_out, "w", encoding="utf-8") as f:   # 紧凑单行
+                  f.write(json.dumps({"version": VER, "rules": [{"ip_cidr": sorted(str(n) for n in nets)}]}, ensure_ascii=False, separators=(",", ":")))
           if n_bad:
               print("::warning::拆分时跳过了 %d 条无法解析的 ip_cidr" % n_bad)
           print("拆分 %d 个规则集：含域名规则的 %d 个，ip 网段 %d 条（去重后）" % (len(ins), n_dom_sets, len(nets)))
@@ -684,10 +776,10 @@ jobs:
           def lst(v):
               return [v] if isinstance(v, str) else list(v)
 
-          ver, nets, other, seen, n_bad, n_raw = 1, set(), [], set(), 0, 0
+          VER = 5   # 统一输出 version 5
+          nets, other, seen, n_bad, n_raw = set(), [], set(), 0, 0
           for p in ins:
               d = json.load(open(p, encoding="utf-8"))
-              ver = max(ver, d.get("version", 1))
               for r in d.get("rules", []):
                   r = {k: v for k, v in r.items() if not (k == "type" and v == "default")}
                   for c in lst(r.pop("ip_cidr", [])):
@@ -711,10 +803,8 @@ jobs:
               print("::warning::合并 ip 时跳过了 %d 条无法解析的 ip_cidr" % n_bad)
 
           rules = [{"ip_cidr": [str(n) for n in col]}] + other
-          with open(out, "w", encoding="utf-8") as f:   # 每个 rule 对象单独一行
-              f.write('{"version":%d,"rules":[\n' % ver)
-              f.write(",\n".join(json.dumps(r, ensure_ascii=False, separators=(",", ":")) for r in rules))
-              f.write("\n]}\n")
+          with open(out, "w", encoding="utf-8") as f:   # 紧凑单行
+              f.write(json.dumps({"version": VER, "rules": rules}, ensure_ascii=False, separators=(",", ":")))
           print("ip_cidr 合并前 %d 条，合并后 %d 条" % (n_raw, len(col)))
           PY
 
@@ -727,6 +817,7 @@ jobs:
           # git archive 导出文件时自动排除 .git 目录
           git -C "$WORK/dw-sb" archive HEAD | tar -x -C "$WORK/out-b"
           if [ "$OPTIMIZE_B" = 1 ]; then optimize_dir "$WORK/out-b" b; fi
+          normalize_dir "$WORK/out-b" b
           publish_branch b "$WORK/out-b"
 
           # ------------------------------------------------------------
@@ -782,6 +873,7 @@ jobs:
             put "$f" "$WORK/out-a/${key}ip.srs"
           done
 
+          normalize_dir "$WORK/out-a" a
           echo "分支 a 共 $(ls "$WORK/out-a" | wc -l) 个文件"
           publish_branch a "$WORK/out-a"
 
@@ -906,7 +998,7 @@ jobs:
             if [ "${#AD_EXTRA_SUFFIX[@]}" -gt 0 ]; then
               sfx=""
               for d in "${AD_EXTRA_SUFFIX[@]}"; do sfx="$sfx${sfx:+,}\"$d\""; done
-              printf '{"version":2,"rules":[{"domain_suffix":[%s]}]}\n' "$sfx" > "$ADTMP/ad-extra-suffix.json"
+              printf '{"version":5,"rules":[{"domain_suffix":[%s]}]}' "$sfx" > "$ADTMP/ad-extra-suffix.json"
               ad_inputs+=("$ADTMP/ad-extra-suffix.json")
             fi
             list_by_suffix "${AD_SUFFIX[@]}"
@@ -929,7 +1021,7 @@ jobs:
           # 所有参与合并的规则集原文件都保留；合并失败则全部保持原样
           list_by_suffix "${PROXY_SUFFIX[@]}"
           px_in=(); declare -A px_seen=()
-          for n in "${PROXY_EXTRA[@]}" "${LIST[@]}"; do
+          for n in "${PROXY_EXTRA[@]}" "${PROXY_IP_EXTRA[@]}" "${LIST[@]}"; do
             if ! has_set "$n"; then echo "::warning::proxy 合并：c 分支里找不到 $n，已跳过"; continue; fi
             if [ -z "${px_seen[$n]:-}" ]; then px_seen[$n]=1; px_in+=("$n"); fi
           done
@@ -981,6 +1073,9 @@ jobs:
             fi
           fi
           
+          # 第十步：统一 version 5 + 紧凑单行（放在所有合并之后、发布之前；keep_old 沿用的旧文件也会一并处理）
+          normalize_dir "$WORK/out-c" c
+
           echo "分支 c 共 $(ls "$WORK/out-c" | wc -l) 个文件"
           publish_branch c "$WORK/out-c"
 
@@ -1207,22 +1302,7 @@ jobs:
             echo "分支 m 共 $(ls "$WORK/out-m" | wc -l) 个文件"
           }
 
-          if build_m; then
-            publish_branch m "$WORK/out-m"
-          else
-            echo "::error::m 分支生成失败（c 分支已正常发布），m 分支保持不变"
-            exit 1
-          fi
-          # ------------------------------------------------------------
-          # 【改动 1】把原来 m 分支末尾的这一段
-          #     if build_m; then
-          #       publish_branch m "$WORK/out-m"
-          #     else
-          #       echo "::error::m 分支生成失败（c 分支已正常发布），m 分支保持不变"
-          #       exit 1
-          #     fi
-          # 替换成下面这段（m 失败不再直接退出，只做标记，让最后一步的数据库照常生成）
-          # ------------------------------------------------------------
+          # m 失败不直接退出，只做标记，让最后一步的数据库照常生成
           M_FAIL=0
           if build_m; then
             publish_branch m "$WORK/out-m"
@@ -1232,7 +1312,7 @@ jobs:
           fi
 
           # ------------------------------------------------------------
-          # 【改动 2】紧接着加上面这一段之后：分支 g（最后一步）
+          # 分支 g（最后一步）
           # mihomo 的 geosite.dat + geoip.dat：由 c 分支最终的 .json 合并而来
           # 必须放在最后：c、m 全部生成并发布完成后才读取 $WORK/out-c
           #   - 名称 = c 分支里的规则集名称（大小写都能匹配）；一个规则集里域名进 geosite，ip 进 geoip
