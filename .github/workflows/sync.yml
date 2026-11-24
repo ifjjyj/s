@@ -134,6 +134,198 @@ jobs:
           # 想把 DustinWin / QuixoticHeart 的同名版本也并进来，直接加上 netflixip2、telegramip2、netflixip3 之类的名字即可
           PROXY_IP_EXTRA=(facebookip telegramip netflixip twitterip)
 
+          # 【从 proxy 里剔除的域名】仅 c 分支使用，在 proxy 合并完成之后执行（m 分支的 proxy.mrs、g 分支 geosite.dat 里的 PROXY 都由 c 分支转换而来，会同步生效）
+          # 匹配规则（只处理 domain / domain_suffix 两类条目；domain_keyword / domain_regex 不动）：
+          #   - 条目等于列表里的域名（含带点写法 .x），删除
+          #   - 条目是列表里某个域名的子域（如列表有 snssdk.com，proxy 里有 api.snssdk.com），也删除
+          #   - 列表里的域名在 proxy 里本来就没有，不涉及任何改动；proxy 里更宽泛的父域名（列表是子域、proxy 是父域）不会被拆开，原样保留
+          #   - 一条规则的域名条件被删光时，整条规则丢弃
+          # 清空这个数组（PROXY_EXCLUDE=()）即可关闭该功能
+          PROXY_EXCLUDE=(
+            snssdk.com
+            ttwebview.com
+            p1-tt.byteimg.com
+            p1-tt-ipv6.byteimg.com
+            p26-tt.byteimg.com
+            p3-tt-ipv6.byteimg.com
+            p9-tt.byteimg.com
+            lf1-ttcdn-tos.pstatp.com
+            sf1-ttcdn-tos.pstatp.com
+            sf6-ttcdn-tos.pstatp.com
+            pull-f3-hs.pstatp.com
+            pull-f5-hs.pstatp.com
+            pull-f5-hs.flive.pstatp.com
+            pull-flv-f1-hs.pstatp.com
+            pull-flv-f6-hs.pstatp.com
+            pull-flv-l1-hs.pstatp.com
+            pull-flv-l6-hs.pstatp.com
+            pull-l3-hs.pstatp.com
+            pull-rtmp-f1-hs.pstatp.com
+            pull-rtmp-f6-hs.pstatp.com
+            pull-rtmp-l1-hs.pstatp.com
+            pull-rtmp-l6-hs.pstatp.com
+            365yg.com
+            amemv.com
+            applogcdn.com
+            baike.com
+            bdurl.net
+            bdxiguaimg.com
+            bdxiguastatic.com
+            bdxiguavod.com
+            byteactivity.com
+            byteadverts.com
+            bytecdn.cn
+            bytedance-boe.net
+            bytedance.cn
+            bytedance.com
+            bytedance.net
+            bytedance.org
+            bytedanceapi.com
+            bytedns.net
+            bytednsdoc.com
+            byteeffecttos.com
+            bytefcdn.com
+            bytegecko.com
+            bytegoofy.com
+            bytehwm.com
+            byteimg.com
+            bytemastatic.com
+            bytemos.com
+            bytenewstrend.com
+            byteorg.com
+            bytertc.com
+            bytescm.com
+            bytesecure.com
+            bytetcc.com
+            bytetech.info
+            bytetos.com
+            bytexns.cn
+            bytexns.com
+            bytexns.net
+            bytexopen.com
+            bytexservice.com
+            capcut.cn
+            change.tm
+            clink.cn
+            coze.cn
+            csjplatform.com
+            dcdapp.com
+            dongchedi.com
+            dongchediapp.com
+            doubao.com
+            douyin.com
+            douyinact.com
+            douyinfe.com
+            douyinliving.com
+            douyinpay.com
+            douyinpic.com
+            douyinstatic.com
+            douyinvod.com
+            duoshan.com
+            ecombdapi.com
+            ecombdimg.com
+            faceu.com
+            fanqienovel.com
+            fanqieopen.com
+            feishu.cn
+            feishu.net
+            feishucdn.com
+            feishudoc.com
+            feishuhuiyi.cn
+            feishuhuiyi.com
+            feishukacdn.com
+            feishupkg.com
+            feishustatic.com
+            fqnovel.com
+            fqnovelimg.com
+            fqnovelop.com
+            fqnovelpic.com
+            fqnovelstatic.com
+            fqnovelv.com
+            fqnovelvod.com
+            fxg.jinritemai.com
+            gogokid.com.cn
+            guanzhang.com
+            haimian.com
+            huoshan.com
+            huoshanzhibo.com
+            ibytedapm.com
+            ibytedtos.com
+            icve.com.cn
+            iesdouyin.com
+            ihuo.com
+            ixigua.com
+            ixiguavideo.com
+            jianying.com
+            jimeng.jianying.com
+            jinritemai.com
+            juejin.cn
+            juejin.im
+            kuaidongbaike.com
+            laiye.com
+            lkurl.net
+            mubu.com
+            neihan-tab.com
+            neihanshequ.com
+            oceanengine.com
+            pglstatp-toutiao.com
+            pipix.com
+            pstatp.com
+            qingyan.com
+            qishui.com
+            searchpstatp.com
+            snssdk.com
+            sslocal.com
+            tobsnssdk.com
+            toutiao.com
+            toutiao11.com
+            toutiao12.com
+            toutiao13.com
+            toutiao14.com
+            toutiao15.com
+            toutiaoapi.com
+            toutiaocdn.com
+            toutiaocloud.com
+            toutiaocloud.net
+            toutiaohao.com
+            toutiaohao.net
+            toutiaoimg.cn
+            toutiaoimg.com
+            toutiaoimg.net
+            toutiaopage.com
+            toutiaostatic.com
+            toutiaovod.com
+            trae.com.cn
+            tuchong.com
+            ulikecam.com
+            volccdn.com
+            volcengine.com
+            volcengineapi.com
+            volces.com
+            volcfcdndvs.com
+            volcimagex.com
+            volcmuse.com
+            volcvideo.com
+            wukong.com
+            xflapp.com
+            xiaohe.com
+            xingfuli.com
+            xingtu.cn
+            xitu.io
+            yhgfb-static.com
+            zhuxiaobang.com
+            zijieapi.com
+            zijiecdn.cn
+            zijiecdn.com
+            zijiecdn.net
+            zijieimg.cn
+            zijieimg.com
+            zijieurl.cn
+            zijieurl.com
+            zijieurl.net
+            ziyr.cn
+          )
+
           # 【特殊重命名表】仅 a 分支使用：geosite-<键>.srs -> <值>.srs
           # 优先级高于自动改名规则
           # （google-play、google-gemini 等已由 "去 google- 前缀" 的通用规则覆盖，无需再列）
@@ -808,6 +1000,124 @@ jobs:
           print("ip_cidr 合并前 %d 条，合并后 %d 条" % (n_raw, len(col)))
           PY
 
+          # exclude.py：从规则集里剔除指定域名，由 exclude_domains 调用
+          cat > "$WORK/exclude.py" <<'PY'
+          # exclude.py：从规则集里剔除指定域名（只动 domain / domain_suffix）
+          # 用法：exclude.py <sing-box 路径，可为空> <域名列表文件，每行一个> <规则集文件1> [规则集文件2 ...]
+          #   .json：直接处理
+          #   .srs ：反编译 -> 处理 -> 重新编译；sing-box 路径为空时跳过 srs
+          # 匹配：条目等于列表里的域名，或是列表里某个域名的子域，就删除（带点写法 .x 先去掉点再比较）
+          # 没有任何命中时文件保持不动；单个文件出错只警告并保持原样
+          import json, os, shutil, subprocess, sys, tempfile
+
+          sb, lp, files = sys.argv[1], sys.argv[2], sys.argv[3:]
+          EX = {l.strip().lower().lstrip(".") for l in open(lp, encoding="utf-8") if l.strip()}
+          VER = 5
+          DOM = ("domain", "domain_suffix", "domain_keyword", "domain_regex")
+
+          def lst(v):
+              return [v] if isinstance(v, str) else list(v)
+
+          def hit(x):
+              x0 = x.strip().lower().lstrip(".")
+              if x0 in EX:
+                  return True
+              p = x0.split(".")
+              return any(".".join(p[i:]) in EX for i in range(1, len(p)))
+
+          def filt(d):
+              gone, out = [], []
+              for r in d.get("rules", []):
+                  if not isinstance(r, dict) or not any(k in r for k in DOM):
+                      out.append(r)
+                      continue
+                  n = dict(r)
+                  for k in ("domain", "domain_suffix"):
+                      if k in n:
+                          old = lst(n[k])
+                          new = [x for x in old if not hit(x)]
+                          gone += [x for x in old if hit(x)]
+                          if new:
+                              n[k] = new
+                          else:
+                              del n[k]
+                  if any(k in n for k in DOM):
+                      out.append(n)
+              return gone, out
+
+          def dump(d, rules):
+              o = {"version": VER}
+              o.update({k: v for k, v in d.items() if k not in ("version", "rules")})
+              o["rules"] = rules
+              return json.dumps(o, ensure_ascii=False, separators=(",", ":"))
+
+          def do_json(p, src=None):
+              d = json.load(open(src or p, encoding="utf-8"))
+              gone, rules = filt(d)
+              if not gone:
+                  return "SKIP", [], None
+              if not rules:
+                  raise RuntimeError("剔除后规则集为空")
+              return "OK", gone, dump(d, rules)
+
+          def do_srs(p):
+              if not sb:
+                  return "NOSB", [], None
+              with tempfile.TemporaryDirectory() as t:
+                  j, j2, s = (os.path.join(t, x) for x in ("a.json", "b.json", "b.srs"))
+                  r = subprocess.run([sb, "rule-set", "decompile", p, "-o", j], capture_output=True, text=True)
+                  if r.returncode != 0 or not os.path.exists(j):
+                      raise RuntimeError("反编译失败")
+                  st, gone, new = do_json(p, j)
+                  if st != "OK":
+                      return st, gone, None
+                  open(j2, "w", encoding="utf-8").write(new)
+                  r = subprocess.run([sb, "rule-set", "compile", j2, "-o", s], capture_output=True, text=True)
+                  if r.returncode != 0 or not os.path.exists(s) or os.path.getsize(s) == 0:
+                      raise RuntimeError("重新编译失败")
+                  shutil.copyfile(s, p)
+                  return "DONE", gone, None
+
+          for p in files:
+              name = os.path.basename(p)
+              try:
+                  if p.endswith(".json"):
+                      st, gone, new = do_json(p)
+                      if st == "OK":
+                          open(p, "w", encoding="utf-8").write(new)
+                  else:
+                      st, gone, new = do_srs(p)
+                  if st == "NOSB":
+                      print("::warning::sing-box 不可用，%s 未做剔除" % name)
+                  elif st == "SKIP":
+                      print("%s：没有需要剔除的域名" % name)
+                  else:
+                      u = sorted(set(gone))
+                      print("%s：已剔除 %d 条（去重 %d 个）：%s%s" % (name, len(gone), len(u), " ".join(u[:40]), " ..." if len(u) > 40 else ""))
+              except Exception as e:
+                  print("::warning::剔除域名失败，已保留原文件：%s（%s）" % (name, e))
+          PY
+
+          # exclude_domains <规则集名称> <域名1> [域名2 ...]
+          # 从 c 分支目录（out-c）里的 <名称>.json 和 <名称>.srs 剔除指定域名（规则见 PROXY_EXCLUDE 的说明和 exclude.py）
+          # 任何一步失败都只警告并保持原文件，不中断同步
+          exclude_domains() {
+            local name="$1" c="$WORK/out-c" tmp files=(); shift
+            tmp="$WORK/exclude-$name"; rm -rf "$tmp"; mkdir -p "$tmp"
+            printf '%s\n' "$@" > "$tmp/list.txt"
+            if [ -f "$c/$name.json" ]; then files+=("$c/$name.json"); fi
+            if [ -f "$c/$name.srs" ]; then
+              install_singbox || echo "::warning::sing-box 安装失败，$name.srs 无法剔除域名"
+              files+=("$c/$name.srs")
+            fi
+            if [ "${#files[@]}" = 0 ]; then
+              echo "::warning::c 分支里找不到 $name，无法剔除域名"
+              return 0
+            fi
+            python3 "$WORK/exclude.py" "${SB:-}" "$tmp/list.txt" "${files[@]}" \
+              || echo "::warning::$name 剔除域名时出错，保持原样"
+          }
+
           # ------------------------------------------------------------
           # 分支 b：DustinWin / sing-box-ruleset
           # 默认会做域名合并优化（OPTIMIZE_B=0 则原样同步）
@@ -898,6 +1208,8 @@ jobs:
           #   proxy.srs / proxy.json：lyc 的 geolocation-!cn + DustinWin 的 proxy2 + QuixoticHeart 的 proxy3 合并后的结果
           #                           + gfw（并入后原文件保留）+ 所有以 @!cn 结尾的规则集（见 PROXY_SUFFIX）
           #   proxyip.srs / proxyip.json：上述规则集里的 ip 规则（有才生成）
+
+          #   （proxy 合并完成后，还会剔除 PROXY_EXCLUDE 里列出的域名及其子域，见配置区）
           #   cnall.srs / cnall.json：lyc 的 china-list + CN_EXTRA 里的规则集（tld-cn，并入后原文件保留）+ 所有以 @cn 结尾的规则集合并后的结果
           #                           + 所有以 -cn / -cn2 / -cn3 结尾的规则集里的域名规则（见 CN_DASH_SUFFIX）
           #   cnip.srs / cnip.json：SagerNet 的 geoip-cn + 所有以 -cn / -cn2 / -cn3 结尾的规则集里的 ip 规则，合并去重后的结果
@@ -1029,6 +1341,11 @@ jobs:
             echo "proxy 合并完成（PROXY_EXTRA 和 @!cn 结尾的规则集共 ${#px_in[@]} 个）"
           else
             echo "::warning::proxy 合并失败，保持原样"
+          fi
+
+          # 第七步半：从 proxy 里剔除 PROXY_EXCLUDE 列出的域名（proxy 合并成功或保持原样都会执行；m、g 分支随 c 分支同步）
+          if [ "${#PROXY_EXCLUDE[@]}" -gt 0 ]; then
+            exclude_domains proxy "${PROXY_EXCLUDE[@]}"
           fi
 
           # 第八步：合并 cnall = lyc 的 china-list（已按 BASE_FIX 改名为 cnall）
