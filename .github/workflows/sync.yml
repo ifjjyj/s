@@ -326,6 +326,34 @@ jobs:
             ziyr.cn
           )
 
+          # 【c 分支的额外合并 / 转换】仅 c 分支使用，写的都是 c 分支里最终的名称
+          # 在 cnall 合并完成之后执行；所有输入规则集的原文件一律保留，不会删除；所有输出在发布前统一成 version 5
+          # 名称里以 2 结尾的来自 DustinWin，以 3 结尾的来自 QuixoticHeart（见 c 分支的命名规则）
+          #
+          # EXTRA_MERGE：多合一。格式 [输出名]="输入1 输入2 ..."
+          #   合并方式和 adall / proxy 相同：域名部分去重精简；输入里的 ip 规则自动拆出，单独作为 <输出名>ip（没有 ip 规则则不生成）
+          #   输入里找不到的规则集只警告并跳过；全部找不到或合并失败时，沿用远端 c 分支上一次的版本
+          #   输出名和 c 分支已有的规则集同名时，已有的会被合并结果替换（会给出警告）
+          #   - ff    = fakeip-filter-lite2 + fakeip-filter2 + fake-ip-filter3
+          #   - prime = primevideo + primevideo2 + primevideo3
+          declare -A EXTRA_MERGE=(
+            [ff]="fakeip-filter-lite2 fake-ip-filter3 fakeip-filter2"
+            [prime]="primevideo primevideo2 primevideo3"
+          )
+
+          # EXTRA_COPY：转换（按新名称生成一份完整副本，.srs 和 .json 都有，源文件保留）。格式 [新名称]=源名称
+          #   源名称找不到时警告，并沿用远端 c 分支上一次的新名称版本
+          #   - claude = anthropic
+          #   - msoft  = microsoft
+          #   - tgram  = telegram
+          #   - cna    = cnall（取的是 cnall 合并完成后的结果）
+          declare -A EXTRA_COPY=(
+            [claude]=anthropic
+            [msoft]=microsoft
+            [tgram]=telegram
+            [cna]=cnall
+          )
+
           # 【特殊重命名表】仅 a 分支使用：geosite-<键>.srs -> <值>.srs
           # 优先级高于自动改名规则
           # （google-play、google-gemini 等已由 "去 google- 前缀" 的通用规则覆盖，无需再列）
@@ -806,6 +834,23 @@ jobs:
             [ -f "$WORK/out-c/$1.srs" ] || [ -f "$WORK/out-c/$1.json" ]
           }
 
+          # copy_set <新名称> <源名称>
+          # 把 c 分支目录（out-c）里的 <源名称>.srs / .json 原样复制成 <新名称>.srs / .json（源文件保留）
+          # 源规则集不存在时返回 1，不改动任何文件；新名称已存在时先警告，再整体替换
+          # version 5 和紧凑单行格式由发布前的 normalize_dir 统一处理
+          copy_set() {
+            local dst="$1" srcn="$2" c="$WORK/out-c" ext n=0
+            if ! has_set "$srcn"; then return 1; fi
+            if has_set "$dst"; then echo "::warning::$dst 与 c 分支已有规则集同名，已被 $srcn 的副本替换"; fi
+            rm -f "$c/$dst.srs" "$c/$dst.json"
+            for ext in srs json; do
+              if [ -f "$c/$srcn.$ext" ]; then
+                cp "$c/$srcn.$ext" "$c/$dst.$ext" && n=$((n + 1))
+              fi
+            done
+            [ "$n" -gt 0 ]
+          }
+
           # merge_group <输出名> <输入1> [输入2 ...]
           # 把 c 分支目录（out-c）里的多个规则集合并去重，生成 <输出名>.srs 和 <输出名>.json
           # 输入有两种写法：
@@ -1214,6 +1259,10 @@ jobs:
           #                           + 所有以 -cn / -cn2 / -cn3 结尾的规则集里的域名规则（见 CN_DASH_SUFFIX）
           #   cnip.srs / cnip.json：SagerNet 的 geoip-cn + 所有以 -cn / -cn2 / -cn3 结尾的规则集里的 ip 规则，合并去重后的结果
           #   adipall.srs / adipall.json：adrules 里的全部 ip 规则（以及其他合并输入里的 ip 规则）
+          #   ff.srs / ff.json：fakeip-filter-lite2 + fakeip-filter2 + fake-ip-filter3 合并去重后的结果（见 EXTRA_MERGE）
+          #   prime.srs / prime.json：primevideo + primevideo2 + primevideo3 合并去重后的结果（见 EXTRA_MERGE）
+          #   上面两个合并里如果有 ip 规则，会拆出来单独作为 ffip / primeip（没有则不生成）
+          #   claude / msoft / tgram / cna：分别由 anthropic / microsoft / telegram / cnall 转换（完整复制）而来（见 EXTRA_COPY）
           # 以上所有参与合并的规则集，原文件都保留在 c 分支，不会删除
           # 上述文件（adall / adipall 除外，它们由合并工具生成，本身已精简）全部生成后，
           # 统一对域名规则集（.srs 和 .json）做合并优化
@@ -1370,6 +1419,34 @@ jobs:
           else
             echo "::warning::cnall 合并失败，保持原样"
           fi
+
+          # 第八步半：额外合并（EXTRA_MERGE：ff、prime）和转换（EXTRA_COPY：claude、msoft、tgram、cna）
+          # 必须放在 cnall 合并之后：cna 取的是合并完成后的 cnall
+          # 所有输入 / 源规则集的原文件都保留；失败时只警告，沿用远端 c 分支上一次的版本，不中断同步
+          for out in $(printf '%s\n' "${!EXTRA_MERGE[@]}" | sort); do
+            read -r -a ex_src <<< "${EXTRA_MERGE[$out]}"
+            ex_in=()
+            for n in "${ex_src[@]}"; do
+              if has_set "$n"; then ex_in+=("$n"); else echo "::warning::$out 合并：c 分支里找不到 $n，已跳过"; fi
+            done
+            if has_set "$out"; then echo "::warning::$out 与 c 分支已有规则集同名，合并成功后会被替换"; fi
+            if [ "${#ex_in[@]}" -gt 0 ] && install_singbox && merge_group "$out" "${ex_in[@]}"; then
+              echo "$out 合并完成（输入 ${#ex_in[@]} / ${#ex_src[@]} 个：${ex_in[*]}）"
+            else
+              echo "::warning::$out 合并失败，沿用远端 c 分支上一次的版本"
+              keep_old "$out"
+              ip_name_of "$out"; keep_old "$IPN"
+            fi
+          done
+
+          for out in $(printf '%s\n' "${!EXTRA_COPY[@]}" | sort); do
+            if copy_set "$out" "${EXTRA_COPY[$out]}"; then
+              echo "$out 已由 ${EXTRA_COPY[$out]} 转换生成"
+            else
+              echo "::warning::$out 转换失败（c 分支里找不到 ${EXTRA_COPY[$out]}），沿用远端 c 分支上一次的版本"
+              keep_old "$out"
+            fi
+          done
 
           # 第九步：下载 zashboard 面板（最新稳定版、无字体版）-> zb.zip
           # latest/download 只会指向最新的正式版（不含 pre-release）
